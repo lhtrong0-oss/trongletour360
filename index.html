@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrongLeTour360 — Tour 360° · Homestay · Bonsai Đà Lạt</title>
+  <meta name="description" content="TrongLeTour360 — Chụp ảnh & Tour 360° chuyên nghiệp, Homestay Ngọc Sinh Cát, Bonsai nghệ thuật Đà Lạt. Hotline: 0785 925 998">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Jost:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;1,400;1,600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0B0F07;
+      --surface:  #141a0e;
+      --surface2: #1c2416;
+      --gold:     #D4A853;
+      --gold-dim: #9B7A3C;
+      --gold-pale:rgba(212,168,83,0.10);
+      --cream:    #F0EAD6;
+      --text:     rgba(240,234,214,0.82);
+      --muted:    rgba(240,234,214,0.38);
+      --border:   rgba(212,168,83,0.14);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+      cursor: none;
+    }
+    h1, h2, h3, h4 { font-family: 'Italiana', serif; }
+    img { display: block; width: 100%; object-fit: cover; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── CURSOR ──────────────────────────────────── */
+    .cursor {
+      position: fixed; top: 0; left: 0;
+      width: 10px; height: 10px;
+      background: var(--gold); border-radius: 50%;
+      pointer-events: none; z-index: 9999;
+      transform: translate(-50%,-50%);
+      transition: width .2s, height .2s, background .2s;
+      mix-blend-mode: difference;
+    }
+    .cursor.big { width: 36px; height: 36px; background: rgba(212,168,83,.2); }
+
+    /* ── NAV ─────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 200; padding: 22px 0;
+      transition: background .45s, padding .35s, box-shadow .35s;
+    }
+    nav.scrolled {
+      background: rgba(11,15,7,.96);
+      backdrop-filter: blur(18px);
+      padding: 12px 0;
+      box-shadow: 0 1px 0 var(--border);
+    }
+    .nav-inner {
+      max-width: 1280px; margin: 0 auto;
+      padding: 0 48px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'Italiana', serif; font-size: 20px;
+      color: var(--cream); letter-spacing: .04em;
+      display: flex; align-items: baseline; gap: 3px;
+    }
+    .nav-logo .accent { color: var(--gold); }
+    .nav-logo .small { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 300; color: var(--muted); letter-spacing: .12em; text-transform: uppercase; margin-left: 8px; }
+    .nav-links { display: flex; gap: 36px; list-style: none; align-items: center; }
+    .nav-links a {
+      font-size: 11.5px; font-weight: 400;
+      letter-spacing: .18em; text-transform: uppercase;
+      color: var(--muted); transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta {
+      border: 1px solid var(--gold) !important;
+      color: var(--gold) !important;
+      padding: 9px 22px;
+      font-size: 11px !important;
+      transition: background .2s, color .2s !important;
+    }
+    .nav-cta:hover { background: var(--gold) !important; color: var(--bg) !important; }
+
+    /* ── HERO ─────────────────────────────────────── */
+    .hero {
+      position: relative; height: 100vh; min-height: 720px;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: -12%;
+      background: url('https://placehold.co/2200x1400/0B0F07/D4A853?text=') center/cover;
+      will-change: transform;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 40% 60%, rgba(11,15,7,.25) 0%, rgba(11,15,7,.88) 100%);
+    }
+    .hero-overlay2 {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(11,15,7,.55) 0%, transparent 25%, transparent 75%, rgba(11,15,7,1) 100%);
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      text-align: center; max-width: 980px; padding: 0 32px;
+      padding-top: 72px;
+    }
+    .hero-eyebrow {
+      display: flex; align-items: center; justify-content: center;
+      gap: 16px; margin-bottom: 28px;
+    }
+    .hero-eyebrow .line { width: 48px; height: 1px; background: var(--gold-dim); }
+    .hero-eyebrow span { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); font-weight: 400; }
+    .hero h1 {
+      font-size: clamp(52px, 8vw, 108px);
+      font-weight: 400; color: var(--cream);
+      line-height: .98; letter-spacing: .01em; margin-bottom: 6px;
+    }
+    .hero h1 em { font-style: italic; color: var(--gold); display: block; font-size: .72em; }
+    .hero-sub {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 17px; color: var(--muted); margin-bottom: 40px;
+      letter-spacing: .04em; line-height: 1.6;
+    }
+    .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-gold {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--gold); color: var(--bg);
+      font-size: 12px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
+      padding: 16px 36px; border: 1px solid var(--gold);
+      transition: background .25s, color .25s, transform .2s;
+    }
+    .btn-gold:hover { background: transparent; color: var(--gold); transform: translateY(-2px); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: transparent; color: var(--muted);
+      font-size: 12px; letter-spacing: .16em; text-transform: uppercase;
+      padding: 15px 32px; border: 1px solid var(--border);
+      transition: border-color .25s, color .25s, transform .2s;
+    }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+    .hero-scroll {
+      position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+      z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 10px;
+    }
+    .hero-scroll span { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+    .scroll-bar { width: 1px; height: 56px; background: linear-gradient(to bottom, var(--gold-dim), transparent); overflow: hidden; }
+    .scroll-bar::after {
+      content: ''; display: block; width: 100%; height: 18px;
+      background: var(--gold); animation: drop 1.8s ease-in-out infinite;
+    }
+    @keyframes drop { 0% { transform: translateY(-20px); } 100% { transform: translateY(80px); } }
+
+    /* ── STATS BAR ───────────────────────────────── */
+    .stats-bar { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .stats-inner {
+      max-width: 1280px; margin: 0 auto; padding: 0 48px;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+    }
+    .s-item {
+      padding: 28px 20px; text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .s-item:last-child { border-right: none; }
+    .s-num {
+      font-family: 'Italiana', serif; font-size: 44px;
+      color: var(--gold); line-height: 1; display: block; margin-bottom: 4px;
+    }
+    .s-label { font-size: 11px; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; }
+
+    /* ── SECTION SHARED ──────────────────────────── */
+    .kicker {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 11px; font-weight: 400; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--gold-dim); margin-bottom: 14px;
+    }
+    .kicker::before { content: ''; display: block; width: 28px; height: 1px; background: var(--gold-dim); }
+    h2.title {
+      font-size: clamp(32px, 4.5vw, 60px);
+      font-weight: 400; color: var(--cream); line-height: 1.1; margin-bottom: 16px;
+    }
+    h2.title em { font-style: italic; color: var(--gold); }
+    .title-desc { font-size: 15px; font-weight: 300; color: var(--muted); line-height: 1.8; max-width: 520px; }
+    .section-wrap { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
+
+    /* ── 3 PILLARS ───────────────────────────────── */
+    .pillars { padding: 100px 0; }
+    .pillars-header { text-align: center; margin-bottom: 64px; }
+    .pillars-header .kicker { justify-content: center; }
+    .pillars-header .kicker::before { display: none; }
+    .pillars-header .title-desc { margin: 0 auto; }
+    .pillars-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .pillar-card {
+      background: var(--bg); padding: 52px 44px;
+      position: relative; overflow: hidden;
+      transition: background .35s;
+      cursor: none;
+    }
+    .pillar-card::after {
+      content: ''; position: absolute;
+      bottom: 0; left: 0; right: 0; height: 2px;
+      background: var(--gold); transform: scaleX(0);
+      transition: transform .4s cubic-bezier(.34,1.56,.64,1);
+      transform-origin: left;
+    }
+    .pillar-card:hover { background: var(--surface); }
+    .pillar-card:hover::after { transform: scaleX(1); }
+    .pillar-num {
+      font-size: 11px; letter-spacing: .18em; color: var(--gold-dim);
+      margin-bottom: 28px; font-weight: 400;
+    }
+    .pillar-icon { font-size: 36px; margin-bottom: 20px; }
+    .pillar-card h3 {
+      font-size: 30px; color: var(--cream);
+      font-weight: 400; line-height: 1.15; margin-bottom: 16px;
+    }
+    .pillar-card h3 em { font-style: italic; color: var(--gold); display: block; }
+    .pillar-card p { font-size: 14px; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 28px; }
+    .pillar-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--gold-dim); border-bottom: 1px solid rgba(212,168,83,.2);
+      padding-bottom: 2px; transition: color .2s, border-color .2s;
+    }
+    .pillar-link:hover { color: var(--gold); border-color: var(--gold); }
+
+    /* ── TOUR 360 SERVICES ───────────────────────── */
+    .services { padding: 100px 0; background: var(--surface); }
+    .services-top {
+      display: flex; justify-content: space-between;
+      align-items: flex-end; margin-bottom: 56px;
+      flex-wrap: wrap; gap: 24px;
+    }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .service-card {
+      background: var(--surface); padding: 0;
+      overflow: hidden; transition: background .3s; cursor: none;
+    }
+    .service-card:hover { background: var(--surface2); }
+    .service-img { height: 220px; overflow: hidden; }
+    .service-img img { height: 100%; transition: transform .6s; }
+    .service-card:hover .service-img img { transform: scale(1.07); }
+    .service-body { padding: 32px 28px; }
+    .service-order { font-size: 11px; letter-spacing: .15em; color: var(--gold-dim); margin-bottom: 14px; }
+    .service-card h3 { font-size: 26px; color: var(--cream); font-weight: 400; margin-bottom: 10px; line-height: 1.2; }
+    .service-card p { font-size: 13.5px; font-weight: 300; color: var(--muted); line-height: 1.75; margin-bottom: 20px; }
+    .service-meta {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 18px; border-top: 1px solid var(--border);
+      flex-wrap: wrap; gap: 8px;
+    }
+    .service-price { font-family: 'Italiana', serif; font-size: 26px; color: var(--gold); }
+    .service-time { font-size: 11.5px; color: var(--muted); letter-spacing: .05em; }
+
+    /* ── HOMESTAY ─────────────────────────────────── */
+    .homestay { padding: 100px 0; }
+    .homestay-top { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 56px; flex-wrap: wrap; gap: 24px; }
+    .homestay-grid { display: grid; grid-template-columns: 7fr 5fr; gap: 8px; }
+    .homestay-grid .col-right { display: flex; flex-direction: column; gap: 8px; }
+    .home-card {
+      position: relative; overflow: hidden; cursor: none;
+    }
+    .home-img { overflow: hidden; }
+    .home-img img { transition: transform .7s cubic-bezier(.25,.46,.45,.94); }
+    .home-card:hover .home-img img { transform: scale(1.06); }
+    .home-card.main .home-img { height: 620px; }
+    .home-card.sub .home-img { height: 304px; }
+    .home-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(11,15,7,.85) 0%, transparent 45%);
+      pointer-events: none;
+    }
+    .home-info {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 28px 32px;
+    }
+    .home-status {
+      display: inline-block; font-size: 10px; letter-spacing: .12em;
+      text-transform: uppercase; padding: 4px 12px;
+      border: 1px solid rgba(212,168,83,.35); color: var(--gold-dim);
+      margin-bottom: 10px;
+    }
+    .home-status.available { border-color: rgba(100,200,100,.4); color: #7dc878; }
+    .home-card h3 { font-size: 26px; color: var(--cream); font-weight: 400; margin-bottom: 6px; line-height: 1.1; }
+    .home-card.main h3 { font-size: 36px; }
+    .home-meta { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+    .home-cap { font-size: 12.5px; color: var(--muted); font-weight: 300; }
+    .home-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--gold); border-bottom: 1px solid rgba(212,168,83,.3);
+      padding-bottom: 1px; transition: border-color .2s;
+    }
+    .home-link:hover { border-color: var(--gold); }
+
+    /* ── BONSAI TEASER ───────────────────────────── */
+    .bonsai-teaser {
+      background: var(--surface);
+      padding: 80px 0;
+    }
+    .bonsai-inner {
+      max-width: 1280px; margin: 0 auto; padding: 0 48px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .bonsai-img-wrap { height: 480px; overflow: hidden; border: 1px solid var(--border); }
+    .bonsai-img-wrap img { height: 100%; transition: transform 7s ease-out; }
+    .bonsai-img-wrap:hover img { transform: scale(1.04); }
+    .bonsai-text .kicker { margin-bottom: 14px; }
+    .bonsai-text h2.title { margin-bottom: 20px; }
+    .bonsai-text p { font-size: 15px; font-weight: 300; color: var(--muted); line-height: 1.85; margin-bottom: 18px; }
+    .bonsai-quote {
+      border-left: 2px solid var(--gold-dim);
+      padding: 10px 0 10px 20px;
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 18px; color: var(--cream); line-height: 1.5;
+      margin: 24px 0;
+    }
+
+    /* ── PHILOSOPHY ──────────────────────────────── */
+    .philosophy {
+      padding: 120px 0; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .philosophy::before {
+      content: 'TrongLe'; position: absolute;
+      top: 50%; left: 50%; transform: translate(-50%,-50%);
+      font-family: 'Italiana', serif; font-size: 220px;
+      color: rgba(212,168,83,.025); white-space: nowrap; pointer-events: none;
+    }
+    .philo-inner { max-width: 800px; margin: 0 auto; padding: 0 32px; position: relative; }
+    .philo-line { width: 1px; height: 64px; background: linear-gradient(to bottom, transparent, var(--gold-dim), transparent); margin: 0 auto 28px; }
+    .philo-text {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: clamp(20px, 3vw, 32px); color: var(--cream); line-height: 1.55; margin-bottom: 28px;
+    }
+    .philo-credit { font-size: 12px; color: var(--muted); letter-spacing: .12em; text-transform: uppercase; }
+
+    /* ── CTA / CONTACT ───────────────────────────── */
+    .contact-cta {
+      background: var(--surface); padding: 100px 0;
+      border-top: 1px solid var(--border);
+    }
+    .cta-inner {
+      max-width: 1280px; margin: 0 auto; padding: 0 48px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .cta-left h2.title { margin-bottom: 20px; }
+    .cta-left p { font-size: 15px; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 36px; }
+    .cta-btns { display: flex; flex-direction: column; gap: 12px; }
+    .cta-main {
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+      background: var(--gold); color: var(--bg);
+      font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+      padding: 18px 32px;
+      transition: background .25s, transform .2s;
+    }
+    .cta-main:hover { background: #c4973d; transform: translateY(-2px); }
+    .cta-zalo {
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+      background: transparent; color: var(--text);
+      font-size: 13px; font-weight: 400; letter-spacing: .1em; text-transform: uppercase;
+      padding: 17px 32px; border: 1px solid var(--border);
+      transition: border-color .25s, color .25s, transform .2s;
+    }
+    .cta-zalo:hover { border-color: #0068FF; color: #6EB5FF; transform: translateY(-2px); }
+    .cta-info { display: flex; flex-direction: column; gap: 24px; }
+    .info-line {
+      display: flex; gap: 20px; align-items: flex-start;
+      padding-bottom: 24px; border-bottom: 1px solid var(--border);
+    }
+    .info-line:last-child { border-bottom: none; }
+    .i-num { font-family: 'Italiana', serif; font-size: 30px; color: var(--gold-dim); flex-shrink: 0; line-height: 1; }
+    .i-label { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+    .i-val { font-size: 15px; color: var(--text); font-weight: 300; line-height: 1.6; }
+    .i-val a { color: var(--gold); transition: opacity .2s; }
+    .i-val a:hover { opacity: .7; }
+
+    /* ── FOOTER ──────────────────────────────────── */
+    footer {
+      background: #050807; padding: 56px 48px 24px;
+      border-top: 1px solid var(--border);
+    }
+    .footer-inner { max-width: 1280px; margin: 0 auto; }
+    .footer-top {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px; padding-bottom: 40px;
+      border-bottom: 1px solid var(--border); margin-bottom: 24px;
+    }
+    .footer-logo {
+      font-family: 'Italiana', serif; font-size: 26px;
+      color: var(--cream); margin-bottom: 12px;
+    }
+    .footer-logo .accent { color: var(--gold); }
+    .footer-desc { font-size: 13px; font-weight: 300; color: var(--muted); line-height: 1.75; max-width: 270px; }
+    .footer-col h4 {
+      font-size: 10.5px; font-weight: 500;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: var(--gold-dim); margin-bottom: 18px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul a { font-size: 13.5px; color: var(--muted); font-weight: 300; transition: color .2s; }
+    .footer-col ul a:hover { color: var(--gold); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-bottom p { font-size: 12px; color: rgba(240,234,214,.25); }
+    .footer-bottom a { color: var(--gold-dim); }
+
+    /* ── FLOAT ZALO ──────────────────────────────── */
+    .float-zalo {
+      position: fixed; bottom: 28px; right: 28px; z-index: 999;
+      background: #0068FF; color: #fff;
+      width: 52px; height: 52px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 20px rgba(0,104,255,.35);
+      animation: zpulse 2.5s infinite; transition: transform .2s;
+    }
+    .float-zalo:hover { transform: scale(1.1); }
+    @keyframes zpulse {
+      0%, 100% { box-shadow: 0 4px 20px rgba(0,104,255,.35), 0 0 0 0 rgba(0,104,255,.25); }
+      50% { box-shadow: 0 4px 20px rgba(0,104,255,.35), 0 0 0 14px rgba(0,104,255,0); }
+    }
+
+    /* ── REVEAL ──────────────────────────────────── */
+    .reveal {
+      opacity: 0; transform: translateY(36px);
+      transition: opacity .9s cubic-bezier(.25,.46,.45,.94), transform .9s cubic-bezier(.25,.46,.45,.94);
+    }
+    .reveal.d1 { transition-delay: .1s; }
+    .reveal.d2 { transition-delay: .2s; }
+    .reveal.d3 { transition-delay: .3s; }
+    .reveal.d4 { transition-delay: .4s; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── RESPONSIVE ──────────────────────────────── */
+    @media (max-width: 1024px) {
+      .nav-links { display: none; }
+      .pillars-grid, .services-grid { grid-template-columns: 1fr; }
+      .homestay-grid { grid-template-columns: 1fr; }
+      .home-card.main .home-img { height: 420px; }
+      .bonsai-inner { grid-template-columns: 1fr; gap: 48px; }
+      .cta-inner { grid-template-columns: 1fr; gap: 48px; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      body { cursor: auto; }
+      .cursor { display: none; }
+    }
+    @media (max-width: 640px) {
+      .nav-inner, .section-wrap, .stats-inner, .footer-inner { padding: 0 20px; }
+      .stats-inner { grid-template-columns: repeat(2,1fr); }
+      .s-item { border-right: none; border-bottom: 1px solid var(--border); }
+      .hero h1 { font-size: 52px; }
+      .pillars, .services, .homestay, .bonsai-teaser, .philosophy, .contact-cta { padding: 64px 0; }
+      .section-wrap { padding: 0 20px; }
+      footer { padding: 48px 20px 24px; }
+      .footer-top { grid-template-columns: 1fr; gap: 28px; }
+      .bonsai-inner, .cta-inner { padding: 0 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+
+<!-- NAV -->
+<nav id="nav" aria-label="Điều hướng TrongLeTour360">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      TrongLe<span class="accent">Tour360</span>
+      <span class="small">Đà Lạt</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#tour360">Tour 360°</a></li>
+      <li><a href="#homestay">Homestay</a></li>
+      <li><a href="#bonsai">Bonsai</a></li>
+      <li><a href="#lien-he">Liên hệ</a></li>
+      <li><a href="https://zalo.me/0785925998" class="nav-cta">Tư vấn ngay</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" aria-label="TrongLeTour360 — Tour 360 Đà Lạt">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-overlay2"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="line"></span>
+      <span>Tour 360° · Homestay · Bonsai · Đà Lạt</span>
+      <span class="line"></span>
+    </div>
+    <h1>Khám Phá<em>Tour 360°</em></h1>
+    <p class="hero-sub">Thúc đẩy doanh nghiệp vươn mình — Tạo sự đổi mới và chuyên nghiệp<br>cho việc kinh doanh của bạn</p>
+    <div class="hero-btns">
+      <a href="#tour360" class="btn-gold">Khám phá ngay</a>
+      <a href="#lien-he" class="btn-ghost">Liên hệ tư vấn</a>
+    </div>
+  </div>
+  <div class="hero-scroll" aria-hidden="true">
+    <span>Cuộn</span>
+    <div class="scroll-bar"></div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar" aria-label="Thống kê">
+  <div class="stats-inner">
+    <div class="s-item reveal"><span class="s-num">360°</span><span class="s-label">Công nghệ tour</span></div>
+    <div class="s-item reveal d1"><span class="s-num">3+</span><span class="s-label">Homestay Đà Lạt</span></div>
+    <div class="s-item reveal d2"><span class="s-num">10+</span><span class="s-label">Năm kinh nghiệm</span></div>
+    <div class="s-item reveal d3"><span class="s-num">★ 4.9</span><span class="s-label">Đánh giá khách hàng</span></div>
+  </div>
+</div>
+
+<!-- 3 PILLARS -->
+<section class="pillars" aria-label="3 trụ cột dịch vụ">
+  <div class="section-wrap">
+    <div class="pillars-header reveal">
+      <p class="kicker">Chúng tôi cung cấp</p>
+      <h2 class="title">Ba trụ cột <em>dịch vụ</em></h2>
+      <p class="title-desc">TrongLeTour360 — Tổng hợp những dịch vụ tốt nhất Đà Lạt trong một thương hiệu. Từ công nghệ hình ảnh 360° đến nghỉ dưỡng và nghệ thuật bonsai.</p>
+    </div>
+    <div class="pillars-grid" style="margin-top:48px">
+      <div class="pillar-card reveal d1">
+        <div class="pillar-num">01 — Dịch vụ chính</div>
+        <div class="pillar-icon">📸</div>
+        <h3>Tour<em>360°</em></h3>
+        <p>Giải pháp hình ảnh toàn cảnh & tour ảo cho doanh nghiệp, bất động sản, nhà hàng khách sạn. Tạo sự khác biệt và tăng tỷ lệ chuyển đổi khách hàng.</p>
+        <a href="#tour360" class="pillar-link">Xem dịch vụ →</a>
+      </div>
+      <div class="pillar-card reveal d2">
+        <div class="pillar-num">02 — Nghỉ dưỡng</div>
+        <div class="pillar-icon">🏡</div>
+        <h3>Homestay<em>Ngọc Sinh Cát</em></h3>
+        <p>Ba không gian nghỉ dưỡng độc đáo tại Đà Lạt: Home Ngọc Sinh Cát, Villa Viện Nghiên Cứu và Nhà Gỗ Tây Hồ. Mỗi nơi một trải nghiệm.</p>
+        <a href="#homestay" class="pillar-link">Xem homestay →</a>
+      </div>
+      <div class="pillar-card reveal d3">
+        <div class="pillar-num">03 — Nghệ thuật</div>
+        <div class="pillar-icon">🌿</div>
+        <h3>Bonsai<em>Nghệ Thuật</em></h3>
+        <p>Những tác phẩm bonsai nghệ thuật từ Đà Lạt — nơi khí hậu và đất đai tạo nên những tác phẩm độc bản không thể tái tạo ở nơi khác.</p>
+        <a href="https://bonsai-dalat-trangle.vercel.app" class="pillar-link">Khám phá bonsai →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOUR 360 SERVICES -->
+<section id="tour360" class="services" aria-label="Dịch vụ Tour & Chụp ảnh 360°">
+  <div class="section-wrap">
+    <div class="services-top">
+      <div>
+        <p class="kicker reveal">Tour & Chụp ảnh 360°</p>
+        <h2 class="title reveal d1">Dịch vụ của <em>chúng tôi</em></h2>
+        <p class="title-desc reveal d2">Ứng dụng công nghệ thực tế ảo hiện đại — nâng tầm hình ảnh doanh nghiệp của bạn.</p>
+      </div>
+      <a href="https://zalo.me/0785925998" class="btn-gold reveal d2">Nhận báo giá</a>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-img">
+          <img src="https://placehold.co/800x440/0B0F07/D4A853?text=Chụp+360°+Bất+động+sản" alt="Chụp ảnh 360° bất động sản chuyên nghiệp Đà Lạt">
+        </div>
+        <div class="service-body">
+          <div class="service-order">01 — Bất động sản</div>
+          <h3>Chụp Ảnh 360°<br>Bất Động Sản</h3>
+          <p>Giải pháp hình ảnh toàn cảnh hiện đại, giúp khách hàng khám phá mọi góc ngách không gian một cách chân thực. Tích hợp lên website, Facebook và các nền tảng tour 360.</p>
+          <div class="service-meta">
+            <span class="service-price">3.000.000đ</span>
+            <span class="service-time">⏱ 5 giờ thực hiện</span>
+          </div>
+        </div>
+      </div>
+      <div class="service-card reveal d1">
+        <div class="service-img">
+          <img src="https://placehold.co/800x440/141a0e/D4A853?text=Tour+Đà+Lạt" alt="Tour tham quan Đà Lạt 3 ngày 2 đêm">
+        </div>
+        <div class="service-body">
+          <div class="service-order">02 — Du lịch</div>
+          <h3>Tour Tham Quan<br>Đà Lạt</h3>
+          <p>Hành trình khám phá Đà Lạt theo cách riêng — từ những con đường mờ sương sớm đến những điểm chụp ảnh đẹp nhất thành phố ngàn hoa.</p>
+          <div class="service-meta">
+            <span class="service-price">1.500.000đ</span>
+            <span class="service-time">⏱ 3 ngày 2 đêm</span>
+          </div>
+        </div>
+      </div>
+      <div class="service-card reveal d2">
+        <div class="service-img">
+          <img src="https://placehold.co/800x440/1c2416/9B7A3C?text=Chụp+Ngoại+Cảnh" alt="Chụp ảnh ngoại cảnh Đà Lạt chuyên nghiệp">
+        </div>
+        <div class="service-body">
+          <div class="service-order">03 — Ngoại cảnh</div>
+          <h3>Chụp Ảnh<br>Ngoại Cảnh Đà Lạt</h3>
+          <p>Đà Lạt — thiên đường của những buổi chụp ngoại cảnh. Đồi chè, vườn hoa, rừng thông — chúng tôi biết từng góc đẹp nhất và thời điểm ánh sáng hoàn hảo.</p>
+          <div class="service-meta">
+            <span class="service-price">Liên hệ</span>
+            <span class="service-time">⏱ Theo yêu cầu</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOMESTAY -->
+<section id="homestay" class="homestay" aria-label="Homestay Ngọc Sinh Cát Đà Lạt">
+  <div class="section-wrap">
+    <div class="homestay-top">
+      <div>
+        <p class="kicker reveal">Nghỉ dưỡng</p>
+        <h2 class="title reveal d1">Homestay<em>Ngọc Sinh Cát</em></h2>
+        <p class="title-desc reveal d2">Ba không gian nghỉ dưỡng độc đáo tại Đà Lạt — mỗi nơi một câu chuyện, một trải nghiệm không thể trộn lẫn.</p>
+      </div>
+      <a href="https://zalo.me/0785925998" class="btn-ghost reveal d2">Đặt phòng</a>
+    </div>
+    <div class="homestay-grid">
+      <!-- Main card -->
+      <div class="home-card main reveal">
+        <div class="home-img">
+          <img src="https://placehold.co/1200x1240/0B0F07/D4A853?text=Home+Ngọc+Sinh+Cát" alt="Home Ngọc Sinh Cát — Khách sạn 3 sao thiên nhiên Đà Lạt" style="height:100%">
+        </div>
+        <div class="home-overlay"></div>
+        <div class="home-info">
+          <span class="home-status">Sắp mở cửa</span>
+          <h3>Home Ngọc Sinh Cát</h3>
+          <div class="home-meta">
+            <span class="home-cap">👥 Tối đa 4 người · Không gian riêng tư</span>
+            <a href="https://zalo.me/0785925998" class="home-link">Đặt phòng →</a>
+          </div>
+        </div>
+      </div>
+      <!-- Sub cards -->
+      <div class="col-right">
+        <div class="home-card sub reveal d1">
+          <div class="home-img">
+            <img src="https://placehold.co/800x608/141a0e/D4A853?text=Villa+Viện+Nghiên+Cứu" alt="Villa Viện Nghiên Cứu — Villa 8 phòng ngủ Đà Lạt" style="height:100%">
+          </div>
+          <div class="home-overlay"></div>
+          <div class="home-info">
+            <span class="home-status">Sắp mở cửa</span>
+            <h3>Villa Viện Nghiên Cứu</h3>
+            <div class="home-meta">
+              <span class="home-cap">👥 10–20 khách · 8 phòng · BBQ · Cách TT 5km</span>
+              <a href="https://tour.panoee.net/69df81e3f1d6c87aa42942de" class="home-link" target="_blank">Xem Tour 360° →</a>
+            </div>
+          </div>
+        </div>
+        <div class="home-card sub reveal d2">
+          <div class="home-img">
+            <img src="https://placehold.co/800x608/1c2416/9B7A3C?text=Nhà+Gỗ+Tây+Hồ" alt="Nhà Gỗ Tây Hồ — Không gian gỗ ấm cúng Đà Lạt" style="height:100%">
+          </div>
+          <div class="home-overlay"></div>
+          <div class="home-info">
+            <span class="home-status">Sắp mở cửa</span>
+            <h3>Nhà Gỗ Tây Hồ</h3>
+            <div class="home-meta">
+              <span class="home-cap">Không gian gỗ ấm cúng · View hồ</span>
+              <a href="https://zalo.me/0785925998" class="home-link">Đặt phòng →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BONSAI TEASER -->
+<section id="bonsai" class="bonsai-teaser" aria-label="Bonsai nghệ thuật Đà Lạt">
+  <div class="bonsai-inner">
+    <div class="bonsai-img-wrap reveal">
+      <img src="https://placehold.co/1000x960/0B0F07/D4A853?text=Bonsai+Nghệ+Thuật+Đà+Lạt" alt="Bonsai nghệ thuật Đà Lạt — tác phẩm thiên nhiên">
+    </div>
+    <div class="bonsai-text reveal d2">
+      <p class="kicker">Nghệ thuật sống</p>
+      <h2 class="title">Bonsai<em>Đà Lạt</em></h2>
+      <p>Trên vùng đất cao nguyên 1.500 mét, những cây bonsai mang hơi thở của sương, của gió và của thời gian. Mỗi tác phẩm là câu chuyện riêng — không tác phẩm nào giống tác phẩm nào.</p>
+      <blockquote class="bonsai-quote">"Cây bonsai không chỉ là cây. Đó là khoảnh khắc thiên nhiên được giữ lại."</blockquote>
+      <a href="https://bonsai-dalat-trangle.vercel.app" class="btn-gold" style="display:inline-flex;margin-top:8px" target="_blank">Xem bộ sưu tập →</a>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="philosophy" aria-label="Triết lý TrongLeTour360">
+  <div class="philo-inner reveal">
+    <div class="philo-line"></div>
+    <p class="kicker" style="justify-content:center;margin-bottom:20px">Triết lý</p>
+    <p class="philo-text">"Chúng tôi không chỉ cung cấp dịch vụ. Chúng tôi tạo ra những trải nghiệm — những khoảnh khắc Đà Lạt mà bạn mang theo mãi mãi."</p>
+    <p class="philo-credit">— TrongLeTour360 · Xuân Trường, Đà Lạt</p>
+  </div>
+</section>
+
+<!-- CONTACT CTA -->
+<section id="lien-he" class="contact-cta" aria-label="Liên hệ TrongLeTour360">
+  <div class="cta-inner">
+    <div class="cta-left reveal">
+      <p class="kicker">Liên hệ</p>
+      <h2 class="title">Bắt đầu<em>ngay hôm nay</em></h2>
+      <p>Dù bạn cần tư vấn tour 360°, đặt phòng homestay hay hỏi về bonsai — chúng tôi sẵn sàng. Liên hệ qua Zalo để được hỗ trợ nhanh nhất.</p>
+      <div class="cta-btns">
+        <a href="https://zalo.me/0785925998" class="cta-zalo">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 5.52 4.48 10 10 10s10-4.48 10-10S17.52 2 12 2z"/></svg>
+          Nhắn Zalo ngay
+        </a>
+        <a href="tel:0785925998" class="cta-main">
+          📞 Gọi: 0785 925 998
+        </a>
+      </div>
+    </div>
+    <div class="cta-info reveal d2">
+      <div class="info-line">
+        <div class="i-num">01</div>
+        <div>
+          <div class="i-label">Địa chỉ</div>
+          <div class="i-val">Xuân Trường, TP. Đà Lạt, Lâm Đồng</div>
+        </div>
+      </div>
+      <div class="info-line">
+        <div class="i-num">02</div>
+        <div>
+          <div class="i-label">Hotline & Zalo</div>
+          <div class="i-val"><a href="tel:0785925998">0785 925 998</a></div>
+        </div>
+      </div>
+      <div class="info-line">
+        <div class="i-num">03</div>
+        <div>
+          <div class="i-label">Dịch vụ</div>
+          <div class="i-val">Tour 360° · Homestay Đà Lạt · Bonsai Nghệ Thuật</div>
+        </div>
+      </div>
+      <div class="info-line">
+        <div class="i-num">04</div>
+        <div>
+          <div class="i-label">Website</div>
+          <div class="i-val"><a href="https://trongletour360.net">trongletour360.net</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer aria-label="Footer TrongLeTour360">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">TrongLe<span class="accent">Tour360</span></div>
+        <p class="footer-desc">Thúc đẩy doanh nghiệp vươn mình. Tour 360°, Homestay Ngọc Sinh Cát và Bonsai nghệ thuật từ Đà Lạt.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Dịch vụ</h4>
+        <ul>
+          <li><a href="#tour360">Chụp 360° BĐS</a></li>
+          <li><a href="#tour360">Tour Đà Lạt</a></li>
+          <li><a href="#tour360">Chụp ngoại cảnh</a></li>
+          <li><a href="#bonsai">Bonsai nghệ thuật</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Homestay</h4>
+        <ul>
+          <li><a href="#homestay">Home Ngọc Sinh Cát</a></li>
+          <li><a href="#homestay">Villa Viện Nghiên Cứu</a></li>
+          <li><a href="#homestay">Nhà Gỗ Tây Hồ</a></li>
+          <li><a href="https://zalo.me/0785925998">Đặt phòng</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kết nối</h4>
+        <ul>
+          <li><a href="https://zalo.me/0785925998">Zalo</a></li>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">TikTok</a></li>
+          <li><a href="tel:0785925998">0785 925 998</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 TrongLeTour360 · Xuân Trường, TP. Đà Lạt, Lâm Đồng</p>
+      <p><a href="/">trongletour360.net</a></p>
+    </div>
+  </div>
+</footer>
+
+<!-- FLOAT ZALO -->
+<a href="https://zalo.me/0785925998" class="float-zalo" aria-label="Nhắn Zalo TrongLeTour360">
+  <svg width="24" height="24" viewBox="0 0 64 64" fill="none">
+    <path d="M32 4C16.536 4 4 16.536 4 32c0 5.228 1.418 10.134 3.894 14.348L4 60l13.977-3.853C22.035 58.672 26.888 60 32 60c15.464 0 28-12.536 28-28S47.464 4 32 4z" fill="white"/>
+    <path d="M20 24h6M26 32h-6M24 38h2m4-14c0 0 4 2 4 8s-4 8-4 8h6l4 4V32c0-6-4-8-4-8h-6z" stroke="#0068FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</a>
+
+<script>
+  // Cursor
+  const cur = document.getElementById('cursor');
+  document.addEventListener('mousemove', e => { cur.style.left = e.clientX + 'px'; cur.style.top = e.clientY + 'px'; }, { passive: true });
+  document.querySelectorAll('a, button, .pillar-card, .service-card, .home-card').forEach(el => {
+    el.addEventListener('mouseenter', () => cur.classList.add('big'));
+    el.addEventListener('mouseleave', () => cur.classList.remove('big'));
+  });
+
+  // Nav
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60), { passive: true });
+
+  // Parallax hero
+  const bg = document.getElementById('heroBg');
+  window.addEventListener('scroll', () => { bg.style.transform = `translateY(${window.scrollY * 0.32}px)`; }, { passive: true });
+
+  // Reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
