@@ -1150,6 +1150,24 @@
 
   aiSend.addEventListener('click', () => sendMessage(aiInput.value));
   aiInput.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(aiInput.value); } });
+
+  // Mobile menu
+  const hamburger = document.getElementById('nav-hamburger');
+  const mobileOverlay = document.getElementById('nav-mobile-overlay');
+  if (hamburger && mobileOverlay) {
+    hamburger.addEventListener('click', () => {
+      const open = mobileOverlay.classList.toggle('open');
+      hamburger.classList.toggle('open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    mobileOverlay.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        mobileOverlay.classList.remove('open');
+        hamburger.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+  }
 </script>
 </body>
 </html>
