@@ -71,7 +71,9 @@ if (aiBtn && aiPanel) {
       <button class="ai-lead-submit" id="lead-submit">GỬI THÔNG TIN →</button>`;
     aiMsgs.appendChild(form);
     aiMsgs.scrollTop = aiMsgs.scrollHeight;
-    document.getElementById('lead-submit').onclick = submitLead;
+    const submitBtn = document.getElementById('lead-submit');
+    submitBtn.addEventListener('click', submitLead);
+    submitBtn.addEventListener('touchend', (e) => { e.preventDefault(); submitLead(); });
   }
 
   async function submitLead() {
