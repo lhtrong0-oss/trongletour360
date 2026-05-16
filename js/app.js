@@ -11,6 +11,24 @@ if (cur) {
   });
 }
 
+// ── MOBILE MENU ──────────────────────────────────────────────────────────────
+const hamburger = document.getElementById('nav-hamburger');
+const mobileOverlay = document.getElementById('nav-mobile-overlay');
+if (hamburger && mobileOverlay) {
+  hamburger.addEventListener('click', () => {
+    const open = mobileOverlay.classList.toggle('open');
+    hamburger.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  mobileOverlay.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      mobileOverlay.classList.remove('open');
+      hamburger.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+}
+
 // ── NAV SCROLL ───────────────────────────────────────────────────────────────
 const nav = document.getElementById('nav');
 if (nav) {
