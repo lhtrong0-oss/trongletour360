@@ -26,11 +26,10 @@ export default async function handler(req) {
       body: JSON.stringify({
         parent: { database_id: LEADS_DB },
         properties: {
-          "Tên khách": { title: [{ text: { content: name || "Khách hàng" } }] },
-          "SĐT": { rich_text: [{ text: { content: phone || "" } }] },
-          "Quan tâm": { rich_text: [{ text: { content: interest || "" } }] },
-          "Nguồn": { select: { name: "AI Chatbot" } },
-          "Trạng thái": { select: { name: "Mới" } },
+          "Tên dự án / Thương hiệu": { title: [{ text: { content: name || "Khách hàng" } }] },
+          "SĐT / Zalo": { phone_number: phone || "" },
+          "Ghi chú thêm": { rich_text: [{ text: { content: `[AI Chatbot] ${interest || ""}` } }] },
+          "Trạng thái": { select: { name: "Tiếp nhận" } },
         },
       }),
     });
