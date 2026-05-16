@@ -37,6 +37,27 @@ export default async function handler(req) {
 
   const ngach = detectNgach(interest);
 
+  // Email gửi TRƯỚC — độc lập, không phụ thuộc Notion
+  const RESEND_KEY = process.env.RESEND_API_KEY;
+  if (RESEND_KEY) {
+    const ngachLabel = detectNgach(interest);
+    fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${RESEND_KEY}`, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        from: "TrongLeTour360 <onboarding@resend.dev>",
+        to: ["lhtrong0@gmail.com"],
+        subject: `🆕 Lead mới: ${name || "Khách"} — ${ngachLabel}`,
+        html: `<h2>🆕 Lead mới từ chatbot</h2>
+<p><strong>Tên:</strong> ${name || "—"}</p>
+<p><strong>SĐT/Zalo:</strong> ${phone || "—"}</p>
+<p><strong>Ngách:</strong> ${ngachLabel}</p>
+<p><strong>Hỏi về:</strong> ${interest || "—"}</p>
+<hr><p>👉 Liên hệ lại trong <strong>30 phút</strong></p>`,
+      }),
+    }).catch(() => {});
+  }
+
   try {
     // Check duplicate SĐT
     const existing = phone ? await findByPhone(NOTION_TOKEN, LEADS_DB, phone) : null;
@@ -71,28 +92,6 @@ export default async function handler(req) {
           },
         }),
       });
-    }
-
-    // Email notify
-    const RESEND_KEY = process.env.RESEND_API_KEY;
-    if (RESEND_KEY) {
-      const action = existing ? "🔄 Hỏi lại" : "🆕 Lead mới";
-      await fetch("https://api.resend.com/emails", {
-        method: "POST",
-        headers: { Authorization: `Bearer ${RESEND_KEY}`, "Content-Type": "application/json" },
-        body: JSON.stringify({
-          from: "TrongLeTour360 <onboarding@resend.dev>",
-          to: ["lhtrong0@gmail.com"],
-          subject: `${action}: ${name || "Khách"} — ${ngach}`,
-          html: `<h2>${action}</h2>
-<p><strong>Tên:</strong> ${name || "—"}</p>
-<p><strong>SĐT/Zalo:</strong> ${phone || "—"}</p>
-<p><strong>Ngách:</strong> ${ngach}</p>
-<p><strong>Hỏi về:</strong> ${interest || "—"}</p>
-${existing ? "<p>⚠️ <em>Khách này đã liên hệ trước đó</em></p>" : ""}
-<hr><p>👉 Liên hệ lại trong <strong>30 phút</strong></p>`,
-        }),
-      }).catch(() => {});
     }
 
     return new Response(JSON.stringify({ ok: true }), {
