@@ -13,6 +13,11 @@ DỊCH VỤ & GIÁ:
   - Villa Viện Nghiên Cứu: 10–20 khách, 8 phòng, có BBQ, cách trung tâm 5km
   - Nhà Gỗ Tây Hồ: không gian gỗ ấm cúng, view hồ
 • Bonsai nghệ thuật: bonsai-dalat-trangle.vercel.app
+• Thiết kế website chuyên nghiệp (Web Agency):
+  - Gói A (3–5 triệu): Landing page 1 trang, mobile-first, có form liên hệ
+  - Gói B (8–15 triệu): Website 5–7 trang, CMS, SEO cơ bản, chatbot AI
+  - Gói C (25–50 triệu): Website cao cấp, đặt lịch online, tích hợp đầy đủ
+  Demo xem tại: bonsai-dalat-trangle.vercel.app/templates/mau-a.html
 
 LIÊN HỆ: 0785 925 998 | Zalo: zalo.me/0785925998
 Địa chỉ: Xuân Trường, TP. Đà Lạt, Lâm Đồng
