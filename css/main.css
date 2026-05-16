@@ -88,6 +88,7 @@ h2.title em{font-style:italic;color:var(--gold)}
 .hs-body{padding:32px 28px}
 .hs-tag{display:inline-block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:4px 12px;border:1px solid rgba(212,168,83,.3);color:var(--gold-dim);margin-bottom:16px}
 .hs-tag.soon{border-color:rgba(212,168,83,.3);color:var(--gold-dim)}
+.hs-tag.avail{border-color:rgba(110,180,110,.4);color:#7ec87e}
 .hs-card h3{font-size:24px;color:var(--cream);font-weight:400;margin-bottom:12px;line-height:1.1}
 .hs-card p{font-size:13px;font-weight:300;color:var(--muted);line-height:1.75;margin-bottom:20px}
 .hs-foot{display:flex;align-items:center;justify-content:space-between;padding-top:16px;border-top:1px solid var(--border);flex-wrap:wrap;gap:8px}
