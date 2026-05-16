@@ -78,20 +78,13 @@ if (aiBtn && aiPanel) {
     return wrap;
   }
 
-  function showLeadForm() {
-    if (leadCaptured) return;
-    const form = document.createElement('div');
-    form.className = 'ai-lead-form';
-    form.innerHTML = `
-      <p>ĐỂ TRỌNG LIÊN HỆ LẠI</p>
-      <input class="ai-lead-inp" id="lead-name"  type="text" placeholder="Tên của bạn" autocomplete="name">
-      <input class="ai-lead-inp" id="lead-phone" type="tel"  placeholder="Số điện thoại / Zalo" autocomplete="tel">
-      <button class="ai-lead-submit" id="lead-submit">GỬI THÔNG TIN →</button>`;
-    aiMsgs.appendChild(form);
+  function showContactBtn() {
+    const wrap = document.createElement('div');
+    wrap.className = 'ai-lead-form';
+    wrap.innerHTML = `<p>ĐIỀN THÔNG TIN ĐỂ TRỌNG TƯ VẤN</p>
+      <a href="lien-he.html" class="ai-lead-submit" style="display:block;text-align:center;text-decoration:none;">ĐẾN TRANG LIÊN HỆ →</a>`;
+    aiMsgs.appendChild(wrap);
     aiMsgs.scrollTop = aiMsgs.scrollHeight;
-    const submitBtn = document.getElementById('lead-submit');
-    submitBtn.addEventListener('click', submitLead);
-    submitBtn.addEventListener('touchend', (e) => { e.preventDefault(); submitLead(); });
   }
 
   async function submitLead() {
@@ -141,9 +134,12 @@ if (aiBtn && aiPanel) {
           try { const { t } = JSON.parse(raw); if (t) { fullText += t; bubble.textContent = fullText; aiMsgs.scrollTop = aiMsgs.scrollHeight; } } catch {}
         }
       }
-      chatHistory.push({ role: 'assistant', content: fullText });
-      if (!leadCaptured && (fullText.includes('tên') && fullText.includes('điện thoại') || fullText.includes('liên hệ lại'))) {
-        setTimeout(showLeadForm, 600);
+      const cleanText = fullText.replace('[SHOW_CONTACT]', '').trim();
+      bubble.textContent = cleanText;
+      chatHistory.push({ role: 'assistant', content: cleanText });
+      if (!leadCaptured && fullText.includes('[SHOW_CONTACT]')) {
+        leadCaptured = true;
+        setTimeout(showContactBtn, 600);
       }
     } catch {
       typing.remove();
