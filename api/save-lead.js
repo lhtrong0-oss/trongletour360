@@ -35,6 +35,27 @@ export default async function handler(req) {
       }),
     });
 
+    // Email notify qua Resend
+    const RESEND_KEY = process.env.RESEND_API_KEY;
+    if (RESEND_KEY) {
+      await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${RESEND_KEY}`, "Content-Type": "application/json" },
+        body: JSON.stringify({
+          from: "TrongLeTour360 <onboarding@resend.dev>",
+          to: ["lhtrong0@gmail.com"],
+          subject: `🔔 Lead mới: ${name || "Khách hàng"} — TrongLeTour360`,
+          html: `<h2>Lead mới từ website</h2>
+<p><strong>Tên:</strong> ${name || "—"}</p>
+<p><strong>SĐT/Zalo:</strong> ${phone || "—"}</p>
+<p><strong>Quan tâm:</strong> ${interest || "—"}</p>
+<p><strong>Nguồn:</strong> AI Chatbot trongletour360.net</p>
+<hr>
+<p>👉 Liên hệ lại trong <strong>30 phút</strong></p>`,
+        }),
+      }).catch(() => {});
+    }
+
     return new Response(JSON.stringify({ ok: true }), {
       headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
     });
