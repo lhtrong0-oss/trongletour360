@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Bảng Giá Dịch Vụ — TrongLeTour360 Đà Lạt</title>
+  <meta name="description" content="Dịch vụ thiết kế website, tour 360°, chụp ảnh Đà Lạt. Bảng giá chi tiết — Gói A từ 3 triệu, Gói B từ 8 triệu, Gói C premium. Liên hệ: 0785 925 998.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Jost:wght@200;300;400;500;600;700&family=Playfair+Display:ital,wght@1,400;1,600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:     #0B0F07;
+      --sur:    #141a0e;
+      --sur2:   #1c2416;
+      --gold:   #D4A853;
+      --gdim:   #9B7A3C;
+      --gpale:  rgba(212,168,83,0.10);
+      --cream:  #F0EAD6;
+      --text:   rgba(240,234,214,0.85);
+      --muted:  rgba(240,234,214,0.40);
+      --border: rgba(212,168,83,0.15);
+      --zalo:   #0068FF;
+    }
+    html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+    body { font-family: 'Jost', sans-serif; background: var(--bg); color: var(--text); line-height: 1.65; overflow-x: hidden; }
+    h1,h2,h3,h4 { font-family: 'Italiana', serif; }
+    a { color: inherit; text-decoration: none; -webkit-tap-highlight-color: transparent; }
+
+    /* ── HEADER ── */
+    .sk-header {
+      padding: 40px 24px 32px;
+      text-align: center;
+      background: linear-gradient(to bottom, rgba(212,168,83,.05), transparent);
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .sk-header::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(212,168,83,.08) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .sk-logo {
+      font-family: 'Italiana', serif;
+      font-size: 28px; color: var(--cream);
+      letter-spacing: .03em;
+      display: inline-block;
+      margin-bottom: 6px;
+    }
+    .sk-logo span { color: var(--gold); }
+    .sk-location {
+      font-size: 11px; letter-spacing: .22em;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 20px;
+    }
+    .sk-tagline {
+      font-family: 'Playfair Display', serif;
+      font-style: italic; font-size: 18px;
+      color: var(--cream); line-height: 1.5;
+      max-width: 320px; margin: 0 auto 24px;
+    }
+    .sk-tagline em { color: var(--gold); font-style: normal; }
+    .sk-phone-row {
+      display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+    }
+    .sk-phone-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 22px; font-size: 13px; font-weight: 600;
+      letter-spacing: .08em; border-radius: 2px;
+      transition: transform .18s, opacity .18s;
+      touch-action: manipulation;
+    }
+    .sk-phone-btn:active { transform: scale(.96); opacity: .85; }
+    .btn-zalo { background: var(--zalo); color: #fff; }
+    .btn-call { background: transparent; color: var(--gold); border: 1px solid var(--gold); }
+
+    /* ── WHAT WE DO ── */
+    .sk-what { padding: 40px 24px; }
+    .sk-section-label {
+      font-size: 10px; letter-spacing: .25em; text-transform: uppercase;
+      color: var(--gdim); margin-bottom: 10px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .sk-section-label::before { content:''; display:block; width:20px; height:1px; background:var(--gdim); }
+    .sk-section-title {
+      font-family: 'Italiana', serif;
+      font-size: 34px; color: var(--cream);
+      font-weight: 400; line-height: 1.1; margin-bottom: 28px;
+    }
+    .sk-section-title em { color: var(--gold); font-style: italic; }
+    .services-3 { display: grid; grid-template-columns: 1fr; gap: 2px; }
+    @media(min-width:480px) { .services-3 { grid-template-columns: repeat(3,1fr); } }
+    .svc-card {
+      background: var(--sur); border: 1px solid var(--border);
+      padding: 24px 20px; position: relative; overflow: hidden;
+    }
+    .svc-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      height: 2px; background: var(--gold); transform: scaleX(0);
+      transition: transform .35s; transform-origin: left;
+    }
+    .svc-card:active::after, .svc-card:hover::after { transform: scaleX(1); }
+    .svc-icon { font-size: 32px; margin-bottom: 12px; }
+    .svc-card h3 { font-family: 'Italiana', serif; font-size: 22px; color: var(--cream); margin-bottom: 8px; font-weight: 400; }
+    .svc-card p { font-size: 13px; font-weight: 300; color: var(--muted); line-height: 1.7; }
+
+    /* ── PRICING ── */
+    .sk-pricing { padding: 0 24px 40px; }
+    .pricing-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+    @media(min-width:600px) { .pricing-grid { grid-template-columns: repeat(3,1fr); } }
+
+    .price-card {
+      background: var(--sur); border: 1px solid var(--border);
+      padding: 28px 22px; position: relative;
+      transition: border-color .25s, background .25s;
+    }
+    .price-card.featured {
+      background: var(--sur2);
+      border-color: rgba(212,168,83,.35);
+    }
+    .price-badge {
+      position: absolute; top: -1px; right: 20px;
+      background: var(--gold); color: var(--bg);
+      font-size: 9.5px; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; padding: 4px 12px;
+    }
+    .price-tier {
+      font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--gdim); margin-bottom: 10px;
+    }
+    .price-name {
+      font-family: 'Italiana', serif; font-size: 30px;
+      color: var(--cream); font-weight: 400; margin-bottom: 4px; line-height: 1;
+    }
+    .price-amount {
+      font-family: 'Italiana', serif; font-size: 38px;
+      color: var(--gold); line-height: 1; margin: 14px 0 4px;
+    }
+    .price-amount .unit { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300; color: var(--gdim); }
+    .price-range { font-size: 12px; color: var(--muted); margin-bottom: 20px; }
+    .price-features { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-bottom: 24px; }
+    .price-features li {
+      font-size: 13px; font-weight: 300; color: var(--text);
+      display: flex; align-items: flex-start; gap: 8px; line-height: 1.5;
+    }
+    .price-features li::before { content: '✓'; color: var(--gold); font-size: 11px; margin-top: 3px; flex-shrink: 0; font-weight: 600; }
+    .price-cta {
+      display: block; text-align: center;
+      padding: 13px; font-size: 11.5px; font-weight: 600;
+      letter-spacing: .14em; text-transform: uppercase;
+      border: 1px solid var(--border); color: var(--muted);
+      transition: border-color .2s, color .2s, background .2s;
+      touch-action: manipulation;
+    }
+    .price-card.featured .price-cta {
+      background: var(--gold); color: var(--bg); border-color: var(--gold);
+    }
+    .price-cta:active { opacity: .85; }
+
+    /* ── TOUR 360 ── */
+    .sk-tour { padding: 0 24px 40px; }
+    .tour-card {
+      background: var(--sur); border: 1px solid var(--border);
+      padding: 28px 22px;
+      background-image: radial-gradient(ellipse at right bottom, rgba(100,160,255,.04), transparent 60%);
+    }
+    .tour-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+    .tour-badge-360 {
+      font-family: 'Italiana', serif; font-size: 56px;
+      color: rgba(212,168,83,.18); line-height: 1; flex-shrink: 0;
+    }
+    .tour-title { font-family: 'Italiana', serif; font-size: 28px; color: var(--cream); font-weight: 400; margin-bottom: 6px; }
+    .tour-desc { font-size: 13px; font-weight: 300; color: var(--muted); line-height: 1.75; margin-bottom: 20px; }
+    .tour-packages { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 20px; }
+    @media(min-width:480px) { .tour-packages { grid-template-columns: repeat(3,1fr); } }
+    .tour-pkg {
+      background: rgba(11,15,7,.5); border: 1px solid var(--border);
+      padding: 14px 12px; text-align: center;
+    }
+    .tour-pkg .tp-price { font-family: 'Italiana', serif; font-size: 22px; color: var(--gold); display: block; }
+    .tour-pkg .tp-label { font-size: 11px; color: var(--muted); letter-spacing: .05em; }
+    .tour-pkg .tp-type { font-size: 10.5px; font-weight: 500; color: var(--text); margin-top: 2px; }
+
+    /* ── DEMO LINKS ── */
+    .sk-demos { padding: 0 24px 40px; }
+    .demo-grid { display: grid; grid-template-columns: 1fr; gap: 8px; }
+    .demo-link {
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--sur); border: 1px solid var(--border);
+      padding: 16px 18px;
+      transition: border-color .2s, background .2s;
+      touch-action: manipulation;
+    }
+    .demo-link:active { background: var(--sur2); border-color: var(--gold); }
+    .demo-info { flex: 1; }
+    .demo-name { font-size: 14.5px; font-weight: 500; color: var(--cream); }
+    .demo-desc { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .demo-tag { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; padding: 3px 10px; border: 1px solid; margin-bottom: 4px; display: inline-block; }
+    .tag-live { color: #7dc878; border-color: rgba(100,200,80,.3); }
+    .tag-demo { color: var(--gold); border-color: rgba(212,168,83,.3); }
+    .demo-arrow { color: var(--gdim); flex-shrink: 0; margin-left: 12px; }
+
+    /* ── WHY US ── */
+    .sk-why { padding: 0 24px 40px; }
+    .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+    .why-item {
+      background: var(--sur); border: 1px solid var(--border);
+      padding: 20px 16px;
+    }
+    .why-item .wi-num { font-family: 'Italiana', serif; font-size: 36px; color: var(--gold); line-height: 1; display: block; }
+    .why-item .wi-label { font-size: 12px; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+
+    /* ── BOTTOM CTA ── */
+    .sk-cta {
+      padding: 40px 24px 60px;
+      background: var(--sur); border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    .sk-cta h2 { font-family: 'Italiana', serif; font-size: 36px; color: var(--cream); margin-bottom: 10px; }
+    .sk-cta h2 em { color: var(--gold); font-style: italic; }
+    .sk-cta p { font-size: 14px; color: var(--muted); margin-bottom: 28px; line-height: 1.7; }
+    .cta-big-row { display: flex; flex-direction: column; gap: 10px; max-width: 380px; margin: 0 auto; }
+    .cta-big {
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; padding: 18px 24px; font-size: 14px; font-weight: 600;
+      letter-spacing: .1em; text-transform: uppercase;
+      touch-action: manipulation;
+      transition: transform .15s, opacity .15s;
+    }
+    .cta-big:active { transform: scale(.97); opacity: .88; }
+    .cta-zalo-big { background: var(--zalo); color: #fff; }
+    .cta-call-big { background: var(--gold); color: var(--bg); }
+    .cta-port { background: transparent; color: var(--muted); border: 1px solid var(--border); font-size: 12px; }
+
+    .sk-footer {
+      background: #050807; padding: 20px 24px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    .sk-footer p { font-size: 11.5px; color: rgba(240,234,214,.3); }
+    .sk-footer a { color: var(--gdim); }
+
+    /* Divider */
+    .sk-divider { height: 1px; background: var(--border); margin: 0 24px; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="sk-header" aria-label="TrongLeTour360 — Bảng giá dịch vụ">
+  <div class="sk-logo">TrongLe<span>Tour360</span></div>
+  <div class="sk-location">📍 Đà Lạt, Lâm Đồng</div>
+  <p class="sk-tagline">Website đẹp · Tour <em>360°</em> · Giá hợp lý nhất Đà Lạt</p>
+  <div class="sk-phone-row">
+    <a href="https://zalo.me/0785925998" class="sk-phone-btn btn-zalo" target="_blank" rel="noopener" aria-label="Nhắn Zalo">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Zalo ngay
+    </a>
+    <a href="tel:0785925998" class="sk-phone-btn btn-call" aria-label="Gọi điện">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      0785 925 998
+    </a>
+  </div>
+</header>
+
+<!-- WHAT WE DO -->
+<section class="sk-what" aria-label="Dịch vụ">
+  <p class="sk-section-label">Chúng tôi làm</p>
+  <h2 class="sk-section-title">3 Dịch Vụ<em>Cốt Lõi</em></h2>
+  <div class="services-3">
+    <div class="svc-card">
+      <div class="svc-icon">🌐</div>
+      <h3>Thiết Kế Website</h3>
+      <p>Website chuyên nghiệp, mobile-first, tối ưu Google. Bàn giao nhanh 1–3 ngày.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon">📸</div>
+      <h3>Tour 360° & Ảnh</h3>
+      <p>Chụp ảnh 360° GoPro, tour ảo Panoee cho BĐS, nhà hàng, homestay.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon">🤖</div>
+      <h3>AI Chatbot</h3>
+      <p>Chatbot tư vấn tự động 24/7 tích hợp sẵn trong mọi website bàn giao.</p>
+    </div>
+  </div>
+</section>
+
+<div class="sk-divider"></div>
+
+<!-- PRICING — WEBSITE -->
+<section class="sk-pricing" style="padding-top:36px" aria-label="Bảng giá website">
+  <p class="sk-section-label">Bảng giá website</p>
+  <h2 class="sk-section-title">Chọn Gói<em>Phù Hợp</em></h2>
+  <div class="pricing-grid">
+
+    <!-- GÓI A -->
+    <div class="price-card">
+      <p class="price-tier">Gói A · Cơ bản</p>
+      <div class="price-name">Starter</div>
+      <div class="price-amount">3–5<span class="unit"> triệu</span></div>
+      <p class="price-range">Phù hợp: hộ kinh doanh nhỏ, cá nhân</p>
+      <ul class="price-features">
+        <li>1–3 trang (Giới thiệu, Dịch vụ, Liên hệ)</li>
+        <li>Mobile-friendly chuẩn</li>
+        <li>Form liên hệ cơ bản</li>
+        <li>Google Maps tích hợp</li>
+        <li>Hỗ trợ 1 tháng sau bàn giao</li>
+      </ul>
+      <a href="https://bonsai-dalat-trangle.vercel.app/templates/mau-a.html" target="_blank" rel="noopener" class="price-cta">Xem demo →</a>
+    </div>
+
+    <!-- GÓI B — FEATURED -->
+    <div class="price-card featured">
+      <div class="price-badge">Phổ biến nhất</div>
+      <p class="price-tier">Gói B · Chuyên nghiệp</p>
+      <div class="price-name">Professional</div>
+      <div class="price-amount">8–15<span class="unit"> triệu</span></div>
+      <p class="price-range">Phù hợp: nhà hàng, spa, homestay, shop</p>
+      <ul class="price-features">
+        <li>5–7 trang đầy đủ</li>
+        <li>Thiết kế premium, animation</li>
+        <li>Gallery ảnh chuyên nghiệp</li>
+        <li>AI Chatbot tư vấn 24/7</li>
+        <li>Form đặt hàng / đặt lịch</li>
+        <li>SEO cơ bản (meta, schema)</li>
+        <li>Hỗ trợ 3 tháng sau bàn giao</li>
+      </ul>
+      <a href="https://bonsai-dalat-trangle.vercel.app/templates/mau-b.html" target="_blank" rel="noopener" class="price-cta">Xem demo →</a>
+    </div>
+
+    <!-- GÓI C -->
+    <div class="price-card">
+      <p class="price-tier">Gói C · Premium</p>
+      <div class="price-name">Premium</div>
+      <div class="price-amount">25–50<span class="unit"> triệu</span></div>
+      <p class="price-range">Phù hợp: resort, villa, thương hiệu lớn</p>
+      <ul class="price-features">
+        <li>Không giới hạn trang</li>
+        <li>Thiết kế độc quyền theo brand</li>
+        <li>Tour 360° tích hợp</li>
+        <li>CMS tự cập nhật nội dung</li>
+        <li>Booking system + thanh toán</li>
+        <li>SEO đầy đủ + Google Ads setup</li>
+        <li>Hỗ trợ 12 tháng</li>
+      </ul>
+      <a href="https://bonsai-dalat-trangle.vercel.app/templates/mau-c.html" target="_blank" rel="noopener" class="price-cta">Xem demo →</a>
+    </div>
+  </div>
+</section>
+
+<div class="sk-divider"></div>
+
+<!-- TOUR 360 PRICING -->
+<section class="sk-tour" style="padding-top:36px" aria-label="Giá tour 360 độ">
+  <p class="sk-section-label">Tour ảo 360°</p>
+  <div class="tour-card">
+    <div class="tour-header">
+      <div>
+        <div class="tour-title">Tour 360° Chuyên Nghiệp</div>
+        <p style="font-size:12px;color:var(--muted);margin-top:4px;">GoPro Hero 13 · Panoee · Nhúng thẳng vào website</p>
+      </div>
+      <div class="tour-badge-360">360°</div>
+    </div>
+    <p class="tour-desc">Khách hàng "đi thăm" không gian của bạn ngay trên điện thoại — trước khi đặt phòng, trước khi đến ăn. Tăng tỷ lệ chuyển đổi lên đến 40% theo nghiên cứu ngành BĐS.</p>
+    <div class="tour-packages">
+      <div class="tour-pkg">
+        <span class="tp-price">5–8tr</span>
+        <div class="tp-type">Cơ bản</div>
+        <div class="tp-label">1–2 phòng<br>hoặc khu vực</div>
+      </div>
+      <div class="tour-pkg">
+        <span class="tp-price">10–15tr</span>
+        <div class="tp-type">Chuyên nghiệp</div>
+        <div class="tp-label">Toàn bộ<br>không gian</div>
+      </div>
+      <div class="tour-pkg">
+        <span class="tp-price">20–50tr</span>
+        <div class="tp-type">BĐS cao cấp</div>
+        <div class="tp-label">Villa, Resort<br>nhiều tầng</div>
+      </div>
+    </div>
+    <a href="https://zalo.me/0785925998" target="_blank" rel="noopener"
+       style="display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);border-bottom:1px solid rgba(212,168,83,.3);padding-bottom:2px;">
+      Tư vấn miễn phí →
+    </a>
+  </div>
+</section>
+
+<div class="sk-divider"></div>
+
+<!-- DEMO LINKS -->
+<section class="sk-demos" style="padding-top:36px" aria-label="Xem demo thực tế">
+  <p class="sk-section-label">Xem thực tế</p>
+  <h2 class="sk-section-title">Demo<em>Đang Live</em></h2>
+  <div class="demo-grid">
+    <a href="https://trongletour360.net" target="_blank" rel="noopener" class="demo-link" aria-label="Xem website TrongLeTour360">
+      <div class="demo-info">
+        <div class="demo-tag tag-live">✓ Live</div>
+        <div class="demo-name">TrongLeTour360.net</div>
+        <div class="demo-desc">Website chính — 7 trang, AI chatbot, booking</div>
+      </div>
+      <svg class="demo-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+    </a>
+    <a href="https://bonsai-dalat-trangle.vercel.app" target="_blank" rel="noopener" class="demo-link" aria-label="Xem website Bonsai Đà Lạt">
+      <div class="demo-info">
+        <div class="demo-tag tag-live">✓ Live</div>
+        <div class="demo-name">Bonsai Đà Lạt</div>
+        <div class="demo-desc">E-commerce cây bonsai, CMS Notion</div>
+      </div>
+      <svg class="demo-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+    </a>
+    <a href="https://bonsai-dalat-trangle.vercel.app/templates/spa-ngoc-lan.html" target="_blank" rel="noopener" class="demo-link" aria-label="Xem demo Spa Ngọc Lan">
+      <div class="demo-info">
+        <div class="demo-tag tag-demo">Demo</div>
+        <div class="demo-name">Spa Ngọc Lan</div>
+        <div class="demo-desc">Gói B — Spa & làm đẹp Đà Lạt</div>
+      </div>
+      <svg class="demo-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+    </a>
+    <a href="https://bonsai-dalat-trangle.vercel.app/templates/ram-wedding-house.html" target="_blank" rel="noopener" class="demo-link" aria-label="Xem demo RAM Wedding House">
+      <div class="demo-info">
+        <div class="demo-tag tag-demo">Demo</div>
+        <div class="demo-name">RAM Wedding House</div>
+        <div class="demo-desc">Gói B — Nhà tiệc cưới & sự kiện</div>
+      </div>
+      <svg class="demo-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+    </a>
+    <a href="https://trongletour360.net/portfolio.html" target="_blank" rel="noopener" class="demo-link" aria-label="Xem toàn bộ portfolio">
+      <div class="demo-info">
+        <div class="demo-tag tag-live">✓ Live</div>
+        <div class="demo-name">Portfolio đầy đủ →</div>
+        <div class="demo-desc">Tất cả dự án đã thực hiện</div>
+      </div>
+      <svg class="demo-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+    </a>
+  </div>
+</section>
+
+<div class="sk-divider"></div>
+
+<!-- WHY US -->
+<section class="sk-why" style="padding-top:36px;padding-bottom:40px" aria-label="Tại sao chọn chúng tôi">
+  <p class="sk-section-label">Tại sao chọn</p>
+  <h2 class="sk-section-title">Ưu Thế<em>Của Chúng Tôi</em></h2>
+  <div class="why-grid">
+    <div class="why-item">
+      <span class="wi-num">1–3</span>
+      <div class="wi-label">Ngày bàn giao website (không phải 2 tuần)</div>
+    </div>
+    <div class="why-item">
+      <span class="wi-num">AI</span>
+      <div class="wi-label">Chatbot miễn phí tích hợp mọi gói</div>
+    </div>
+    <div class="why-item">
+      <span class="wi-num">0đ</span>
+      <div class="wi-label">Hosting năm đầu — Vercel miễn phí</div>
+    </div>
+    <div class="why-item">
+      <span class="wi-num">24h</span>
+      <div class="wi-label">Sửa lỗi trong vòng 24 giờ làm việc</div>
+    </div>
+    <div class="why-item">
+      <span class="wi-num">📍</span>
+      <div class="wi-label">Tại Đà Lạt — gặp mặt, chụp ảnh tại chỗ</div>
+    </div>
+    <div class="why-item">
+      <span class="wi-num">SEO</span>
+      <div class="wi-label">Tối ưu Google ngay từ khi build</div>
+    </div>
+  </div>
+</section>
+
+<!-- BOTTOM CTA -->
+<section class="sk-cta" aria-label="Liên hệ đặt dịch vụ">
+  <h2>Bắt Đầu<em>Ngay Hôm Nay?</em></h2>
+  <p>Gặp nhau 15 phút · Tư vấn miễn phí · Không ép buộc.<br>Claude xây trong 1–2 ngày · Trọng bàn giao tận nơi.</p>
+  <div class="cta-big-row">
+    <a href="https://zalo.me/0785925998" target="_blank" rel="noopener" class="cta-big cta-zalo-big" aria-label="Nhắn Zalo tư vấn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Nhắn Zalo tư vấn ngay
+    </a>
+    <a href="tel:0785925998" class="cta-big cta-call-big" aria-label="Gọi điện trực tiếp">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      Gọi: 0785 925 998
+    </a>
+    <a href="https://trongletour360.net/portfolio.html" target="_blank" class="cta-big cta-port" aria-label="Xem portfolio">
+      Xem portfolio đầy đủ →
+    </a>
+  </div>
+</section>
+
+<footer class="sk-footer">
+  <p>TrongLeTour360 · Đà Lạt, Lâm Đồng · <a href="https://trongletour360.net">trongletour360.net</a></p>
+</footer>
+
+</body>
+</html>

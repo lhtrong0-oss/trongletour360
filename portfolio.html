@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio — Công Trình Đã Thực Hiện · TrongLeTour360 Đà Lạt</title>
+  <meta name="description" content="Portfolio TrongLeTour360: Thiết kế website, Tour 360°, Homestay Đà Lạt. Xem các công trình đã thực hiện — Spa Ngọc Lan, RAM Wedding House, Bonsai Đà Lạt.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Jost:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;1,400;1,600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:       #0B0F07;
+      --surface:  #141a0e;
+      --surface2: #1c2416;
+      --gold:     #D4A853;
+      --gold-dim: #9B7A3C;
+      --gold-pale:rgba(212,168,83,0.10);
+      --cream:    #F0EAD6;
+      --text:     rgba(240,234,214,0.82);
+      --muted:    rgba(240,234,214,0.38);
+      --border:   rgba(212,168,83,0.14);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Jost', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; overflow-x: hidden; cursor: none; }
+    h1,h2,h3,h4 { font-family: 'Italiana', serif; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; width: 100%; object-fit: cover; }
+
+    /* CURSOR */
+    .cursor { position: fixed; top:0; left:0; width:10px; height:10px; background:var(--gold); border-radius:50%; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); transition: width .2s, height .2s, background .2s; mix-blend-mode:difference; }
+    .cursor.big { width:36px; height:36px; background:rgba(212,168,83,.2); }
+
+    /* NAV */
+    nav { position:fixed; top:0; left:0; right:0; z-index:200; padding:22px 0; transition: background .45s, padding .35s, box-shadow .35s; }
+    nav.scrolled { background:rgba(11,15,7,.96); backdrop-filter:blur(18px); padding:12px 0; box-shadow:0 1px 0 var(--border); }
+    .nav-inner { max-width:1280px; margin:0 auto; padding:0 48px; display:flex; align-items:center; justify-content:space-between; }
+    .nav-logo { font-family:'Italiana',serif; font-size:20px; color:var(--cream); letter-spacing:.04em; display:flex; align-items:baseline; gap:3px; }
+    .nav-logo .accent { color:var(--gold); }
+    .nav-logo .small { font-family:'Jost',sans-serif; font-size:11px; font-weight:300; color:var(--muted); letter-spacing:.12em; text-transform:uppercase; margin-left:8px; }
+    .nav-links { display:flex; gap:36px; list-style:none; align-items:center; }
+    .nav-links a { font-size:11.5px; font-weight:400; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); transition:color .2s; }
+    .nav-links a:hover, .nav-links a.active { color:var(--gold); }
+    .nav-cta { border:1px solid var(--gold) !important; color:var(--gold) !important; padding:9px 22px; font-size:11px !important; transition:background .2s, color .2s !important; }
+    .nav-cta:hover { background:var(--gold) !important; color:var(--bg) !important; }
+    .nav-hamburger { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; }
+    .nav-hamburger span { display:block; width:24px; height:1px; background:var(--cream); transition:transform .3s, opacity .3s; }
+    .nav-mobile-overlay { display:none; position:fixed; inset:0; z-index:199; background:rgba(11,15,7,.97); flex-direction:column; align-items:center; justify-content:center; gap:36px; }
+    .nav-mobile-overlay.open { display:flex; }
+    .nav-mobile-overlay a { font-family:'Italiana',serif; font-size:36px; color:var(--cream); letter-spacing:.04em; transition:color .2s; }
+    .nav-mobile-overlay a:hover { color:var(--gold); }
+
+    /* HERO */
+    .port-hero { padding: 180px 0 100px; text-align:center; position:relative; overflow:hidden; }
+    .port-hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 0%, rgba(212,168,83,.06) 0%, transparent 70%); pointer-events:none; }
+    .port-hero .big-num { font-family:'Italiana',serif; font-size:clamp(120px,22vw,260px); color:rgba(212,168,83,.04); position:absolute; top:60px; left:50%; transform:translateX(-50%); white-space:nowrap; pointer-events:none; line-height:1; }
+    .port-hero .eyebrow { display:inline-flex; align-items:center; gap:16px; margin-bottom:24px; }
+    .port-hero .eyebrow .line { width:48px; height:1px; background:var(--gold-dim); }
+    .port-hero .eyebrow span { font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--gold); font-weight:400; }
+    .port-hero h1 { font-size:clamp(48px,8vw,100px); color:var(--cream); font-weight:400; line-height:1; letter-spacing:.01em; margin-bottom:8px; position:relative; }
+    .port-hero h1 em { font-style:italic; color:var(--gold); font-size:.72em; display:block; }
+    .port-hero .sub { font-family:'Playfair Display',serif; font-style:italic; font-size:17px; color:var(--muted); max-width:520px; margin:20px auto 0; line-height:1.65; }
+    .port-hero .scroll-hint { margin-top:60px; display:flex; flex-direction:column; align-items:center; gap:10px; }
+    .port-hero .scroll-hint span { font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); }
+    .scroll-bar { width:1px; height:56px; background:linear-gradient(to bottom, var(--gold-dim), transparent); overflow:hidden; }
+    .scroll-bar::after { content:''; display:block; width:100%; height:18px; background:var(--gold); animation:drop 1.8s ease-in-out infinite; }
+    @keyframes drop { 0% { transform:translateY(-20px); } 100% { transform:translateY(80px); } }
+
+    /* STATS */
+    .stats-bar { background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .stats-inner { max-width:1280px; margin:0 auto; padding:0 48px; display:grid; grid-template-columns:repeat(4,1fr); }
+    .s-item { padding:28px 20px; text-align:center; border-right:1px solid var(--border); }
+    .s-item:last-child { border-right:none; }
+    .s-num { font-family:'Italiana',serif; font-size:44px; color:var(--gold); line-height:1; display:block; margin-bottom:4px; }
+    .s-label { font-size:11px; color:var(--muted); letter-spacing:.08em; text-transform:uppercase; }
+
+    /* SECTION SHARED */
+    .section-wrap { max-width:1280px; margin:0 auto; padding:0 48px; }
+    .kicker { display:flex; align-items:center; gap:12px; font-size:11px; font-weight:400; letter-spacing:.2em; text-transform:uppercase; color:var(--gold-dim); margin-bottom:14px; }
+    .kicker::before { content:''; display:block; width:28px; height:1px; background:var(--gold-dim); }
+    h2.title { font-size:clamp(32px,4.5vw,60px); font-weight:400; color:var(--cream); line-height:1.1; margin-bottom:16px; }
+    h2.title em { font-style:italic; color:var(--gold); }
+
+    /* PROJECTS SECTION */
+    .projects { padding:80px 0 120px; }
+    .projects-header { text-align:center; margin-bottom:80px; }
+    .projects-header .kicker { justify-content:center; }
+    .projects-header .kicker::before { display:none; }
+
+    /* PROJECT ITEM — alternating */
+    .proj-item { padding:80px 0; border-top:1px solid var(--border); }
+    .proj-item:first-of-type { border-top:none; }
+    .proj-inner { max-width:1280px; margin:0 auto; padding:0 48px; display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+    .proj-item.reverse .proj-inner { direction:rtl; }
+    .proj-item.reverse .proj-inner > * { direction:ltr; }
+
+    .proj-visual { position:relative; }
+    .proj-img-wrap { position:relative; overflow:hidden; }
+    .proj-img-wrap img { height:420px; transition:transform .8s cubic-bezier(.25,.46,.45,.94); }
+    .proj-img-wrap:hover img { transform:scale(1.05); }
+    .proj-num { position:absolute; top:-32px; left:-16px; font-family:'Italiana',serif; font-size:120px; color:rgba(212,168,83,.07); line-height:1; pointer-events:none; z-index:0; }
+    .proj-badge { position:absolute; top:20px; right:20px; }
+    .badge { display:inline-block; padding:6px 14px; font-size:10px; letter-spacing:.14em; text-transform:uppercase; font-weight:500; }
+    .badge.live { background:rgba(100,200,80,.12); color:#7dc878; border:1px solid rgba(100,200,80,.25); }
+    .badge.demo { background:var(--gold-pale); color:var(--gold); border:1px solid rgba(212,168,83,.25); }
+    .badge.tour { background:rgba(100,180,255,.08); color:#8ec8f0; border:1px solid rgba(100,180,255,.2); }
+
+    .proj-info { position:relative; }
+    .proj-cat { font-size:10.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--gold-dim); margin-bottom:16px; display:flex; align-items:center; gap:10px; }
+    .proj-cat::after { content:''; flex:1; height:1px; background:var(--border); max-width:60px; }
+    .proj-title { font-family:'Italiana',serif; font-size:clamp(36px,4vw,56px); color:var(--cream); font-weight:400; line-height:1.05; margin-bottom:20px; }
+    .proj-title em { font-style:italic; color:var(--gold); }
+    .proj-desc { font-size:14.5px; font-weight:300; color:var(--muted); line-height:1.85; margin-bottom:28px; }
+    .proj-tags { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:36px; }
+    .proj-tag { padding:5px 14px; font-size:11px; letter-spacing:.08em; border:1px solid var(--border); color:var(--muted); }
+    .proj-link { display:inline-flex; align-items:center; gap:12px; font-size:12px; font-weight:500; letter-spacing:.15em; text-transform:uppercase; color:var(--gold); border-bottom:1px solid rgba(212,168,83,.3); padding-bottom:3px; transition:gap .3s cubic-bezier(.34,1.56,.64,1), border-color .2s; }
+    .proj-link:hover { gap:20px; border-color:var(--gold); }
+    .proj-link svg { flex-shrink:0; }
+    .proj-metrics { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); border:1px solid var(--border); margin-top:40px; }
+    .proj-metric { background:var(--surface); padding:18px 16px; text-align:center; }
+    .proj-metric .val { font-family:'Italiana',serif; font-size:28px; color:var(--gold); display:block; }
+    .proj-metric .lbl { font-size:10.5px; color:var(--muted); letter-spacing:.08em; text-transform:uppercase; }
+
+    /* CTA */
+    .port-cta { background:var(--surface); padding:100px 0; border-top:1px solid var(--border); text-align:center; }
+    .port-cta .kicker { justify-content:center; }
+    .port-cta .kicker::before { display:none; }
+    .port-cta h2.title { margin-bottom:16px; }
+    .port-cta .sub { font-size:15px; font-weight:300; color:var(--muted); max-width:500px; margin:0 auto 48px; line-height:1.8; }
+    .cta-btns-row { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+    .btn-gold { display:inline-flex; align-items:center; gap:10px; background:var(--gold); color:var(--bg); font-size:12px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; padding:16px 36px; border:1px solid var(--gold); transition:background .25s, color .25s, transform .2s; }
+    .btn-gold:hover { background:transparent; color:var(--gold); transform:translateY(-2px); }
+    .btn-ghost { display:inline-flex; align-items:center; gap:10px; background:transparent; color:var(--muted); font-size:12px; letter-spacing:.16em; text-transform:uppercase; padding:15px 32px; border:1px solid var(--border); transition:border-color .25s, color .25s, transform .2s; }
+    .btn-ghost:hover { border-color:var(--gold); color:var(--gold); transform:translateY(-2px); }
+
+    /* FOOTER */
+    footer { background:#050807; padding:56px 48px 24px; border-top:1px solid var(--border); }
+    .footer-inner { max-width:1280px; margin:0 auto; }
+    .footer-top { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:48px; padding-bottom:40px; border-bottom:1px solid var(--border); margin-bottom:24px; }
+    .footer-logo { font-family:'Italiana',serif; font-size:26px; color:var(--cream); margin-bottom:12px; }
+    .footer-logo .accent { color:var(--gold); }
+    .footer-desc { font-size:13px; font-weight:300; color:var(--muted); line-height:1.75; max-width:270px; }
+    .footer-col h4 { font-size:10.5px; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:var(--gold-dim); margin-bottom:18px; }
+    .footer-col ul { list-style:none; display:flex; flex-direction:column; gap:10px; }
+    .footer-col ul a { font-size:13.5px; color:var(--muted); font-weight:300; transition:color .2s; }
+    .footer-col ul a:hover { color:var(--gold); }
+    .footer-bottom { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+    .footer-bottom p { font-size:12px; color:rgba(240,234,214,.25); }
+
+    /* FLOAT */
+    .float-zalo { position:fixed; bottom:96px; right:28px; z-index:999; background:#0068FF; color:#fff; width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 20px rgba(0,104,255,.35); animation:zpulse 2.5s infinite; transition:transform .2s; }
+    .float-zalo:hover { transform:scale(1.1); }
+    @keyframes zpulse { 0%,100% { box-shadow:0 4px 20px rgba(0,104,255,.35), 0 0 0 0 rgba(0,104,255,.25); } 50% { box-shadow:0 4px 20px rgba(0,104,255,.35), 0 0 0 14px rgba(0,104,255,0); } }
+
+    /* REVEAL */
+    .reveal { opacity:0; transform:translateY(32px); transition:opacity .7s ease, transform .7s cubic-bezier(.25,.46,.45,.94); }
+    .reveal.visible { opacity:1; transform:none; }
+    .reveal-l { opacity:0; transform:translateX(-32px); transition:opacity .7s ease, transform .7s cubic-bezier(.25,.46,.45,.94); }
+    .reveal-l.visible { opacity:1; transform:none; }
+    .reveal-r { opacity:0; transform:translateX(32px); transition:opacity .7s ease, transform .7s cubic-bezier(.25,.46,.45,.94); }
+    .reveal-r.visible { opacity:1; transform:none; }
+
+    /* MOBILE */
+    @media(max-width:900px) {
+      .nav-links { display:none; }
+      .nav-hamburger { display:flex; }
+      .nav-inner { padding:0 24px; }
+      .port-hero h1 { font-size:clamp(44px,12vw,72px); }
+      .stats-inner { grid-template-columns:repeat(2,1fr); }
+      .s-item:nth-child(2) { border-right:none; }
+      .proj-inner { grid-template-columns:1fr; gap:40px; }
+      .proj-item.reverse .proj-inner { direction:ltr; }
+      .proj-img-wrap img { height:280px; }
+      .proj-num { font-size:80px; top:-20px; left:-8px; }
+      .proj-metrics { grid-template-columns:repeat(3,1fr); }
+      .footer-top { grid-template-columns:1fr 1fr; gap:32px; }
+      .section-wrap, .proj-inner { padding:0 24px; }
+      .port-cta { padding:72px 0; }
+    }
+    @media(max-width:520px) {
+      .stats-inner { grid-template-columns:repeat(2,1fr); }
+      .proj-metrics { grid-template-columns:1fr 1fr; }
+      .proj-metrics .proj-metric:last-child { display:none; }
+      .footer-top { grid-template-columns:1fr; }
+      .cta-btns-row { flex-direction:column; align-items:center; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+
+<!-- NAV -->
+<nav id="nav" aria-label="Navigation chính">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">TrongLe<span class="accent">Tour360</span><span class="small">Đà Lạt</span></a>
+    <ul class="nav-links">
+      <li><a href="dich-vu.html">Dịch Vụ</a></li>
+      <li><a href="portfolio.html" class="active">Portfolio</a></li>
+      <li><a href="homestay.html">Homestay</a></li>
+      <li><a href="ve-chung-toi.html">Về Chúng Tôi</a></li>
+      <li><a href="lien-he.html" class="nav-cta">Liên hệ</a></li>
+    </ul>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Mở menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="nav-mobile-overlay" id="nav-mobile-overlay">
+  <a href="dich-vu.html">Dịch Vụ</a>
+  <a href="portfolio.html">Portfolio</a>
+  <a href="homestay.html">Homestay</a>
+  <a href="ve-chung-toi.html">Về Chúng Tôi</a>
+  <a href="lien-he.html">Liên Hệ</a>
+</div>
+
+<!-- HERO -->
+<section class="port-hero" aria-label="Portfolio TrongLeTour360">
+  <div class="big-num">04</div>
+  <div class="eyebrow">
+    <span class="line"></span>
+    <span>Công Trình Thực Tế</span>
+    <span class="line"></span>
+  </div>
+  <h1>Những Gì<em>Chúng Tôi Đã Làm</em></h1>
+  <p class="sub">Từ website bán hàng đến tour 360° bất động sản — mỗi dự án là một câu chuyện thực tế, một kết quả đo được.</p>
+  <div class="scroll-hint">
+    <span>Xem dự án</span>
+    <div class="scroll-bar"></div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar" aria-label="Số liệu">
+  <div class="stats-inner">
+    <div class="s-item"><span class="s-num">4+</span><span class="s-label">Dự án hoàn thành</span></div>
+    <div class="s-item"><span class="s-num">2</span><span class="s-label">Website live domain thật</span></div>
+    <div class="s-item"><span class="s-num">100%</span><span class="s-label">Đúng hẹn bàn giao</span></div>
+    <div class="s-item"><span class="s-num">30s</span><span class="s-label">Deploy tự động Vercel</span></div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<section class="projects" aria-label="Danh sách dự án">
+  <div class="section-wrap projects-header reveal">
+    <p class="kicker">Hồ sơ năng lực</p>
+    <h2 class="title">Dự Án <em>Đã Thực Hiện</em></h2>
+  </div>
+
+  <!-- PROJECT 01 — TrongLeTour360.net -->
+  <article class="proj-item">
+    <div class="proj-inner">
+      <div class="proj-visual reveal-l">
+        <span class="proj-num">01</span>
+        <div class="proj-img-wrap">
+          <img src="https://res.cloudinary.com/dznkgkksu/image/upload/q_auto,f_auto,w_900/tour360/hero.jpg"
+               alt="Website TrongLeTour360 — trang chủ tour 360 độ Đà Lạt"
+               onerror="this.style.height='420px';this.style.background='linear-gradient(135deg,#141a0e 0%,#1c2416 50%,#0d1209 100%)';this.removeAttribute('src')">
+          <div class="proj-badge"><span class="badge live">✓ Live</span></div>
+        </div>
+        <div class="proj-metrics">
+          <div class="proj-metric"><span class="val">7</span><span class="lbl">Trang</span></div>
+          <div class="proj-metric"><span class="val">AI</span><span class="lbl">Chatbot</span></div>
+          <div class="proj-metric"><span class="val">360°</span><span class="lbl">Tour</span></div>
+        </div>
+      </div>
+      <div class="proj-info reveal-r">
+        <p class="proj-cat">Dự án 01 — Website chính</p>
+        <h3 class="proj-title">TrongLe<em>Tour360</em></h3>
+        <p class="proj-desc">Website thương hiệu cá nhân đa dịch vụ: Tour & chụp ảnh 360°, Homestay Ngọc Sinh Cát, Bonsai nghệ thuật Đà Lạt. Tích hợp AI chatbot tư vấn 24/7, form đặt phòng kết nối Notion, mobile-first với hamburger menu toàn trang.</p>
+        <div class="proj-tags">
+          <span class="proj-tag">Next.js</span>
+          <span class="proj-tag">Vercel</span>
+          <span class="proj-tag">AI Chatbot</span>
+          <span class="proj-tag">Notion CMS</span>
+          <span class="proj-tag">Booking Form</span>
+          <span class="proj-tag">Domain thật</span>
+        </div>
+        <a href="https://trongletour360.net" target="_blank" rel="noopener" class="proj-link">
+          Xem live website
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <!-- PROJECT 02 — Bonsai Đà Lạt (reverse) -->
+  <article class="proj-item reverse">
+    <div class="proj-inner">
+      <div class="proj-visual reveal-r">
+        <span class="proj-num">02</span>
+        <div class="proj-img-wrap" style="background:linear-gradient(135deg,#0d1a09 0%,#1a2e12 50%,#0a1207 100%); height:420px; display:flex; align-items:center; justify-content:center;">
+          <div style="text-align:center;">
+            <div style="font-family:'Italiana',serif; font-size:72px; color:rgba(212,168,83,.15); line-height:1;">Bonsai</div>
+            <div style="font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--gold-dim);">Đà Lạt</div>
+          </div>
+        </div>
+        <div class="proj-badge"><span class="badge live">✓ Live</span></div>
+        <div class="proj-metrics">
+          <div class="proj-metric"><span class="val">∞</span><span class="lbl">Cây bonsai</span></div>
+          <div class="proj-metric"><span class="val">CMS</span><span class="lbl">Notion sync</span></div>
+          <div class="proj-metric"><span class="val">CDN</span><span class="lbl">Cloudinary</span></div>
+        </div>
+      </div>
+      <div class="proj-info reveal-l">
+        <p class="proj-cat">Dự án 02 — E-commerce</p>
+        <h3 class="proj-title">Bonsai<em>Đà Lạt</em></h3>
+        <p class="proj-desc">Website bán cây bonsai nghệ thuật với CMS Notion — Trọng chỉ cần điền thông tin trên Notion, website tự cập nhật. Ảnh Sony ARW tự convert → upload Cloudinary → hiển thị web chất lượng cao. Không cần code, không cần dev.</p>
+        <div class="proj-tags">
+          <span class="proj-tag">Cloudinary CDN</span>
+          <span class="proj-tag">Notion CMS</span>
+          <span class="proj-tag">Sony ARW Upload</span>
+          <span class="proj-tag">Auto Deploy</span>
+        </div>
+        <a href="https://bonsai-dalat-trangle.vercel.app" target="_blank" rel="noopener" class="proj-link">
+          Xem live website
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <!-- PROJECT 03 — Spa Ngọc Lan -->
+  <article class="proj-item">
+    <div class="proj-inner">
+      <div class="proj-visual reveal-l">
+        <span class="proj-num">03</span>
+        <div class="proj-img-wrap" style="background:linear-gradient(135deg,#120d09 0%,#1e1510 50%,#0e0a06 100%); height:420px; display:flex; align-items:center; justify-content:center;">
+          <div style="text-align:center;">
+            <div style="font-family:'Italiana',serif; font-size:60px; color:rgba(212,168,83,.12); line-height:1.1;">Spa<br>Ngọc Lan</div>
+            <div style="font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--gold-dim); margin-top:8px;">Beauty & Wellness</div>
+          </div>
+        </div>
+        <div class="proj-badge"><span class="badge demo">Demo</span></div>
+        <div class="proj-metrics">
+          <div class="proj-metric"><span class="val">Gói B</span><span class="lbl">8–15 triệu</span></div>
+          <div class="proj-metric"><span class="val">Spa</span><span class="lbl">Ngành làm đẹp</span></div>
+          <div class="proj-metric"><span class="val">1</span><span class="lbl">Ngày build</span></div>
+        </div>
+      </div>
+      <div class="proj-info reveal-r">
+        <p class="proj-cat">Dự án 03 — Web Agency</p>
+        <h3 class="proj-title">Spa<em>Ngọc Lan</em></h3>
+        <p class="proj-desc">Demo website cao cấp cho spa làm đẹp Đà Lạt. Thiết kế warm luxury với gallery dịch vụ, bảng giá liệu trình, form đặt lịch, và section đánh giá khách hàng. Hoàn thành trong 1 ngày, sẵn sàng bàn giao domain thật.</p>
+        <div class="proj-tags">
+          <span class="proj-tag">Spa & Wellness</span>
+          <span class="proj-tag">Booking Form</span>
+          <span class="proj-tag">Gallery</span>
+          <span class="proj-tag">Mobile-first</span>
+        </div>
+        <a href="https://bonsai-dalat-trangle.vercel.app/templates/spa-ngoc-lan.html" target="_blank" rel="noopener" class="proj-link">
+          Xem demo
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <!-- PROJECT 04 — RAM Wedding House (reverse) -->
+  <article class="proj-item reverse">
+    <div class="proj-inner">
+      <div class="proj-visual reveal-r">
+        <span class="proj-num">04</span>
+        <div class="proj-img-wrap" style="background:linear-gradient(135deg,#0f0d14 0%,#18152a 50%,#0b091a 100%); height:420px; display:flex; align-items:center; justify-content:center;">
+          <div style="text-align:center;">
+            <div style="font-family:'Italiana',serif; font-size:54px; color:rgba(212,168,83,.12); line-height:1.15;">RAM<br>Wedding</div>
+            <div style="font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--gold-dim); margin-top:8px;">House — Đà Lạt</div>
+          </div>
+        </div>
+        <div class="proj-badge"><span class="badge demo">Demo</span></div>
+        <div class="proj-metrics">
+          <div class="proj-metric"><span class="val">Gói B</span><span class="lbl">8–15 triệu</span></div>
+          <div class="proj-metric"><span class="val">Tiệc</span><span class="lbl">Cưới & sự kiện</span></div>
+          <div class="proj-metric"><span class="val">1</span><span class="lbl">Ngày build</span></div>
+        </div>
+      </div>
+      <div class="proj-info reveal-l">
+        <p class="proj-cat">Dự án 04 — Web Agency</p>
+        <h3 class="proj-title">RAM<em>Wedding House</em></h3>
+        <p class="proj-desc">Demo website sang trọng cho nhà tiệc cưới Đà Lạt. Gallery không gian, các gói tiệc, form liên hệ tư vấn, lịch trình quy trình tổ chức. Thiết kế tối màu premium, ảnh full-screen impactful, tối ưu chuyển đổi.</p>
+        <div class="proj-tags">
+          <span class="proj-tag">Wedding & Events</span>
+          <span class="proj-tag">Gallery</span>
+          <span class="proj-tag">Package Pricing</span>
+          <span class="proj-tag">Lead Capture</span>
+        </div>
+        <a href="https://bonsai-dalat-trangle.vercel.app/templates/ram-wedding-house.html" target="_blank" rel="noopener" class="proj-link">
+          Xem demo
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </a>
+      </div>
+    </div>
+  </article>
+</section>
+
+<!-- CTA -->
+<section class="port-cta" aria-label="Liên hệ hợp tác">
+  <div class="section-wrap reveal">
+    <p class="kicker">Bắt đầu ngay hôm nay</p>
+    <h2 class="title">Website của bạn<em>tiếp theo?</em></h2>
+    <p class="sub">Gặp nhau 15 phút · Claude build trong 1–2 ngày · Trọng bàn giao tận nơi ở Đà Lạt.</p>
+    <div class="cta-btns-row">
+      <a href="https://zalo.me/0785925998" target="_blank" rel="noopener" class="btn-gold">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Nhắn Zalo ngay
+      </a>
+      <a href="tel:0785925998" class="btn-ghost">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Gọi: 0785 925 998
+      </a>
+      <a href="sales-kit.html" class="btn-ghost">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Xem bảng giá
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">TrongLe<span class="accent">Tour360</span></div>
+        <p class="footer-desc">Thiết kế website · Tour & Chụp ảnh 360° · Homestay Ngọc Sinh Cát · Bonsai nghệ thuật Đà Lạt.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Dịch Vụ</h4>
+        <ul>
+          <li><a href="dich-vu.html">Tạo website</a></li>
+          <li><a href="dich-vu.html">Tour 360°</a></li>
+          <li><a href="dich-vu.html">Chụp ngoại cảnh</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Portfolio</h4>
+        <ul>
+          <li><a href="https://trongletour360.net" target="_blank">TrongLeTour360</a></li>
+          <li><a href="https://bonsai-dalat-trangle.vercel.app" target="_blank">Bonsai Đà Lạt</a></li>
+          <li><a href="sales-kit.html">Bảng giá</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Liên hệ</h4>
+        <ul>
+          <li><a href="tel:0785925998">0785 925 998</a></li>
+          <li><a href="https://zalo.me/0785925998" target="_blank">Zalo</a></li>
+          <li><a href="lien-he.html">Tư vấn miễn phí</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 TrongLeTour360. Thiết kế tại Đà Lạt.</p>
+      <p>SĐT: <a href="tel:0785925998">0785 925 998</a></p>
+    </div>
+  </div>
+</footer>
+
+<!-- FLOAT ZALO -->
+<a href="https://zalo.me/0785925998" target="_blank" rel="noopener" class="float-zalo" aria-label="Liên hệ qua Zalo">
+  <svg width="26" height="26" viewBox="0 0 50 50" fill="white"><text y="38" font-size="38">💬</text></svg>
+</a>
+
+<script>
+  // CURSOR
+  const cursor = document.getElementById('cursor');
+  document.addEventListener('mousemove', e => { cursor.style.left = e.clientX+'px'; cursor.style.top = e.clientY+'px'; });
+  document.querySelectorAll('a,button').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('big'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('big'));
+  });
+
+  // NAV scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+
+  // Hamburger
+  const ham = document.getElementById('nav-hamburger');
+  const overlay = document.getElementById('nav-mobile-overlay');
+  ham.addEventListener('click', () => overlay.classList.toggle('open'));
+  overlay.querySelectorAll('a').forEach(a => a.addEventListener('click', () => overlay.classList.remove('open')));
+
+  // REVEAL on scroll
+  const revealEls = document.querySelectorAll('.reveal, .reveal-l, .reveal-r');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+</body>
+</html>
