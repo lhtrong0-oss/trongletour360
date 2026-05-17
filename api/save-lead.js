@@ -4,6 +4,7 @@ const NOTION_VER = "2022-06-28";
 
 function detectNgach(text = "") {
   const t = text.toLowerCase();
+  if (/web|website|thiết kế|gói a|gói b|gói c/.test(t)) return "Thiết kế website";
   if (/tour|du lịch|tham quan|đà lạt|cung đường/.test(t)) return "Tour Đà Lạt";
   if (/homestay|phòng|nghỉ|villa|ngủ|ở/.test(t)) return "Homestay";
   if (/bonsai|cây cảnh|cây/.test(t)) return "Bonsai";
