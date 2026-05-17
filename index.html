@@ -539,6 +539,23 @@
       touch-action: manipulation; -webkit-tap-highlight-color: transparent;
     }
     .ai-lead-submit:hover { background: #c4973d; }
+    .ai-decline {
+      width: 100%; margin-top: 6px; padding: 8px; background: transparent;
+      border: 1px solid rgba(240,234,214,.15); color: var(--muted);
+      font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: .08em;
+      cursor: pointer; transition: all .2s; touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .ai-decline:hover { border-color: rgba(240,234,214,.35); color: var(--cream); }
+    .quick-replies { display: flex; flex-wrap: wrap; gap: 7px; padding: 4px 2px 2px; }
+    .qr-btn {
+      background: transparent; border: 1px solid rgba(212,168,83,.3);
+      color: var(--gold-dim); font-family: 'Jost', sans-serif; font-size: 11.5px;
+      padding: 6px 13px; border-radius: 20px; cursor: pointer;
+      transition: all .2s; letter-spacing: .04em;
+      touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+    }
+    .qr-btn:hover { background: rgba(212,168,83,.1); border-color: var(--gold); color: var(--gold); }
 
     #ai-footer {
       padding: 12px 14px; border-top: 1px solid rgba(212,168,83,.12);
@@ -1019,19 +1036,18 @@
 
   let chatHistory = [];
   let isStreaming = false;
-  let leadCaptured = false;
+  let contactAsked = false;
+  let chosenTopic = '';
 
   const now = () => new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
 
-  function addMsg(role, text, animate = true) {
+  function addMsg(role, text) {
     const wrap = document.createElement('div');
     wrap.className = `msg ${role}`;
     wrap.innerHTML = `<div class="msg-bubble"></div><div class="msg-time">${now()}</div>`;
     const bubble = wrap.querySelector('.msg-bubble');
     bubble.textContent = text;
-    if (animate) wrap.style.opacity = '0';
     aiMsgs.appendChild(wrap);
-    if (animate) requestAnimationFrame(() => { wrap.style.opacity = ''; });
     aiMsgs.scrollTop = aiMsgs.scrollHeight;
     return bubble;
   }
@@ -1045,13 +1061,59 @@
     return wrap;
   }
 
-  function showContactBtn() {
+  function addQuickReplies(choices) {
     const wrap = document.createElement('div');
-    wrap.className = 'ai-lead-form';
-    wrap.innerHTML = `<p>ĐIỀN THÔNG TIN ĐỂ TRỌNG TƯ VẤN</p>
-      <a href="lien-he.html" class="ai-lead-submit" style="display:block;text-align:center;text-decoration:none;">ĐẾN TRANG LIÊN HỆ →</a>`;
+    wrap.className = 'quick-replies';
+    choices.forEach(c => {
+      const btn = document.createElement('button');
+      btn.className = 'qr-btn';
+      btn.textContent = c;
+      btn.addEventListener('click', () => { wrap.remove(); sendMessage(c); });
+      wrap.appendChild(btn);
+    });
     aiMsgs.appendChild(wrap);
     aiMsgs.scrollTop = aiMsgs.scrollHeight;
+  }
+
+  function showContactForm() {
+    const wrap = document.createElement('div');
+    wrap.className = 'ai-lead-form';
+    wrap.innerHTML = `
+      <p>TRỌNG SẼ LIÊN HỆ LẠI TRONG 30 PHÚT</p>
+      <input class="ai-lead-inp" id="lead-name" type="text" placeholder="Tên của anh/chị" maxlength="60" autocomplete="name">
+      <input class="ai-lead-inp" id="lead-phone" type="tel" placeholder="SĐT / Zalo" maxlength="15" autocomplete="tel">
+      <button class="ai-lead-submit" id="lead-submit">GỬI THÔNG TIN →</button>
+      <button class="ai-decline" id="lead-decline">Không cần, cảm ơn</button>`;
+    aiMsgs.appendChild(wrap);
+    aiMsgs.scrollTop = aiMsgs.scrollHeight;
+
+    document.getElementById('lead-submit').addEventListener('click', async () => {
+      const nameEl = document.getElementById('lead-name');
+      const phoneEl = document.getElementById('lead-phone');
+      const name = nameEl.value.trim();
+      const phone = phoneEl.value.trim();
+      if (!name) { nameEl.style.borderColor = 'rgba(212,168,83,.7)'; nameEl.focus(); return; }
+      if (!phone) { phoneEl.style.borderColor = 'rgba(212,168,83,.7)'; phoneEl.focus(); return; }
+
+      wrap.innerHTML = '<p style="text-align:center;padding:10px 0;color:var(--gold-dim);letter-spacing:.06em">Đang gửi...</p>';
+      const interest = chosenTopic + (chatHistory.length ? ' — ' + chatHistory.filter(m => m.role === 'user').map(m => m.content).join(' | ') : '');
+      try {
+        await fetch('/api/save-lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, phone, interest }),
+        });
+      } catch {}
+      wrap.remove();
+      addMsg('ai', `Cảm ơn ${name}! Trọng sẽ nhắn lại qua SĐT/Zalo ${phone} trong vòng 30 phút 🌿 Anh/chị cũng có thể nhắn trực tiếp: zalo.me/0785925998`);
+      aiInput.disabled = false;
+    });
+
+    document.getElementById('lead-decline').addEventListener('click', () => {
+      wrap.remove();
+      addMsg('ai', 'Dạ không sao ạ! Khi nào cần tư vấn anh/chị cứ nhắn Zalo 0785 925 998 — Trọng hỗ trợ 24/7 🌿');
+      aiInput.disabled = false;
+    });
   }
 
   async function sendMessage(text) {
@@ -1060,6 +1122,7 @@
     aiSend.disabled = true;
     aiInput.value = '';
 
+    if (!chosenTopic) chosenTopic = text;
     addMsg('user', text);
     chatHistory.push({ role: 'user', content: text });
 
@@ -1097,41 +1160,38 @@
         }
       }
 
-      chatHistory.push({ role: 'assistant', content: fullText });
-
-      // Hiện lead form khi AI hỏi thông tin liên hệ
-      const cleanText = fullText.replace('[SHOW_CONTACT]', '').trim();
+      const cleanText = fullText.replace('[ASK_CONTACT]', '').trim();
       bubble.textContent = cleanText;
-      chatHistory[chatHistory.length - 1] = { role: 'assistant', content: cleanText };
-      if (!leadCaptured && fullText.includes('[SHOW_CONTACT]')) {
-        leadCaptured = true;
-        setTimeout(showContactBtn, 600);
+      chatHistory.push({ role: 'assistant', content: cleanText });
+
+      if (!contactAsked && fullText.includes('[ASK_CONTACT]')) {
+        contactAsked = true;
+        aiInput.disabled = true;
+        setTimeout(showContactForm, 500);
       }
     } catch {
       typing.remove();
-      addMsg('ai', 'Xin lỗi, có lỗi xảy ra. Vui lòng gọi trực tiếp 0785 925 998 để được hỗ trợ.');
+      addMsg('ai', 'Xin lỗi, có lỗi xảy ra. Vui lòng gọi trực tiếp 0785 925 998.');
     }
 
     isStreaming = false;
     aiSend.disabled = false;
-    aiInput.focus();
+    if (!aiInput.disabled) aiInput.focus();
   }
 
-  // Mở/đóng panel
   function toggleChat() {
     const open = aiPanel.classList.toggle('open');
     aiBtn.classList.toggle('open', open);
-    if (open) {
-      aiInput.focus();
-      if (chatHistory.length === 0) {
-        setTimeout(() => addMsg('ai', 'Xin chào! Mình là trợ lý của TrongLeTour360 🌿 Bạn cần tư vấn về Tour 360°, Homestay hay Bonsai Đà Lạt?'), 300);
-      }
+    if (open && chatHistory.length === 0) {
+      setTimeout(() => {
+        addMsg('ai', 'Xin chào! Trọng có thể tư vấn gì cho anh/chị hôm nay? 🌿');
+        setTimeout(() => addQuickReplies(['Tour & Chụp 360°', 'Homestay Đà Lạt', 'Bonsai nghệ thuật', 'Thiết kế website']), 400);
+      }, 300);
     }
   }
 
   aiBtn.addEventListener('click', toggleChat);
   aiClose.addEventListener('click', toggleChat);
-
   aiSend.addEventListener('click', () => sendMessage(aiInput.value));
   aiInput.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(aiInput.value); } });
 
