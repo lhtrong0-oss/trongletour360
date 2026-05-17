@@ -28,7 +28,7 @@ export default async function handler(req) {
   }
   if (req.method !== "POST") return new Response("Method not allowed", { status: 405 });
 
-  const { name, phone, interest } = await req.json();
+  const { name, phone, interest, checkin, checkout, nights } = await req.json();
   const NOTION_TOKEN = process.env.NOTION_TOKEN;
   const LEADS_DB = process.env.NOTION_LEADS_DB_ID;
 
@@ -93,6 +93,28 @@ export default async function handler(req) {
           },
         }),
       });
+    }
+
+    // Nếu có booking homestay → ghi vào lịch
+    const BOOKING_DB = process.env.NOTION_BOOKING_DB_ID;
+    if (checkin && checkout && BOOKING_DB) {
+      fetch("https://api.notion.com/v1/pages", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${NOTION_TOKEN}`, "Content-Type": "application/json", "Notion-Version": NOTION_VER },
+        body: JSON.stringify({
+          parent: { database_id: BOOKING_DB },
+          properties: {
+            "Tên khách": { title: [{ text: { content: name || "Khách" } }] },
+            "SĐT / Zalo": { phone_number: phone || "" },
+            "Check-in": { date: { start: checkin } },
+            "Check-out": { date: { start: checkout } },
+            "Số đêm": { number: parseInt(nights) || 1 },
+            "Phòng": { select: { name: "Chưa chọn" } },
+            "Trạng thái": { select: { name: "⏳ Chờ xác nhận" } },
+            "Ghi chú": { rich_text: [{ text: { content: interest || "" } }] },
+          },
+        }),
+      }).catch(() => {});
     }
 
     return new Response(JSON.stringify({ ok: true }), {

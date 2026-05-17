@@ -1038,6 +1038,7 @@
   let isStreaming = false;
   let contactAsked = false;
   let chosenTopic = '';
+  let pendingBooking = null;
 
   const now = () => new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
 
@@ -1075,6 +1076,28 @@
     aiMsgs.scrollTop = aiMsgs.scrollHeight;
   }
 
+  async function checkAvailability(date, nights) {
+    const bubble = addMsg('ai', '🔍 Đang kiểm tra lịch phòng...');
+    try {
+      const res = await fetch('/api/check-availability', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ checkin: date, nights }),
+      });
+      const d = await res.json();
+      if (d.available) {
+        bubble.textContent = `✅ Ngày ${d.checkinVN} còn phòng! Check-in: ${d.checkinVN}, check-out: ${d.checkoutVN} (${nights} đêm). Anh/chị để lại thông tin để Trọng xác nhận giữ phòng nhé?`;
+        pendingBooking = { checkin: d.checkin, checkout: d.checkout, nights: d.nights };
+        if (!contactAsked) { contactAsked = true; aiInput.disabled = true; setTimeout(showContactForm, 500); }
+      } else {
+        bubble.textContent = `⚠️ Ngày ${date} đã có khách rồi ạ! Từ ngày ${d.nextVN} trở đi còn trống — anh/chị muốn đặt ngày khác không?`;
+        aiInput.disabled = false;
+      }
+    } catch {
+      bubble.textContent = 'Không kiểm tra được lịch lúc này. Anh/chị nhắn Zalo 0785 925 998 để Trọng kiểm tra nhanh nhé!';
+    }
+  }
+
   function showContactForm() {
     const wrap = document.createElement('div');
     wrap.className = 'ai-lead-form';
@@ -1101,7 +1124,7 @@
         await fetch('/api/save-lead', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, phone, interest }),
+          body: JSON.stringify({ name, phone, interest, ...(pendingBooking || {}) }),
         });
       } catch {}
       wrap.remove();
@@ -1160,14 +1183,21 @@
         }
       }
 
-      const cleanText = fullText.replace('[ASK_CONTACT]', '').trim();
-      bubble.textContent = cleanText;
-      chatHistory.push({ role: 'assistant', content: cleanText });
-
-      if (!contactAsked && fullText.includes('[ASK_CONTACT]')) {
-        contactAsked = true;
-        aiInput.disabled = true;
-        setTimeout(showContactForm, 500);
+      const checkMatch = fullText.match(/\[CHECK:([^:\]]+):(\d+)\]/);
+      if (checkMatch && !contactAsked) {
+        const cleanText = fullText.replace(/\[CHECK:[^\]]+\]/, '').trim();
+        bubble.textContent = cleanText;
+        chatHistory.push({ role: 'assistant', content: cleanText });
+        setTimeout(() => checkAvailability(checkMatch[1], parseInt(checkMatch[2])), 400);
+      } else {
+        const cleanText = fullText.replace('[ASK_CONTACT]', '').trim();
+        bubble.textContent = cleanText;
+        chatHistory.push({ role: 'assistant', content: cleanText });
+        if (!contactAsked && fullText.includes('[ASK_CONTACT]')) {
+          contactAsked = true;
+          aiInput.disabled = true;
+          setTimeout(showContactForm, 500);
+        }
       }
     } catch {
       typing.remove();
