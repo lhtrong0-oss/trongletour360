@@ -287,12 +287,37 @@
       });
     }
 
+    function addLinkBtn(label, url) {
+      const wrap = document.createElement('div');
+      wrap.style.padding = '4px 2px 2px';
+      const a = document.createElement('a');
+      a.href = url; a.target = '_blank'; a.rel = 'noopener';
+      a.className = 'ai-qr-btn';
+      a.style.cssText = 'display:inline-block;text-decoration:none;padding:8px 16px;';
+      a.textContent = label;
+      wrap.appendChild(a);
+      aiMsgs.appendChild(wrap);
+      aiMsgs.scrollTop = aiMsgs.scrollHeight;
+    }
+
     async function sendMessage(text) {
       if (isStreaming || !text.trim()) return;
       isStreaming = true; aiSend.disabled = true; aiInput.value = '';
       if (!chosenTopic) chosenTopic = text;
       addMsg('user', text);
       chatHistory.push({ role: 'user', content: text });
+
+      // Homestay → đưa thẳng đến trang Ngọc Sinh Cát, không gọi AI
+      if (/homestay|ngọc sinh|ngoc sinh/i.test(text)) {
+        const typing = addTyping();
+        await new Promise(r => setTimeout(r, 600));
+        typing.remove();
+        addMsg('ai', 'Homestay Ngọc Sinh Cát — không gian riêng tư giữa rừng thông Đà Lạt 🌲\n\nGồm 4 phòng độc lập: Lý Ngữ Viên, Thanh Phong, Tùng Quang, Viên Nghiên Cứu.\nGiá từ 600K – 1.2 triệu/đêm.\n\nAnh/chị xem chi tiết và đặt phòng tại trang riêng của homestay nhé:');
+        addLinkBtn('🏡 Xem & Đặt phòng Ngọc Sinh Cát →', 'https://bonsai-dalat-trangle.vercel.app/templates/ngoc-sinh-cat.html');
+        isStreaming = false; aiSend.disabled = false;
+        return;
+      }
+
       const typing = addTyping();
 
       try {
