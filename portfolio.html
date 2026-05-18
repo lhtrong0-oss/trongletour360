@@ -160,6 +160,14 @@
     .reveal-r { opacity:0; transform:translateX(32px); transition:opacity .7s ease, transform .7s cubic-bezier(.25,.46,.45,.94); }
     .reveal-r.visible { opacity:1; transform:none; }
 
+    /* TOUR EMBED */
+    .tour-embed-wrap { position:relative; width:100%; padding-top:56.25%; overflow:hidden; border:1px solid var(--border); }
+    .tour-embed-wrap iframe { position:absolute; inset:0; width:100%; height:100%; border:none; }
+    .tour-embed-overlay { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(11,15,7,.7); backdrop-filter:blur(4px); transition:opacity .4s; cursor:pointer; }
+    .tour-embed-overlay span { font-family:'Italiana',serif; font-size:22px; color:var(--cream); letter-spacing:.06em; }
+    .tour-embed-overlay svg { margin-right:12px; color:var(--gold); }
+    .tour-embed-wrap.active .tour-embed-overlay { opacity:0; pointer-events:none; }
+
     /* MOBILE */
     @media(max-width:900px) {
       .nav-links { display:none; }
@@ -214,7 +222,7 @@
 
 <!-- HERO -->
 <section class="port-hero" aria-label="Portfolio TrongLeTour360">
-  <div class="big-num">04</div>
+  <div class="big-num">06</div>
   <div class="eyebrow">
     <span class="line"></span>
     <span>Công Trình Thực Tế</span>
@@ -231,7 +239,7 @@
 <!-- STATS -->
 <div class="stats-bar" aria-label="Số liệu">
   <div class="stats-inner">
-    <div class="s-item"><span class="s-num">4+</span><span class="s-label">Dự án hoàn thành</span></div>
+    <div class="s-item"><span class="s-num">6+</span><span class="s-label">Dự án hoàn thành</span></div>
     <div class="s-item"><span class="s-num">2</span><span class="s-label">Website live domain thật</span></div>
     <div class="s-item"><span class="s-num">100%</span><span class="s-label">Đúng hẹn bàn giao</span></div>
     <div class="s-item"><span class="s-num">30s</span><span class="s-label">Deploy tự động Vercel</span></div>
@@ -384,6 +392,94 @@
         </div>
         <a href="https://bonsai-dalat-trangle.vercel.app/templates/ram-wedding-house.html" target="_blank" rel="noopener" class="proj-link">
           Xem demo
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <!-- PROJECT 05 — Tour 360° Ngọc Sinh Cát -->
+  <article class="proj-item">
+    <div class="proj-inner">
+      <div class="proj-visual reveal-l">
+        <span class="proj-num">05</span>
+        <div class="tour-embed-wrap" id="tour-nsc" onclick="this.classList.add('active')">
+          <iframe
+            src="https://tour.panoee.net/ngocsinhcathome"
+            title="Tour 360° Homestay Ngọc Sinh Cát Đà Lạt"
+            allowfullscreen
+            allow="xr-spatial-tracking; gyroscope; accelerometer"
+            loading="lazy">
+          </iframe>
+          <div class="tour-embed-overlay">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/></svg>
+            <span>Khám phá tour 360°</span>
+          </div>
+        </div>
+        <div class="proj-badge" style="top:12px;right:12px;"><span class="badge tour">360°</span></div>
+        <div class="proj-metrics">
+          <div class="proj-metric"><span class="val">360°</span><span class="lbl">Góc nhìn</span></div>
+          <div class="proj-metric"><span class="val">VR</span><span class="lbl">Hỗ trợ</span></div>
+          <div class="proj-metric"><span class="val">Live</span><span class="lbl">Trực tuyến</span></div>
+        </div>
+      </div>
+      <div class="proj-info reveal-r">
+        <p class="proj-cat">Dự án 05 — Tour 360°</p>
+        <h3 class="proj-title">Homestay<em>Ngọc Sinh Cát</em></h3>
+        <p class="proj-desc">Tour tham quan ảo 360° toàn bộ không gian Homestay Ngọc Sinh Cát Đà Lạt. Khách hàng có thể dạo quanh phòng, sân vườn, khu vực chung ngay trên điện thoại hoặc máy tính — trước khi quyết định đặt phòng. Tăng tỷ lệ chuyển đổi, giảm câu hỏi lặp lại.</p>
+        <div class="proj-tags">
+          <span class="proj-tag">Tour 360°</span>
+          <span class="proj-tag">Panoee</span>
+          <span class="proj-tag">VR Ready</span>
+          <span class="proj-tag">Homestay</span>
+          <span class="proj-tag">Đà Lạt</span>
+        </div>
+        <a href="https://tour.panoee.net/ngocsinhcathome" target="_blank" rel="noopener" class="proj-link">
+          Mở tour toàn màn hình
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <!-- PROJECT 06 — Tour 360° Villa Viện Nghiên Cứu (reverse) -->
+  <article class="proj-item reverse">
+    <div class="proj-inner">
+      <div class="proj-visual reveal-r">
+        <span class="proj-num">06</span>
+        <div class="tour-embed-wrap" id="tour-vnc" onclick="this.classList.add('active')">
+          <iframe
+            src="https://tour.panoee.net/69df81e3f1d6c87aa42942de"
+            title="Tour 360° Villa Viện Nghiên Cứu Đà Lạt"
+            allowfullscreen
+            allow="xr-spatial-tracking; gyroscope; accelerometer"
+            loading="lazy">
+          </iframe>
+          <div class="tour-embed-overlay">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/></svg>
+            <span>Khám phá tour 360°</span>
+          </div>
+        </div>
+        <div class="proj-badge" style="top:12px;right:12px;"><span class="badge tour">360°</span></div>
+        <div class="proj-metrics">
+          <div class="proj-metric"><span class="val">360°</span><span class="lbl">Góc nhìn</span></div>
+          <div class="proj-metric"><span class="val">VR</span><span class="lbl">Hỗ trợ</span></div>
+          <div class="proj-metric"><span class="val">Live</span><span class="lbl">Trực tuyến</span></div>
+        </div>
+      </div>
+      <div class="proj-info reveal-l">
+        <p class="proj-cat">Dự án 06 — Tour 360°</p>
+        <h3 class="proj-title">Villa<em>Viện Nghiên Cứu</em></h3>
+        <p class="proj-desc">Tour 360° không gian biệt thự phong cách kiến trúc Pháp tại Đà Lạt. Dự án thực tế thể hiện năng lực chụp ảnh 360° bất động sản cao cấp — từ sảnh tiếp khách, phòng ngủ đến cảnh quan sân vườn. Ứng dụng lý tưởng cho bất động sản, resort, villa cho thuê.</p>
+        <div class="proj-tags">
+          <span class="proj-tag">Tour 360°</span>
+          <span class="proj-tag">Panoee</span>
+          <span class="proj-tag">Bất Động Sản</span>
+          <span class="proj-tag">Villa</span>
+          <span class="proj-tag">Đà Lạt</span>
+        </div>
+        <a href="https://tour.panoee.net/69df81e3f1d6c87aa42942de" target="_blank" rel="noopener" class="proj-link">
+          Mở tour toàn màn hình
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
         </a>
       </div>
