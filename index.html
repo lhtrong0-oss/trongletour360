@@ -251,6 +251,13 @@
     .service-img { height: 220px; overflow: hidden; }
     .service-img img { height: 100%; transition: transform .6s; }
     .service-card:hover .service-img img { transform: scale(1.07); }
+    .service-img--tour { height: 280px; position: relative; }
+    .service-img--tour iframe { width:100%; height:100%; border:none; display:block; }
+    .tour-play-overlay { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; background:rgba(11,15,7,.65); backdrop-filter:blur(4px); cursor:pointer; transition:opacity .35s; z-index:2; }
+    .tour-play-overlay .play-icon { width:52px; height:52px; border-radius:50%; border:1.5px solid var(--gold); display:flex; align-items:center; justify-content:center; }
+    .tour-play-overlay .play-icon svg { color:var(--gold); margin-left:3px; }
+    .tour-play-overlay .play-label { font-family:'Italiana',serif; font-size:15px; color:var(--cream); letter-spacing:.06em; }
+    .service-img--tour.active .tour-play-overlay { opacity:0; pointer-events:none; }
     .service-body { padding: 32px 28px; }
     .service-order { font-size: 11px; letter-spacing: .15em; color: var(--gold-dim); margin-bottom: 14px; }
     .service-card h3 { font-size: 26px; color: var(--cream); font-weight: 400; margin-bottom: 10px; line-height: 1.2; }
@@ -759,8 +766,20 @@
         </div>
       </div>
       <div class="service-card reveal d1">
-        <div class="service-img">
-          <img src="https://placehold.co/800x440/0B0F07/D4A853?text=Chụp+360°+Bất+động+sản" alt="Chụp ảnh 360° bất động sản chuyên nghiệp Đà Lạt">
+        <div class="service-img service-img--tour" id="svc-tour-bds" onclick="this.classList.add('active')">
+          <iframe
+            src="https://tour.panoee.net/ngocsinhcathome"
+            title="Tour 360° Ngọc Sinh Cát Homestay Đà Lạt"
+            allowfullscreen
+            allow="xr-spatial-tracking; gyroscope; accelerometer"
+            loading="lazy">
+          </iframe>
+          <div class="tour-play-overlay">
+            <div class="play-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3" fill="currentColor" stroke="none"/></svg>
+            </div>
+            <span class="play-label">Khám phá tour 360°</span>
+          </div>
         </div>
         <div class="service-body">
           <div class="service-order">02 — Bất động sản</div>
@@ -770,6 +789,7 @@
             <span class="service-price">3.000.000đ</span>
             <span class="service-time">⏱ 5 giờ thực hiện</span>
           </div>
+          <a href="https://tour.panoee.net/ngocsinhcathome" target="_blank" rel="noopener" class="pillar-link" style="margin-top:12px;display:inline-block">Xem tour toàn màn hình →</a>
         </div>
       </div>
       <div class="service-card reveal d1">
