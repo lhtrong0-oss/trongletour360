@@ -2,27 +2,33 @@
 // Parse lệnh → route sang đúng handler → trả chuỗi kết quả
 
 import { writeBlog } from './agent-blog.js';
+import { buildWebsite } from './agent-website.js';
 import { checkAvailability, listBookings, updateBookingStatus } from './agent-booking.js';
 
 const HELP_TEXT = `*TrongLeTour360 Agent* 🤖
 
+*Website Builder:*
+\`[KhachMoi] build: [Tên] - [ngành] - [mô tả]\`
+→ Claude build demo website live trong 60 giây
+
 *Blog & SEO:*
 \`[Blog] viết: [chủ đề]\` — Viết bài SEO + deploy
-\`[Blog] list\` — Danh sách bài blog đang live
+\`[Blog] list\` — Danh sách bài đang live
 
 *Booking Ngọc Sinh Cát:*
-\`[Booking] xem\` — Xem tất cả booking đang chờ
-\`[Booking] check: [ngày] [ngày]\` — Kiểm tra phòng trống (VD: 25/05 28/05)
-\`[Booking] xác nhận: [Tên khách]\` — Xác nhận booking
-\`[Booking] hủy: [Tên khách]\` — Hủy booking
+\`[Booking] xem\` — Booking đang chờ xác nhận
+\`[Booking] check: [ngày vào] [ngày ra]\` — Check phòng trống
+\`[Booking] xác nhận: [Tên]\` — Xác nhận
+\`[Booking] hủy: [Tên]\` — Hủy booking
+
+*Báo giá nhanh:*
+\`[Báo giá] [tên khách] [ngành]\` — Tạo báo giá gửi Zalo
 
 *Dashboard:*
-\`[Dashboard]\` — Xem trạng thái dự án + doanh thu
-\`[Dashboard] cập nhật: [nội dung]\` — Cập nhật dashboard
+\`[Dashboard]\` — Trạng thái + doanh thu
 
 *Hệ thống:*
-\`/help\` — Menu này
-\`/ping\` — Kiểm tra agent còn sống không`;
+\`/help\` — Menu này · \`/ping\` — Kiểm tra agent`;
 
 export async function processCommand(text, chatId) {
   const t = text.trim();
@@ -32,6 +38,32 @@ export async function processCommand(text, chatId) {
 
   // /start hoặc /help
   if (t === '/start' || t === '/help') return HELP_TEXT;
+
+  // [KhachMoi] build: [Tên] - [ngành] - [mô tả]
+  const buildMatch = t.match(/\[KhachMoi\]\s*build:\s*([^-]+)-\s*([^-]+)(?:-\s*(.+))?/i);
+  if (buildMatch) {
+    const name = buildMatch[1].trim();
+    const industry = buildMatch[2].trim();
+    const description = buildMatch[3]?.trim() || '';
+    try {
+      const { liveUrl } = await buildWebsite({ name, industry, description });
+      return (
+        `✅ *Demo website đã live!*\n\n` +
+        `🏢 Khách: *${name}*\n` +
+        `🏷 Ngành: ${industry}\n` +
+        `🔗 ${liveUrl}\n\n` +
+        `_Gửi link này cho khách xem ngay. Nếu duyệt → nhắn [KhachMoi] deploy: ${name}_`
+      );
+    } catch (e) {
+      return `❌ Lỗi build website: ${e.message}`;
+    }
+  }
+
+  // [Báo giá] [tên] [ngành]
+  const quoteMatch = t.match(/\[Báo giá\]\s*(.+)/i);
+  if (quoteMatch) {
+    return generateQuote(quoteMatch[1].trim());
+  }
 
   // [Blog] viết: [chủ đề]
   const blogMatch = t.match(/\[Blog\]\s*viết:\s*(.+)/i);
@@ -104,6 +136,27 @@ export async function processCommand(text, chatId) {
   } catch (e) {
     return `❌ Lỗi AI: ${e.message}\n\nNhắn /help để xem lệnh.`;
   }
+}
+
+function generateQuote(input) {
+  const lines = [
+    `💼 *Báo giá — TrongLeTour360*\n`,
+    `Khách: *${input}*\n`,
+    `📦 *Gói A — Landing Page* (3–5 triệu)`,
+    `• 1 trang duy nhất · Mobile-first · SEO cơ bản`,
+    `• Chatbot thu lead · Bàn giao 5–7 ngày\n`,
+    `📦 *Gói B — Website Chuyên Nghiệp* (8–15 triệu)`,
+    `• 5–10 trang · Blog · CMS đơn giản`,
+    `• Chatbot nâng cao · Schema SEO · Bàn giao 7–14 ngày\n`,
+    `📦 *Gói C — Full System* (25–50 triệu)`,
+    `• Không giới hạn trang · Booking tự động · Notion CMS`,
+    `• Chatbot AI · Bảo trì 12 tháng · Bàn giao 14–21 ngày\n`,
+    `➕ *Add-on:*`,
+    `• Chụp 360° BĐS: 3–8 triệu/căn`,
+    `• Bảo trì hàng tháng: 1.5–3 triệu/tháng\n`,
+    `_Copy tin nhắn này gửi khách qua Zalo ngay!_`,
+  ];
+  return lines.join('\n');
 }
 
 function getDashboard() {

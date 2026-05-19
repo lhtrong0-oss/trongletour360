@@ -1,5 +1,7 @@
 export const config = { runtime: "edge" };
 
+import { notifyTelegram } from './notify-telegram.js';
+
 const NOTION_VER = "2022-06-28";
 
 function detectNgach(text = "") {
@@ -116,6 +118,16 @@ export default async function handler(req) {
         }),
       }).catch(() => {});
     }
+
+    // Telegram notification — báo Trọng ngay lập tức
+    notifyTelegram(
+      `🔔 *Lead mới từ chatbot!*\n\n` +
+      `👤 Tên: *${name || '—'}*\n` +
+      `📱 SĐT: ${phone || '—'}\n` +
+      `🏷 Ngách: ${ngach}\n` +
+      `💬 Hỏi về: ${interest || '—'}\n\n` +
+      `⚡ Liên hệ lại trong *1 giờ đầu* — tỉ lệ chốt cao nhất!`
+    );
 
     return new Response(JSON.stringify({ ok: true }), {
       headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },

@@ -1,7 +1,9 @@
 export const config = { runtime: "edge" };
 
+import { notifyTelegram } from './notify-telegram.js';
+
 const NOTION_VER = "2022-06-28";
-const BOOKINGS_DB = "3efe32186a934fe89d9fbb4a0ca251fc";
+const BOOKINGS_DB = "564c93c235914f77814099d6b9c5ce88";
 
 export default async function handler(req) {
   if (req.method === "OPTIONS") {
@@ -58,6 +60,19 @@ export default async function handler(req) {
       headers: { Authorization: `Bearer ${NOTION_TOKEN}`, "Content-Type": "application/json", "Notion-Version": NOTION_VER },
       body: JSON.stringify({ parent: { database_id: BOOKINGS_DB }, properties: props }),
     });
+
+    // Telegram notification — Trọng nhận ngay trên điện thoại
+    notifyTelegram(
+      `🏡 *Booking mới — Ngọc Sinh Cát!*\n\n` +
+      `👤 Khách: *${name || '—'}*\n` +
+      `📱 SĐT: ${phone || '—'}\n` +
+      `🛏 Phòng: ${room || '—'}\n` +
+      `📅 Check-in: ${checkin || '—'}\n` +
+      `📅 Check-out: ${checkout || '—'}\n` +
+      `👥 Số khách: ${guests || '—'}\n` +
+      `💬 Ghi chú: ${note || '—'}\n\n` +
+      `👉 Nhắn: \`[Booking] xác nhận: ${name || 'tên khách'}\``
+    );
 
     return new Response(JSON.stringify({ ok: true }), {
       headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
