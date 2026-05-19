@@ -1,4 +1,8 @@
 // api/agent-booking.js — Quản lý booking Ngọc Sinh Cát qua Notion
+// Tên cột thật (lấy từ DB 2026-05-19):
+// Tên khách (title) | Check-in (date) | Check-out (date)
+// SĐT / Zalo (phone) | Số đêm (number) | Phòng (select) | Ghi chú (rich_text)
+// Trạng thái: "⏳ Chờ xác nhận" | "✅ Đã xác nhận" | "❌ Đã hủy"
 
 const NOTION_API = 'https://api.notion.com/v1';
 const BOOKING_DB = '564c93c235914f77814099d6b9c5ce88';
@@ -29,21 +33,22 @@ function parseDate(str) {
 function formatBookingRow(page) {
   const p = page.properties;
   const name = p['Tên khách']?.title?.[0]?.plain_text || '(Không tên)';
-  const phone = p['SĐT']?.phone_number || p['SĐT']?.rich_text?.[0]?.plain_text || '—';
-  const checkin = p['Ngày nhận phòng']?.date?.start || '—';
-  const checkout = p['Ngày trả phòng']?.date?.start || '—';
-  const status = p['Trạng thái']?.select?.name || p['Status']?.select?.name || '—';
-  const guests = p['Số khách']?.number || '—';
-  return `• *${name}* | ${checkin} → ${checkout} | ${guests} khách | SĐT: ${phone} | ${status}`;
+  const phone = p['SĐT / Zalo']?.phone_number || '—';
+  const checkin = p['Check-in']?.date?.start || '—';
+  const checkout = p['Check-out']?.date?.start || '—';
+  const nights = p['Số đêm']?.number || '—';
+  const room = p['Phòng']?.select?.name || '—';
+  const status = p['Trạng thái']?.select?.name || '—';
+  return `• *${name}* | ${checkin} → ${checkout} | ${nights} đêm | ${room} | SĐT: ${phone} | ${status}`;
 }
 
 export async function listBookings() {
   const data = await notionRequest('POST', `/databases/${BOOKING_DB}/query`, {
     filter: {
       property: 'Trạng thái',
-      select: { equals: 'Chờ xác nhận' },
+      select: { equals: '⏳ Chờ xác nhận' },
     },
-    sorts: [{ property: 'Ngày nhận phòng', direction: 'ascending' }],
+    sorts: [{ property: 'Check-in', direction: 'ascending' }],
   });
 
   if (!data.results?.length) return '📅 Không có booking nào đang chờ xác nhận.';
@@ -59,15 +64,11 @@ export async function checkAvailability(checkinStr, checkoutStr) {
   const data = await notionRequest('POST', `/databases/${BOOKING_DB}/query`, {
     filter: {
       and: [
-        { property: 'Trạng thái', select: { does_not_equal: 'Đã hủy' } },
+        { property: 'Trạng thái', select: { does_not_equal: '❌ Đã hủy' } },
         {
-          or: [
-            {
-              and: [
-                { property: 'Ngày nhận phòng', date: { on_or_before: checkout } },
-                { property: 'Ngày trả phòng', date: { on_or_after: checkin } },
-              ],
-            },
+          and: [
+            { property: 'Check-in', date: { on_or_before: checkout } },
+            { property: 'Check-out', date: { on_or_after: checkin } },
           ],
         },
       ],
@@ -83,7 +84,6 @@ export async function checkAvailability(checkinStr, checkoutStr) {
 }
 
 export async function updateBookingStatus(guestName, action) {
-  // Tìm booking theo tên khách
   const data = await notionRequest('POST', `/databases/${BOOKING_DB}/query`, {
     filter: {
       property: 'Tên khách',
@@ -98,8 +98,10 @@ export async function updateBookingStatus(guestName, action) {
   const page = data.results[0];
   const p = page.properties;
   const currentName = p['Tên khách']?.title?.[0]?.plain_text || guestName;
+  const checkin = p['Check-in']?.date?.start || '—';
+  const checkout = p['Check-out']?.date?.start || '—';
 
-  const newStatus = action === 'confirmed' ? 'Đã xác nhận' : 'Đã hủy';
+  const newStatus = action === 'confirmed' ? '✅ Đã xác nhận' : '❌ Đã hủy';
   const emoji = action === 'confirmed' ? '✅' : '❌';
 
   await notionRequest('PATCH', `/pages/${page.id}`, {
@@ -108,8 +110,5 @@ export async function updateBookingStatus(guestName, action) {
     },
   });
 
-  const checkin = p['Ngày nhận phòng']?.date?.start || '—';
-  const checkout = p['Ngày trả phòng']?.date?.start || '—';
-
-  return `${emoji} Đã cập nhật booking!\n\n👤 Khách: ${currentName}\n📅 ${checkin} → ${checkout}\n📌 Trạng thái: ${newStatus}`;
+  return `${emoji} Đã cập nhật booking!\n\n👤 Khách: *${currentName}*\n📅 ${checkin} → ${checkout}\n📌 Trạng thái: ${newStatus}`;
 }

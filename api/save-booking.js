@@ -44,14 +44,13 @@ export default async function handler(req) {
 
   try {
     const props = {
-      "Họ tên": { title: [{ text: { content: name || "Khách" } }] },
+      "Tên khách": { title: [{ text: { content: name || "Khách" } }] },
       "SĐT / Zalo": { phone_number: phone || "" },
-      "Phòng": { select: { name: room || "Home Ngọc Sinh Cát" } },
-      "Số khách": { number: parseInt(guests) || 1 },
+      "Phòng": { select: { name: room || "Chưa chọn" } },
+      "Số đêm": { number: parseInt(nights) || 1 },
       "Ghi chú": { rich_text: [{ text: { content: note || "" } }] },
-      "Trạng thái": { select: { name: "🆕 Mới" } },
+      "Trạng thái": { select: { name: "⏳ Chờ xác nhận" } },
     };
-    if (email) props["Email"] = { email };
     if (checkin) props["Check-in"] = { date: { start: checkin } };
     if (checkout) props["Check-out"] = { date: { start: checkout } };
 
