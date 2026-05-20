@@ -1,7 +1,7 @@
 // api/crm-data.js — Client CRM: đọc/ghi danh sách khách hàng từ Notion
 
 const NOTION_VERSION = '2022-06-28';
-const DB_CLIENTS = '872ae178-365f-4284-b8f4-1f4fde319833';
+const DB_CLIENTS = '52651e27-0cf6-4706-b87a-05361ff0f140';
 
 async function notionPost(path, body) {
   const res = await fetch(`https://api.notion.com/v1${path}`, {
@@ -38,15 +38,15 @@ export async function getClients() {
 
   return (data.results || []).map(page => ({
     id: page.id,
-    name: getProp(page, 'Tên khách hàng', 'title') || getProp(page, 'Name', 'title') || 'Chưa đặt tên',
-    package: getProp(page, 'Gói', 'select'),
+    name: getProp(page, 'Tên dự án / Thương hiệu', 'title') || getProp(page, 'Tên khách hàng', 'title') || getProp(page, 'Name', 'title') || 'Chưa đặt tên',
+    package: getProp(page, 'Gói', 'select') || getProp(page, 'Ngân sách', 'select'),
     status: getProp(page, 'Trạng thái', 'select'),
     industry: getProp(page, 'Lĩnh vực', 'select'),
     price: getProp(page, 'Giá trị HĐ', 'number'),
     paid: getProp(page, 'Đã thu', 'number'),
     demo: getProp(page, 'Link demo', 'url'),
     live: getProp(page, 'Link live', 'url'),
-    note: getProp(page, 'Ghi chú', 'rich_text'),
+    note: getProp(page, 'Ghi chú thêm', 'rich_text') || getProp(page, 'Ghi chú', 'rich_text'),
     created: page.created_time?.slice(0, 10),
   }));
 }
