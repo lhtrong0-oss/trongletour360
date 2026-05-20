@@ -4,6 +4,7 @@
 import { writeBlog } from './agent-blog.js';
 import { buildWebsite } from './agent-website.js';
 import { checkAvailability, listBookings, updateBookingStatus } from './agent-booking.js';
+import { getClients } from './crm-data.js';
 
 const HELP_TEXT = `*TrongLeTour360 Agent* 🤖
 
@@ -23,6 +24,15 @@ const HELP_TEXT = `*TrongLeTour360 Agent* 🤖
 
 *Báo giá nhanh:*
 \`[Báo giá] [tên khách] [ngành]\` — Tạo báo giá gửi Zalo
+
+*Shot Brief (điều phối quay):*
+\`[Brief] [tên khách]\` — Tạo danh sách cảnh cần quay tuần này
+
+*CRM:*
+\`[CRM] xem\` — Danh sách khách hàng + doanh thu
+
+*Đăng Facebook:*
+\`[FB] đăng: [nội dung]\` — Đăng bài lên Facebook Page ngay
 
 *Dashboard:*
 \`[Dashboard]\` — Trạng thái + doanh thu
@@ -130,6 +140,50 @@ export async function processCommand(text, chatId) {
     return getDashboard();
   }
 
+  // [CRM] xem
+  if (/\[CRM\]\s*xem/i.test(t)) {
+    try {
+      const clients = await getClients();
+      if (!clients.length) return '📋 Chưa có khách hàng nào trong CRM.';
+      const totalRevenue = clients.reduce((s, c) => s + c.price, 0);
+      const totalPaid = clients.reduce((s, c) => s + c.paid, 0);
+      const lines = clients.slice(0, 10).map((c, i) =>
+        `${i + 1}. *${c.name}* — ${c.package || '?'} — ${c.status || '?'} — ${c.price ? (c.price/1e6).toFixed(0)+'tr' : '?'}`
+      );
+      return (
+        `📊 *CRM — Khách hàng*\n\n` +
+        lines.join('\n') +
+        `\n\n💰 Tổng HĐ: ${(totalRevenue/1e6).toFixed(0)} triệu | Đã thu: ${(totalPaid/1e6).toFixed(0)} triệu\n` +
+        `🌐 Chi tiết: trongletour360.net/admin-crm.html`
+      );
+    } catch (e) {
+      return `❌ Lỗi CRM: ${e.message}`;
+    }
+  }
+
+  // [Brief] [tên khách]
+  const briefMatch = t.match(/\[Brief\]\s*(.+)/i);
+  if (briefMatch) {
+    return generateShotBrief(briefMatch[1].trim());
+  }
+
+  // [FB] đăng: [nội dung]
+  const fbMatch = t.match(/\[FB\]\s*đăng:\s*(.+)/is);
+  if (fbMatch) {
+    try {
+      const res = await fetch('https://trongletour360.net/api/facebook-post', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: fbMatch[1].trim() }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      return `✅ Đã đăng lên Facebook Page!\nPost ID: ${data.postId}`;
+    } catch (e) {
+      return `❌ Lỗi đăng Facebook: ${e.message}\n\nKiểm tra FB_PAGE_TOKEN trong Vercel env.`;
+    }
+  }
+
   // fallback — Claude AI response
   try {
     return await askClaude(t);
@@ -180,6 +234,26 @@ function getDashboard() {
 • Pitch bảo trì Bonsai Tuấn Trang (1.5tr/tháng)
 
 Nhắn \`[Dashboard] cập nhật: ...\` để ghi thêm.`;
+}
+
+function generateShotBrief(clientName) {
+  const week = new Date().toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit' });
+  return (
+    `📋 *Shot Brief tuần ${week} — ${clientName}*\n\n` +
+    `*Video 1 — Buổi sáng* (TikTok viral)\n` +
+    `🎬 Cảnh 1: Cửa sổ phòng · sương mù sáng sớm · 8 giây\n` +
+    `🎬 Cảnh 2: Tay bưng ly cà phê nhìn ra vườn · 5 giây\n` +
+    `🎬 Cảnh 3: Toàn cảnh không gian chính · ánh sáng tự nhiên · 7 giây\n` +
+    `📌 Quay đứng (9:16) · không rung · mở hết rèm\n\n` +
+    `*Video 2 — Tour phòng* (YouTube + Facebook)\n` +
+    `🎬 Walk-through từ cửa vào → phòng ngủ → toilet · 30 giây\n` +
+    `📌 Quay ngang (16:9) · đi chậm · mở hết đèn\n\n` +
+    `*Ảnh tĩnh* (Instagram feed)\n` +
+    `📸 5–8 ảnh: góc phòng đẹp · chi tiết nội thất · view ngoài cửa sổ\n\n` +
+    `⏱ Thời gian quay: ~25 phút\n` +
+    `📁 Upload vào: Desktop\\footage\\raw\\${clientName.toLowerCase().replace(/\s+/g, '-')}\\\n\n` +
+    `_Sau khi upload xong → nhắn: [Video] xử lý: ${clientName}_`
+  );
 }
 
 async function askClaude(text) {

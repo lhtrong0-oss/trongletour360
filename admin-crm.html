@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRM — TrongLeTour360</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: 'Inter', sans-serif; background: #0f1117; color: #e2e8f0; min-height: 100vh; }
+
+  /* Login */
+  #login-screen {
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100vh; background: #0f1117;
+  }
+  .login-box {
+    background: #1a1d27; border: 1px solid #2d3148; border-radius: 16px;
+    padding: 48px; width: 360px; text-align: center;
+  }
+  .login-box h1 { font-size: 1.5rem; color: #c4a882; margin-bottom: 8px; }
+  .login-box p { color: #64748b; font-size: 0.875rem; margin-bottom: 32px; }
+  .login-box input {
+    width: 100%; padding: 12px 16px; background: #0f1117;
+    border: 1px solid #2d3148; border-radius: 8px; color: #e2e8f0;
+    font-size: 1rem; margin-bottom: 16px; outline: none;
+  }
+  .login-box input:focus { border-color: #c4a882; }
+  .login-box button {
+    width: 100%; padding: 12px; background: #2c3a2e; color: #c4a882;
+    border: none; border-radius: 8px; font-size: 1rem; cursor: pointer;
+    transition: background 0.2s;
+  }
+  .login-box button:hover { background: #3a4d3c; }
+  #login-error { color: #f87171; font-size: 0.875rem; margin-top: 12px; display: none; }
+
+  /* App */
+  #app { display: none; }
+
+  header {
+    background: #1a1d27; border-bottom: 1px solid #2d3148;
+    padding: 16px 32px; display: flex; align-items: center; justify-content: space-between;
+  }
+  header h1 { font-size: 1.25rem; color: #c4a882; }
+  header span { font-size: 0.8rem; color: #64748b; }
+
+  .container { max-width: 1280px; margin: 0 auto; padding: 32px; }
+
+  /* Stats */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px; }
+  .stat-card {
+    background: #1a1d27; border: 1px solid #2d3148; border-radius: 12px; padding: 24px;
+  }
+  .stat-card .label { font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+  .stat-card .value { font-size: 1.875rem; font-weight: 700; color: #c4a882; }
+  .stat-card .sub { font-size: 0.8rem; color: #64748b; margin-top: 4px; }
+
+  /* Table */
+  .section-title {
+    font-size: 1rem; color: #94a3b8; text-transform: uppercase;
+    letter-spacing: .08em; margin-bottom: 16px;
+  }
+  .table-wrap { background: #1a1d27; border: 1px solid #2d3148; border-radius: 12px; overflow: hidden; }
+  table { width: 100%; border-collapse: collapse; }
+  thead { background: #0f1117; }
+  th { padding: 12px 20px; text-align: left; font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: .05em; }
+  td { padding: 14px 20px; font-size: 0.875rem; border-top: 1px solid #1e2235; }
+  tr:hover td { background: #1e2235; }
+
+  .badge {
+    display: inline-block; padding: 3px 10px; border-radius: 20px;
+    font-size: 0.75rem; font-weight: 500;
+  }
+  .badge-live    { background: #14532d; color: #4ade80; }
+  .badge-wait    { background: #713f12; color: #fbbf24; }
+  .badge-new     { background: #1e3a5f; color: #60a5fa; }
+  .badge-done    { background: #2d2d2d; color: #94a3b8; }
+  .badge-pkg-a   { background: #1e2235; color: #c4a882; }
+  .badge-pkg-b   { background: #2c3a2e; color: #86efac; }
+  .badge-pkg-c   { background: #3b1d4a; color: #c084fc; }
+
+  a.link { color: #60a5fa; text-decoration: none; }
+  a.link:hover { text-decoration: underline; }
+
+  /* Setup guide */
+  .setup-guide {
+    background: #1a1d27; border: 1px solid #f59e0b44;
+    border-radius: 12px; padding: 24px; margin-bottom: 32px;
+  }
+  .setup-guide h3 { color: #f59e0b; margin-bottom: 16px; }
+  .setup-guide ol { padding-left: 20px; }
+  .setup-guide li { margin-bottom: 8px; font-size: 0.875rem; color: #94a3b8; line-height: 1.6; }
+  .setup-guide code {
+    background: #0f1117; color: #c4a882; padding: 2px 8px;
+    border-radius: 4px; font-family: monospace; font-size: 0.8rem;
+  }
+
+  .empty { text-align: center; padding: 48px; color: #64748b; }
+  .loading { text-align: center; padding: 48px; color: #64748b; animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100% { opacity:1 } 50% { opacity:.4 } }
+
+  /* Actions */
+  .actions { margin-bottom: 32px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    padding: 10px 20px; border-radius: 8px; font-size: 0.875rem;
+    cursor: pointer; border: 1px solid; transition: all 0.2s;
+  }
+  .btn-primary { background: #2c3a2e; color: #c4a882; border-color: #3a4d3c; }
+  .btn-primary:hover { background: #3a4d3c; }
+  .btn-secondary { background: transparent; color: #94a3b8; border-color: #2d3148; }
+  .btn-secondary:hover { border-color: #c4a882; color: #c4a882; }
+</style>
+</head>
+<body>
+
+<!-- Login -->
+<div id="login-screen">
+  <div class="login-box">
+    <h1>🏢 TrongLeTour360</h1>
+    <p>CRM Dashboard — Nội bộ</p>
+    <input type="password" id="pwd-input" placeholder="Nhập mật khẩu..." onkeydown="if(event.key==='Enter')doLogin()">
+    <button onclick="doLogin()">Đăng nhập</button>
+    <div id="login-error">Sai mật khẩu</div>
+  </div>
+</div>
+
+<!-- App -->
+<div id="app">
+  <header>
+    <h1>🏢 TrongLeTour360 — CRM</h1>
+    <span id="last-updated">Đang tải...</span>
+  </header>
+
+  <div class="container">
+
+    <!-- Setup guide (hiện khi chưa có API tokens) -->
+    <div class="setup-guide" id="fb-setup" style="display:none">
+      <h3>⚙️ Cần setup để dùng đầy đủ</h3>
+      <ol>
+        <li><strong>Facebook Auto-post:</strong> Vào <a href="https://developers.facebook.com" target="_blank" class="link">developers.facebook.com</a> → My Apps → tạo app → lấy <code>Page Access Token</code> → thêm vào Vercel: <code>FB_PAGE_TOKEN</code> và <code>FB_PAGE_ID</code></li>
+        <li><strong>Zalo OA:</strong> Vào <a href="https://oa.zalo.me" target="_blank" class="link">oa.zalo.me</a> → đăng ký Official Account → lấy Access Token → thêm vào Vercel: <code>ZALO_ACCESS_TOKEN</code></li>
+        <li><strong>Cron Blog thứ Năm:</strong> Đã tự động — chỉ cần thêm <code>CRON_SECRET=tour360-cron-2026</code> vào Vercel</li>
+      </ol>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat-card">
+        <div class="label">Tổng khách hàng</div>
+        <div class="value" id="stat-count">—</div>
+        <div class="sub" id="stat-active">— đang active</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Doanh thu tháng</div>
+        <div class="value" id="stat-revenue">—</div>
+        <div class="sub">hợp đồng đã ký</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Đã thu tiền</div>
+        <div class="value" id="stat-paid">—</div>
+        <div class="sub" id="stat-unpaid">— chưa thu</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Mục tiêu T5/2026</div>
+        <div class="value" style="color:#4ade80">50tr</div>
+        <div class="sub" id="stat-progress">Deadline 31/05</div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="actions">
+      <button class="btn btn-primary" onclick="refreshData()">🔄 Tải lại</button>
+      <button class="btn btn-secondary" onclick="window.open('https://www.notion.so/872ae178365f4284b8f41f4fde319833','_blank')">📋 Mở Notion</button>
+      <button class="btn btn-secondary" onclick="window.open('https://trongletour360.net','_blank')">🌐 Website</button>
+      <button class="btn btn-secondary" onclick="window.open('https://vercel.com/dashboard','_blank')">▲ Vercel</button>
+    </div>
+
+    <!-- Client table -->
+    <div class="section-title">Danh sách khách hàng</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Tên khách</th>
+            <th>Lĩnh vực</th>
+            <th>Gói</th>
+            <th>Trạng thái</th>
+            <th>Giá trị</th>
+            <th>Đã thu</th>
+            <th>Link</th>
+            <th>Ngày tạo</th>
+          </tr>
+        </thead>
+        <tbody id="client-tbody">
+          <tr><td colspan="9" class="loading">Đang tải dữ liệu...</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const PASS = 'trong2026';
+
+function doLogin() {
+  const val = document.getElementById('pwd-input').value;
+  if (val === PASS) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    loadData();
+  } else {
+    document.getElementById('login-error').style.display = 'block';
+  }
+}
+
+function fmtMoney(n) {
+  if (!n) return '—';
+  return (n / 1000000).toFixed(0) + ' triệu';
+}
+
+function statusBadge(s) {
+  if (!s) return '<span class="badge badge-new">Mới</span>';
+  if (s.includes('Live') || s.includes('live')) return `<span class="badge badge-live">${s}</span>`;
+  if (s.includes('Chờ') || s.includes('chờ')) return `<span class="badge badge-wait">${s}</span>`;
+  if (s.includes('Xong') || s.includes('Hủy')) return `<span class="badge badge-done">${s}</span>`;
+  return `<span class="badge badge-new">${s}</span>`;
+}
+
+function pkgBadge(p) {
+  if (!p) return '—';
+  if (p.includes('A')) return `<span class="badge badge-pkg-a">Gói A</span>`;
+  if (p.includes('B')) return `<span class="badge badge-pkg-b">Gói B</span>`;
+  if (p.includes('C')) return `<span class="badge badge-pkg-c">Gói C</span>`;
+  return `<span class="badge badge-new">${p}</span>`;
+}
+
+async function loadData() {
+  try {
+    const res = await fetch('/api/crm-data');
+    const data = await res.json();
+
+    document.getElementById('stat-count').textContent = data.count || 0;
+    document.getElementById('stat-active').textContent = `${data.active || 0} đang active`;
+    document.getElementById('stat-revenue').textContent = fmtMoney(data.totalRevenue);
+    document.getElementById('stat-paid').textContent = fmtMoney(data.totalPaid);
+    document.getElementById('stat-unpaid').textContent = fmtMoney((data.totalRevenue || 0) - (data.totalPaid || 0)) + ' chưa thu';
+
+    const pct = data.totalPaid ? Math.round((data.totalPaid / 50000000) * 100) : 0;
+    document.getElementById('stat-progress').textContent = `${fmtMoney(data.totalPaid)} / 50tr (${pct}%)`;
+
+    document.getElementById('last-updated').textContent = 'Cập nhật: ' + new Date().toLocaleTimeString('vi-VN');
+
+    const tbody = document.getElementById('client-tbody');
+    if (!data.clients?.length) {
+      tbody.innerHTML = '<tr><td colspan="9" class="empty">Chưa có khách hàng nào. Thêm vào Notion để hiện ở đây.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = data.clients.map((c, i) => `
+      <tr>
+        <td style="color:#64748b">${i + 1}</td>
+        <td style="font-weight:500;color:#e2e8f0">${c.name}</td>
+        <td style="color:#94a3b8">${c.industry || '—'}</td>
+        <td>${pkgBadge(c.package)}</td>
+        <td>${statusBadge(c.status)}</td>
+        <td style="color:#c4a882">${fmtMoney(c.price)}</td>
+        <td style="color:${c.paid >= c.price && c.price > 0 ? '#4ade80' : '#fbbf24'}">${fmtMoney(c.paid)}</td>
+        <td>${c.live ? `<a href="${c.live}" target="_blank" class="link">Live ↗</a>` : c.demo ? `<a href="${c.demo}" target="_blank" class="link">Demo ↗</a>` : '—'}</td>
+        <td style="color:#64748b">${c.created || '—'}</td>
+      </tr>
+    `).join('');
+
+  } catch (err) {
+    document.getElementById('client-tbody').innerHTML =
+      `<tr><td colspan="9" class="empty">Lỗi tải dữ liệu: ${err.message}</td></tr>`;
+  }
+}
+
+function refreshData() { loadData(); }
+
+// Auto-refresh mỗi 5 phút
+setInterval(loadData, 300000);
+</script>
+</body>
+</html>
