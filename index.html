@@ -292,16 +292,13 @@
     /* ── HOMESTAY ─────────────────────────────────── */
     .homestay { padding: 100px 0; }
     .homestay-top { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 56px; flex-wrap: wrap; gap: 24px; }
-    .homestay-grid { display: grid; grid-template-columns: 7fr 5fr; gap: 8px; }
-    .homestay-grid .col-right { display: flex; flex-direction: column; gap: 8px; }
+    .homestay-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
     .home-card {
       position: relative; overflow: hidden; cursor: none;
     }
-    .home-img { overflow: hidden; }
+    .home-img { overflow: hidden; height: 380px; }
     .home-img img { transition: transform .7s cubic-bezier(.25,.46,.45,.94); }
     .home-card:hover .home-img img { transform: scale(1.06); }
-    .home-card.main .home-img { height: 620px; }
-    .home-card.sub .home-img { height: 304px; }
     .home-overlay {
       position: absolute; inset: 0;
       background: linear-gradient(to top, rgba(11,15,7,.85) 0%, transparent 45%);
@@ -637,7 +634,7 @@
       .nav-hamburger { display: flex; }
       .pillars-grid, .services-grid { grid-template-columns: 1fr; }
       .homestay-grid { grid-template-columns: 1fr; }
-      .home-card.main .home-img { height: 420px; }
+      .home-card .home-img { height: 320px; }
       .bonsai-inner { grid-template-columns: 1fr; gap: 48px; }
       .cta-inner { grid-template-columns: 1fr; gap: 48px; }
       .footer-top { grid-template-columns: 1fr 1fr; }
@@ -717,7 +714,7 @@
 <div class="stats-bar" aria-label="Thống kê">
   <div class="stats-inner">
     <div class="s-item reveal"><span class="s-num">360°</span><span class="s-label">Công nghệ tour</span></div>
-    <div class="s-item reveal d1"><span class="s-num">3+</span><span class="s-label">Homestay Đà Lạt</span></div>
+    <div class="s-item reveal d1"><span class="s-num">4+</span><span class="s-label">Homestay Đà Lạt</span></div>
     <div class="s-item reveal d2"><span class="s-num">10+</span><span class="s-label">Năm kinh nghiệm</span></div>
     <div class="s-item reveal d3"><span class="s-num">★ 4.9</span><span class="s-label">Đánh giá khách hàng</span></div>
   </div>
@@ -742,8 +739,8 @@
       <div class="pillar-card reveal d2">
         <div class="pillar-num">02 — Nghỉ dưỡng</div>
         <div class="pillar-icon">🏡</div>
-        <h3>Homestay<em>Ngọc Sinh Cát</em></h3>
-        <p>Ba không gian nghỉ dưỡng độc đáo tại Đà Lạt: Home Ngọc Sinh Cát, Villa Viện Nghiên Cứu và Nhà Gỗ Tây Hồ. Mỗi nơi một trải nghiệm.</p>
+        <h3>Homestay<em>Ngọc Sinh Cát & Bami</em></h3>
+        <p>Bốn không gian nghỉ dưỡng độc đáo tại Đà Lạt: Ngọc Sinh Cát, Villa Viện Nghiên Cứu, Nhà Gỗ Tây Hồ và BaMi House. Mỗi nơi một trải nghiệm riêng.</p>
         <a href="#homestay" class="pillar-link">Xem homestay →</a>
       </div>
       <div class="pillar-card reveal d3">
@@ -849,55 +846,69 @@
     <div class="homestay-top">
       <div>
         <p class="kicker reveal">Nghỉ dưỡng</p>
-        <h2 class="title reveal d1">Homestay<em>Ngọc Sinh Cát</em></h2>
-        <p class="title-desc reveal d2">Ba không gian nghỉ dưỡng độc đáo tại Đà Lạt — mỗi nơi một câu chuyện, một trải nghiệm không thể trộn lẫn.</p>
+        <h2 class="title reveal d1">Bộ Sưu Tập<em>Homestay</em></h2>
+        <p class="title-desc reveal d2">Bốn không gian nghỉ dưỡng độc đáo tại Đà Lạt — mỗi nơi một câu chuyện, một trải nghiệm không thể trộn lẫn.</p>
       </div>
-      <a href="homestay.html" class="btn-ghost reveal d2">Xem homestay</a>
+      <a href="homestay.html" class="btn-ghost reveal d2">Xem tất cả</a>
     </div>
     <div class="homestay-grid">
-      <!-- Main card -->
-      <div class="home-card main reveal">
+      <!-- Card 1: Home Ngọc Sinh Cát -->
+      <div class="home-card reveal">
         <div class="home-img">
-          <img src="https://res.cloudinary.com/dznkgkksu/image/upload/q_auto,f_auto,w_1200/tour360/ngocsinhcat-home.jpg" alt="Home Ngọc Sinh Cát — Không gian nghỉ dưỡng thiên nhiên Đà Lạt" width="1200" height="620" style="height:100%">
+          <img src="https://res.cloudinary.com/dznkgkksu/image/upload/q_auto,f_auto,w_800/tour360/ngocsinhcat-home.jpg" alt="Home Ngọc Sinh Cát — Không gian nghỉ dưỡng thiên nhiên Đà Lạt" width="800" height="380" style="height:100%">
         </div>
         <div class="home-overlay"></div>
         <div class="home-info">
-          <span class="home-status">Sắp mở cửa</span>
+          <span class="home-status available">Hoạt động</span>
           <h3>Home Ngọc Sinh Cát</h3>
           <div class="home-meta">
-            <span class="home-cap">👥 Tối đa 4 người · Không gian riêng tư</span>
-            <a href="homestay.html" class="home-link">Đặt phòng →</a>
+            <span class="home-cap">👥 16-20 khách · Rừng thông · Săn mây</span>
+            <a href="homestay.html" class="home-link">Chi tiết →</a>
           </div>
         </div>
       </div>
-      <!-- Sub cards -->
-      <div class="col-right">
-        <div class="home-card sub reveal d1">
-          <div class="home-img">
-            <img src="https://res.cloudinary.com/dznkgkksu/image/upload/q_auto,f_auto,w_800/tour360/villa-vien-nghien-cuu.jpg" alt="Villa Viện Nghiên Cứu — Villa 8 phòng ngủ Đà Lạt" width="800" height="304" style="height:100%">
-          </div>
-          <div class="home-overlay"></div>
-          <div class="home-info">
-            <span class="home-status">Sắp mở cửa</span>
-            <h3>Villa Viện Nghiên Cứu</h3>
-            <div class="home-meta">
-              <span class="home-cap">👥 10–20 khách · 8 phòng · BBQ · Cách TT 5km</span>
-              <a href="homestay.html" class="home-link">Đặt phòng →</a>
-            </div>
+      <!-- Card 2: Villa Viện Nghiên Cứu -->
+      <div class="home-card reveal d1">
+        <div class="home-img">
+          <img src="https://res.cloudinary.com/dznkgkksu/image/upload/q_auto,f_auto,w_800/tour360/ngocsinhcathome.jpg" alt="Villa Viện Nghiên Cứu — Villa 8 phòng ngủ Đà Lạt" width="800" height="380" style="height:100%">
+        </div>
+        <div class="home-overlay"></div>
+        <div class="home-info">
+          <span class="home-status available">Hoạt động</span>
+          <h3>Villa Viện Nghiên Cứu</h3>
+          <div class="home-meta">
+            <span class="home-cap">👥 10-20 khách · 8 phòng · BBQ · Cách TT 5km</span>
+            <a href="homestay.html" class="home-link">Chi tiết →</a>
           </div>
         </div>
-        <div class="home-card sub reveal d2">
-          <div class="home-img">
-            <img src="https://res.cloudinary.com/dznkgkksu/image/upload/q_auto,f_auto,w_800/tour360/nha-tay-ho.jpg" alt="Nhà Gỗ Tây Hồ — Không gian gỗ ấm cúng Đà Lạt" width="800" height="304" style="height:100%">
+      </div>
+      <!-- Card 3: Nhà Gỗ Tây Hồ -->
+      <div class="home-card reveal d2">
+        <div class="home-img">
+          <img src="https://res.cloudinary.com/dznkgkksu/image/upload/q_auto,f_auto,w_800/tour360/nha-tay-ho.jpg" alt="Nhà Gỗ Tây Hồ — Không gian gỗ ấm cúng Đà Lạt" width="800" height="380" style="height:100%">
+        </div>
+        <div class="home-overlay"></div>
+        <div class="home-info">
+          <span class="home-status available">Hoạt động</span>
+          <h3>Nhà Gỗ Tây Hồ</h3>
+          <div class="home-meta">
+            <span class="home-cap">👥 6-10 khách · Sofa bed · Sân BBQ · View hồ</span>
+            <a href="homestay.html" class="home-link">Chi tiết →</a>
           </div>
-          <div class="home-overlay"></div>
-          <div class="home-info">
-            <span class="home-status">Sắp mở cửa</span>
-            <h3>Nhà Gỗ Tây Hồ</h3>
-            <div class="home-meta">
-              <span class="home-cap">Không gian gỗ ấm cúng · View hồ</span>
-              <a href="homestay.html" class="home-link">Đặt phòng →</a>
-            </div>
+        </div>
+      </div>
+      <!-- Card 4: BaMi House -->
+      <div class="home-card reveal d3">
+        <div class="home-img">
+          <img src="bami-house.png" alt="BaMi House — Vibe Nhật Bản ấm cúng Đà Lạt" width="800" height="380" style="height:100%">
+        </div>
+        <div class="home-overlay"></div>
+        <div class="home-info">
+          <span class="home-status available">Hoạt động</span>
+          <h3>BaMi House</h3>
+          <div class="home-meta">
+            <span class="home-cap">👥 Tiêu chuẩn 6 khách · Vibe Nhật Bản · View thung lũng</span>
+            <a href="homestay.html" class="home-link">Chi tiết →</a>
           </div>
         </div>
       </div>
@@ -1004,6 +1015,7 @@
           <li><a href="homestay.html">Home Ngọc Sinh Cát</a></li>
           <li><a href="homestay.html">Villa Viện Nghiên Cứu</a></li>
           <li><a href="homestay.html">Nhà Gỗ Tây Hồ</a></li>
+          <li><a href="homestay.html">BaMi House</a></li>
           <li><a href="https://zalo.me/0785925998">Đặt phòng</a></li>
         </ul>
       </div>
