@@ -1,0 +1,2154 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ngọc Sinh Cát — Homestay Cổ Trang Đà Lạt | Hóa Thương Thành Ngọc</title>
+  <meta name="description" content="Ngọc Sinh Cát — Homestay cổ trang Châu Á độc đáo tại Đà Lạt. Villa 16 người, Nhà Gỗ view hồ, Team Building, Hóa trang cổ trang. 09 Xuân Trường, TP. Đà Lạt.">
+  <link rel="canonical" href="https://trongletour360.net/ngoc-sinh-cat.html">
+  <meta property="og:url" content="https://trongletour360.net/ngoc-sinh-cat.html">
+  <meta property="og:title" content="Ngọc Sinh Cát — Homestay Cổ Trang Đà Lạt">
+  <meta property="og:description" content="Trải nghiệm không gian cổ trang Châu Á độc đáo giữa rừng thông Đà Lạt. Hóa Thương Thành Ngọc.">
+  <meta property="og:image" content="https://res.cloudinary.com/dznkgkksu/image/upload/q_auto,f_auto,w_1200/tour360/ngocsinhcat-home.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── DESIGN TOKENS ───────────────────────────────────── */
+    :root {
+      --ink:     #160C04;
+      --deep:    #3D2B1F;
+      --brown:   #5C3D2B;
+      --gold:    #C9A84C;
+      --gold-l:  #E8C870;
+      --gold-d:  #9B7A2A;
+      --gold-dk: #6B5220;
+      --cream:   #F5EDD6;
+      --paper:   #FAF5E8;
+      --warm:    #FFF8EE;
+      --muted:   #8B7355;
+      --jade:    #3D6B5C;
+
+      --f-display: 'Cormorant Garamond', Georgia, serif;
+      --f-body:    'Lora', Georgia, serif;
+
+      --ease:        cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ── RESET ───────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--f-body);
+      background: var(--paper);
+      color: var(--ink);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+    /* ── NOISE TEXTURE OVERLAY ───────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9998;
+    }
+
+    /* ── SCROLL REVEAL ───────────────────────────────────── */
+    .reveal        { opacity: 0; transform: translateY(48px); transition: opacity 1s var(--ease), transform 1s var(--ease); }
+    .reveal-l      { opacity: 0; transform: translateX(-48px); transition: opacity 1s var(--ease), transform 1s var(--ease); }
+    .reveal-r      { opacity: 0; transform: translateX(48px);  transition: opacity 1s var(--ease), transform 1s var(--ease); }
+    .reveal.vis    { opacity: 1; transform: none; }
+    .reveal-l.vis  { opacity: 1; transform: none; }
+    .reveal-r.vis  { opacity: 1; transform: none; }
+
+    /* ── NAV ─────────────────────────────────────────────── */
+    #nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 52px;
+      transition: padding .5s var(--ease), background .5s, border-color .5s;
+    }
+    #nav.pinned {
+      padding: 16px 52px;
+      background: rgba(22, 12, 4, 0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(201,168,76,.18);
+    }
+
+    .nav-brand {
+      font-family: var(--f-display);
+      font-size: 1.45rem;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .nav-brand em {
+      font-style: italic;
+      font-weight: 300;
+      color: rgba(245,237,214,.75);
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+    .nav-links a {
+      font-family: var(--f-display);
+      font-size: .8rem;
+      font-weight: 500;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(245,237,214,.8);
+      position: relative;
+      transition: color .3s;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0; right: 100%;
+      height: 1px;
+      background: var(--gold);
+      transition: right .35s var(--ease);
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after { right: 0; }
+    .nav-links a:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+
+    .nav-btn {
+      font-family: var(--f-display);
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--ink) !important;
+      background: var(--gold);
+      padding: 10px 22px;
+      border-radius: 2px;
+      transition: background .3s, transform .3s !important;
+    }
+    .nav-btn:hover { background: var(--gold-l) !important; transform: translateY(-2px) !important; }
+    .nav-btn::after { display: none !important; }
+    .nav-btn:focus-visible { outline: 2px solid var(--gold-l); outline-offset: 3px; }
+
+    .burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 4px;
+    }
+    .burger span {
+      display: block;
+      width: 24px; height: 1.5px;
+      background: var(--gold);
+      transition: all .3s;
+    }
+
+    /* mobile nav */
+    #mMenu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 499;
+      background: rgba(22,12,4,.97);
+      backdrop-filter: blur(20px);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+    }
+    #mMenu.open { display: flex; }
+    #mMenu a {
+      font-family: var(--f-display);
+      font-size: 2.2rem;
+      font-weight: 300;
+      color: var(--cream);
+      letter-spacing: .06em;
+      transition: color .3s;
+    }
+    #mMenu a:hover { color: var(--gold); }
+    #mMenu .close-btn {
+      position: absolute;
+      top: 28px; right: 36px;
+      font-size: 1.6rem;
+      color: var(--gold);
+    }
+
+    /* ── HERO ────────────────────────────────────────────── */
+    #hero {
+      position: relative;
+      height: 100vh;
+      min-height: 680px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://res.cloudinary.com/dznkgkksu/image/upload/q_auto,f_auto,w_1600/tour360/ngocsinhcat-home.jpg');
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.1);
+      transition: transform 1.2s var(--ease-out);
+    }
+    .hero-bg.loaded { transform: scale(1); }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(160deg, rgba(22,12,4,.6) 0%, rgba(22,12,4,.25) 50%, rgba(22,12,4,.72) 100%);
+    }
+
+    /* decorative corner frame */
+    .hero-frame {
+      position: absolute;
+      inset: 36px;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .hero-frame::before, .hero-frame::after,
+    .hero-frame > span::before, .hero-frame > span::after {
+      content: '';
+      position: absolute;
+      width: 28px; height: 28px;
+      border-color: rgba(201,168,76,.65);
+      border-style: solid;
+    }
+    .hero-frame::before  { top: 0;    left: 0;   border-width: 2px 0 0 2px; }
+    .hero-frame::after   { top: 0;    right: 0;  border-width: 2px 2px 0 0; }
+    .hero-frame > span::before { bottom: 0; left: 0;   border-width: 0 0 2px 2px; }
+    .hero-frame > span::after  { bottom: 0; right: 0;  border-width: 0 2px 2px 0; }
+    .hero-frame-line {
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(201,168,76,.18);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 0 28px;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--f-display);
+      font-size: .78rem;
+      font-weight: 400;
+      letter-spacing: .45em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: riseUp .9s .4s var(--ease-out) forwards;
+    }
+    .hero-h1 {
+      font-family: var(--f-display);
+      font-size: clamp(3.8rem, 10vw, 8.5rem);
+      font-weight: 300;
+      color: var(--cream);
+      line-height: 1.0;
+      letter-spacing: .01em;
+      margin-bottom: 6px;
+      opacity: 0;
+      animation: riseUp 1s .6s var(--ease-out) forwards;
+    }
+    .hero-h1 em {
+      display: block;
+      font-style: italic;
+      font-weight: 600;
+      color: var(--gold);
+      font-size: .75em;
+      letter-spacing: .03em;
+      margin-top: 6px;
+    }
+    .hero-tagline {
+      font-family: var(--f-display);
+      font-size: clamp(.95rem, 2.2vw, 1.35rem);
+      font-weight: 300;
+      font-style: italic;
+      color: rgba(245,237,214,.72);
+      letter-spacing: .07em;
+      margin-bottom: 44px;
+      opacity: 0;
+      animation: riseUp .9s .85s var(--ease-out) forwards;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: riseUp .9s 1.05s var(--ease-out) forwards;
+    }
+
+    .btn-gold {
+      font-family: var(--f-display);
+      font-size: .82rem;
+      font-weight: 600;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: var(--gold);
+      padding: 17px 38px;
+      position: relative;
+      overflow: hidden;
+      transition: background .3s, transform .3s var(--ease-spring);
+      display: inline-block;
+    }
+    .btn-gold::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%; width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.28), transparent);
+      transition: left .5s;
+    }
+    .btn-gold:hover { background: var(--gold-l); transform: translateY(-3px); }
+    .btn-gold:hover::after { left: 100%; }
+    .btn-gold:focus-visible { outline: 2px solid var(--gold-l); outline-offset: 3px; }
+    .btn-gold:active { transform: translateY(-1px); }
+
+    .btn-ghost {
+      font-family: var(--f-display);
+      font-size: .82rem;
+      font-weight: 400;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--cream);
+      border: 1px solid rgba(245,237,214,.45);
+      padding: 17px 38px;
+      display: inline-block;
+      transition: border-color .3s, color .3s, transform .3s var(--ease-spring);
+    }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-3px); }
+    .btn-ghost:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 44px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      animation: riseUp .9s 1.5s var(--ease-out) forwards;
+    }
+    .hero-scroll-hint span {
+      font-family: var(--f-display);
+      font-size: .68rem;
+      letter-spacing: .38em;
+      text-transform: uppercase;
+      color: rgba(245,237,214,.5);
+    }
+    .scroll-wire {
+      width: 1px;
+      height: 52px;
+      background: linear-gradient(to bottom, rgba(201,168,76,.8), transparent);
+      animation: wirePulse 2.2s ease-in-out infinite;
+    }
+
+    @keyframes riseUp {
+      from { opacity: 0; transform: translateY(32px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes wirePulse {
+      0%, 100% { opacity: .4; transform: scaleY(1) translateY(0); }
+      50%       { opacity: 1;  transform: scaleY(1.15) translateY(4px); }
+    }
+
+    /* ── LAYOUT HELPERS ──────────────────────────────────── */
+    section { padding: 108px 0; }
+    .wrap   { max-width: 1240px; margin: 0 auto; padding: 0 44px; }
+
+    .eyebrow {
+      font-family: var(--f-display);
+      font-size: .72rem;
+      font-weight: 400;
+      letter-spacing: .42em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .eyebrow::before, .eyebrow::after {
+      content: '';
+      height: 1px;
+      width: 48px;
+      background: linear-gradient(to right, transparent, var(--gold-d));
+    }
+    .eyebrow::before { background: linear-gradient(to left, transparent, var(--gold-d)); }
+
+    .section-h2 {
+      font-family: var(--f-display);
+      font-size: clamp(2rem, 4.5vw, 3.4rem);
+      font-weight: 300;
+      color: var(--deep);
+      line-height: 1.18;
+      margin-bottom: 16px;
+    }
+    .section-h2 em {
+      font-style: italic;
+      font-weight: 600;
+      color: var(--gold-d);
+    }
+
+    .rule {
+      width: 56px;
+      height: 1px;
+      background: var(--gold);
+      margin: 22px 0 34px;
+    }
+
+    /* ── STORY ───────────────────────────────────────────── */
+    #story { background: var(--warm); }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 88px;
+      align-items: center;
+    }
+
+    .story-imgbox {
+      position: relative;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+    }
+    .story-imgbox img {
+      transition: transform 6s var(--ease);
+    }
+    .story-imgbox:hover img { transform: scale(1.06); }
+    .story-imgbox::after {
+      content: '';
+      position: absolute;
+      inset: 18px -18px -18px 18px;
+      border: 1px solid rgba(201,168,76,.55);
+      z-index: -1;
+      pointer-events: none;
+    }
+    .story-badge {
+      position: absolute;
+      bottom: 28px;
+      right: -26px;
+      background: var(--deep);
+      border: 1px solid rgba(201,168,76,.25);
+      color: var(--gold);
+      font-family: var(--f-display);
+      font-size: .7rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      padding: 16px 14px;
+      writing-mode: vertical-rl;
+    }
+
+    .story-text p {
+      font-size: 1.04rem;
+      line-height: 1.95;
+      color: var(--brown);
+      margin-bottom: 22px;
+    }
+
+    .story-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      margin-top: 44px;
+      padding-top: 44px;
+      border-top: 1px solid rgba(201,168,76,.2);
+    }
+    .stat { text-align: center; padding: 0 12px; }
+    .stat + .stat { border-left: 1px solid rgba(201,168,76,.15); }
+    .stat-n {
+      font-family: var(--f-display);
+      font-size: 2.6rem;
+      font-weight: 600;
+      color: var(--gold-d);
+      display: block;
+      line-height: 1;
+    }
+    .stat-l {
+      font-family: var(--f-display);
+      font-size: .7rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 6px;
+      display: block;
+    }
+
+    /* ── ROOMS ───────────────────────────────────────────── */
+    #rooms {
+      background: var(--ink);
+      padding: 108px 0 0;
+    }
+
+    .rooms-header {
+      text-align: center;
+      padding-bottom: 64px;
+    }
+    .rooms-header .section-h2 { color: var(--cream); }
+    .rooms-header .eyebrow { justify-content: center; }
+
+    .rooms-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+    }
+
+    .room-card {
+      position: relative;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .room-card img {
+      transition: transform .9s var(--ease), filter .6s;
+      filter: brightness(.72);
+    }
+    .room-card:hover img {
+      transform: scale(1.09);
+      filter: brightness(.5);
+    }
+    .room-veil {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(22,12,4,.92) 0%, rgba(22,12,4,.1) 60%, transparent 100%);
+    }
+    .room-body {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 36px 30px;
+    }
+    .room-cap {
+      font-family: var(--f-display);
+      font-size: .7rem;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .room-name {
+      font-family: var(--f-display);
+      font-size: 1.7rem;
+      font-weight: 600;
+      color: var(--cream);
+      line-height: 1.12;
+      margin-bottom: 0;
+    }
+    .room-desc {
+      font-size: .88rem;
+      color: rgba(245,237,214,.68);
+      line-height: 1.65;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      margin-top: 0;
+      transition: max-height .5s var(--ease), opacity .5s, margin-top .4s;
+    }
+    .room-card:hover .room-desc {
+      max-height: 120px;
+      opacity: 1;
+      margin-top: 14px;
+    }
+    .room-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      margin-top: 0;
+      transition: max-height .5s .1s var(--ease), opacity .5s .1s, margin-top .4s .1s;
+    }
+    .room-card:hover .room-tags {
+      max-height: 80px;
+      opacity: 1;
+      margin-top: 12px;
+    }
+    .room-tag {
+      font-family: var(--f-display);
+      font-size: .62rem;
+      letter-spacing: .15em;
+      color: var(--gold);
+      border: 1px solid rgba(201,168,76,.4);
+      padding: 3px 9px;
+    }
+    .room-link {
+      display: inline-block;
+      margin-top: 0;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      font-family: var(--f-display);
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: var(--gold);
+      padding: 0 20px;
+      transition: max-height .4s .15s var(--ease), opacity .4s .15s, margin-top .4s .15s, padding .4s .15s, background .3s;
+    }
+    .room-card:hover .room-link {
+      max-height: 48px;
+      opacity: 1;
+      margin-top: 18px;
+      padding: 11px 20px;
+    }
+    .room-link:hover { background: var(--gold-l); }
+
+    /* ── SERVICES ────────────────────────────────────────── */
+    #services { background: var(--cream); }
+
+    .svc-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 3px;
+      margin-top: 64px;
+    }
+    .svc-card {
+      background: var(--warm);
+      padding: 52px 30px 44px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: background .4s, transform .4s var(--ease-spring);
+    }
+    .svc-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .45s var(--ease);
+    }
+    .svc-card:hover { background: var(--deep); transform: translateY(-5px); }
+    .svc-card:hover::after { transform: scaleX(1); }
+
+    .svc-icon {
+      font-size: 3rem;
+      display: block;
+      margin-bottom: 22px;
+      transition: transform .45s var(--ease-spring);
+    }
+    .svc-card:hover .svc-icon { transform: scale(1.25) rotate(-6deg); }
+
+    .svc-name {
+      font-family: var(--f-display);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--deep);
+      margin-bottom: 14px;
+      transition: color .4s;
+    }
+    .svc-card:hover .svc-name { color: var(--gold); }
+
+    .svc-desc {
+      font-size: .88rem;
+      color: var(--muted);
+      line-height: 1.72;
+      transition: color .4s;
+    }
+    .svc-card:hover .svc-desc { color: rgba(245,237,214,.62); }
+
+    /* ── TOUR 360 ─────────────────────────────────────────── */
+    #tour360 {
+      background: var(--deep);
+      text-align: center;
+      padding: 108px 44px;
+    }
+    #tour360 .section-h2 { color: var(--cream); }
+    #tour360 .eyebrow { justify-content: center; }
+
+    .tour-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(201,168,76,.12);
+      border: 1px solid rgba(201,168,76,.28);
+      color: var(--gold);
+      font-family: var(--f-display);
+      font-size: .75rem;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      padding: 9px 22px;
+      margin-bottom: 28px;
+    }
+
+    #tour360 > p {
+      font-size: 1.08rem;
+      color: rgba(245,237,214,.7);
+      max-width: 560px;
+      margin: 0 auto 44px;
+      line-height: 1.85;
+    }
+
+    .tour-frame {
+      position: relative;
+      max-width: 820px;
+      margin: 0 auto;
+      border: 1px solid rgba(201,168,76,.2);
+    }
+    .tour-imgbox {
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      position: relative;
+    }
+    .tour-imgbox img {
+      filter: brightness(.55);
+      transition: filter .5s;
+    }
+    .tour-frame:hover .tour-imgbox img { filter: brightness(.42); }
+
+    .tour-play-layer {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+    }
+    .play-circle {
+      width: 84px; height: 84px;
+      border-radius: 50%;
+      background: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: var(--ink);
+      transition: transform .35s var(--ease-spring), background .3s;
+      text-decoration: none;
+    }
+    .play-circle:hover { transform: scale(1.18); background: var(--gold-l); }
+    .play-circle:focus-visible { outline: 2px solid var(--gold-l); outline-offset: 4px; }
+
+    .tour-play-layer > span {
+      font-family: var(--f-display);
+      font-size: .78rem;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: rgba(245,237,214,.75);
+    }
+
+    /* ── GALLERY ─────────────────────────────────────────── */
+    #gallery { background: var(--paper); }
+    #gallery .eyebrow { justify-content: center; }
+    #gallery .section-h2 { text-align: center; }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: 240px 240px;
+      gap: 4px;
+      margin-top: 60px;
+    }
+    .g-item {
+      overflow: hidden;
+      position: relative;
+    }
+    .g-item:first-child {
+      grid-column: 1 / 3;
+      grid-row: 1 / 3;
+    }
+    .g-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .75s var(--ease), filter .5s;
+    }
+    .g-item:hover img { transform: scale(1.07); filter: brightness(.78) sepia(.15); }
+    .g-shine {
+      position: absolute;
+      inset: 0;
+      background: rgba(201,168,76,.12);
+      opacity: 0;
+      transition: opacity .4s;
+    }
+    .g-item:hover .g-shine { opacity: 1; }
+
+    /* ── BOOKING ─────────────────────────────────────────── */
+    #booking { background: var(--ink); }
+    #booking .section-h2 { color: var(--cream); }
+    #booking .eyebrow { justify-content: center; text-align: center; }
+
+    .booking-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 88px;
+      align-items: start;
+      margin-top: 64px;
+    }
+
+    .bk-info-lead {
+      font-family: var(--f-display);
+      font-size: 1.75rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--cream);
+      margin-bottom: 22px;
+      line-height: 1.35;
+    }
+    .bk-info-p {
+      font-size: .98rem;
+      color: rgba(245,237,214,.6);
+      line-height: 1.9;
+      margin-bottom: 36px;
+    }
+
+    .cinfo {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+    .cinfo-icon {
+      width: 46px; height: 46px;
+      flex-shrink: 0;
+      background: rgba(201,168,76,.1);
+      border: 1px solid rgba(201,168,76,.22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+    .cinfo-text { font-family: var(--f-display); font-size: .95rem; color: rgba(245,237,214,.78); }
+    .cinfo-text strong {
+      display: block;
+      font-size: .67rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 3px;
+      font-weight: 500;
+    }
+
+    form { display: flex; flex-direction: column; gap: 16px; }
+    .f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .f-field { display: flex; flex-direction: column; gap: 7px; }
+    .f-field label {
+      font-family: var(--f-display);
+      font-size: .68rem;
+      letter-spacing: .26em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .f-field input,
+    .f-field select,
+    .f-field textarea {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(201,168,76,.2);
+      color: var(--cream);
+      font-family: var(--f-body);
+      font-size: .95rem;
+      padding: 14px 18px;
+      outline: none;
+      transition: border-color .3s, background .3s;
+      -webkit-appearance: none;
+      border-radius: 0;
+    }
+    .f-field input::placeholder,
+    .f-field textarea::placeholder { color: rgba(245,237,214,.25); }
+    .f-field input:focus,
+    .f-field select:focus,
+    .f-field textarea:focus {
+      border-color: var(--gold);
+      background: rgba(201,168,76,.06);
+    }
+    .f-field select option { background: var(--deep); }
+    .f-field textarea { resize: vertical; min-height: 100px; }
+
+    .f-submit button {
+      width: 100%;
+      font-family: var(--f-display);
+      font-size: .88rem;
+      font-weight: 600;
+      letter-spacing: .26em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: var(--gold);
+      padding: 19px;
+      transition: background .3s, transform .3s var(--ease-spring);
+      margin-top: 6px;
+    }
+    .f-submit button:hover { background: var(--gold-l); transform: translateY(-2px); }
+    .f-submit button:focus-visible { outline: 2px solid var(--gold-l); outline-offset: 3px; }
+    .f-note {
+      font-size: .78rem;
+      color: rgba(245,237,214,.35);
+      text-align: center;
+      margin-top: 6px;
+    }
+
+    /* ── FOOTER ──────────────────────────────────────────── */
+    footer {
+      background: #0E0702;
+      padding: 64px 44px 32px;
+    }
+    .footer-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 64px;
+      padding-bottom: 52px;
+      border-bottom: 1px solid rgba(201,168,76,.1);
+    }
+    .footer-logo {
+      font-family: var(--f-display);
+      font-size: 1.55rem;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: .1em;
+      margin-bottom: 6px;
+    }
+    .footer-slogan {
+      font-family: var(--f-display);
+      font-style: italic;
+      font-size: .98rem;
+      color: rgba(245,237,214,.4);
+      margin-bottom: 20px;
+    }
+    .footer-about {
+      font-size: .88rem;
+      color: rgba(245,237,214,.38);
+      line-height: 1.85;
+    }
+    .footer-col h4 {
+      font-family: var(--f-display);
+      font-size: .7rem;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li {
+      font-size: .88rem;
+      color: rgba(245,237,214,.42);
+      margin-bottom: 11px;
+      transition: color .3s;
+    }
+    .footer-col li a { transition: color .3s; }
+    .footer-col li:hover,
+    .footer-col li a:hover { color: var(--gold); }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 28px;
+    }
+    .footer-bottom p {
+      font-family: var(--f-display);
+      font-size: .78rem;
+      color: rgba(245,237,214,.22);
+      letter-spacing: .05em;
+    }
+    .footer-bottom a { color: rgba(201,168,76,.45); transition: color .3s; }
+    .footer-bottom a:hover { color: var(--gold); }
+
+    .footer-social {
+      display: flex;
+      gap: 14px;
+      margin-top: 20px;
+    }
+    .footer-social a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px; height: 38px;
+      border: 1px solid rgba(201,168,76,.25);
+      border-radius: 50%;
+      color: rgba(245,237,214,.5);
+      transition: color .3s, border-color .3s, transform .3s;
+    }
+    .footer-social a:hover {
+      color: var(--gold);
+      border-color: var(--gold);
+      transform: translateY(-3px);
+    }
+    .footer-social svg { width: 16px; height: 16px; fill: currentColor; }
+
+    /* ── FLOATING CTA ────────────────────────────────────── */
+    .float-cta {
+      position: fixed;
+      bottom: 32px; right: 30px;
+      z-index: 400;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: flex-end;
+    }
+    .f-zalo, .f-call {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--f-display);
+      font-size: .82rem;
+      font-weight: 600;
+      padding: 13px 22px;
+      border-radius: 50px;
+      transition: transform .35s var(--ease-spring), box-shadow .35s;
+    }
+    .f-zalo {
+      background: #0068FF;
+      color: #fff;
+      box-shadow: 0 8px 28px rgba(0,104,255,.35);
+    }
+    .f-zalo:hover { transform: translateY(-4px) scale(1.03); box-shadow: 0 14px 36px rgba(0,104,255,.48); }
+    .f-call {
+      background: var(--gold);
+      color: var(--ink);
+      box-shadow: 0 8px 28px rgba(201,168,76,.35);
+    }
+    .f-call:hover { transform: translateY(-4px) scale(1.03); box-shadow: 0 14px 36px rgba(201,168,76,.48); }
+    .f-zalo:focus-visible, .f-call:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+    /* ── RESPONSIVE ──────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .story-grid  { grid-template-columns: 1fr; gap: 52px; }
+      .story-imgbox::after { display: none; }
+      .story-badge { display: none; }
+      .rooms-grid  { grid-template-columns: 1fr; }
+      .room-card   { aspect-ratio: 3/2; }
+      .svc-grid    { grid-template-columns: repeat(2, 1fr); }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
+      .g-item:first-child { grid-column: 1 / 3; grid-row: auto; }
+      .booking-grid { grid-template-columns: 1fr; gap: 52px; }
+      .footer-top  { grid-template-columns: 1fr; gap: 40px; }
+    }
+    @media (max-width: 768px) {
+      section { padding: 76px 0; }
+      .wrap { padding: 0 24px; }
+      #nav { padding: 20px 24px; }
+      #nav.pinned { padding: 14px 24px; }
+      .nav-links { display: none; }
+      .burger { display: flex; }
+      .hero-frame { inset: 16px; }
+      .f-row { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
+      .float-cta { bottom: 20px; right: 16px; }
+      #tour360 { padding: 76px 24px; }
+    }
+    @media (max-width: 480px) {
+      .svc-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .g-item:first-child { grid-column: 1 / 3; }
+      .f-zalo span, .f-call span { display: none; }
+    }
+
+    /* ── HERO TOUR 360° TOÀN MÀN HÌNH ───────────────────── */
+    #hero.hero-tour { height: 100vh; height: 100svh; min-height: 560px; padding: 0; }
+    .hero-pano {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      border: 0; z-index: 0; opacity: 0; transition: opacity 1.2s var(--ease-out);
+    }
+    .hero-pano.ready { opacity: 1; }
+    .hero-shield {
+      position: absolute; inset: 0; z-index: 1;
+      background: transparent; border: 0; cursor: grab;
+    }
+    .hero-tour .hero-overlay {
+      z-index: 1; pointer-events: none;
+      background: linear-gradient(180deg, rgba(22,12,4,.35) 0%, rgba(22,12,4,0) 22%, rgba(22,12,4,0) 45%, rgba(22,12,4,.55) 72%, rgba(22,12,4,.88) 100%);
+    }
+    .hero-tour .hero-content {
+      position: absolute; left: 0; right: 0; bottom: 118px;
+      z-index: 2; pointer-events: none;
+    }
+    .hero-tour .hero-content a, .hero-tour .hero-content button { pointer-events: auto; }
+    .hero-tour .hero-h1 { font-size: clamp(3rem, 8vw, 6.8rem); }
+    .hero-tour .hero-tagline { margin-bottom: 30px; }
+    .hero-tour button.btn-gold, .tour-bar button { border: 0; cursor: pointer; }
+    .hero-hint {
+      margin-top: 18px; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase;
+      color: rgba(245,237,214,.62); opacity: 0; animation: riseUp .9s 1.3s var(--ease-out) forwards;
+    }
+    .tour-bar {
+      position: absolute; left: 50%; bottom: 24px; transform: translateX(-50%);
+      z-index: 3; display: none; gap: 10px; align-items: center;
+      padding: 8px; background: rgba(22,12,4,.72); backdrop-filter: blur(10px);
+      border: 1px solid rgba(201,168,76,.35);
+    }
+    .tour-bar button {
+      font-family: var(--f-display); font-size: .78rem; letter-spacing: .16em; text-transform: uppercase;
+      color: var(--cream); background: transparent; padding: 12px 18px;
+    }
+    .tour-bar button:hover { color: var(--gold); }
+    .tour-bar .btn-gold { padding: 12px 24px; }
+    #hero.touring .hero-shield, #hero.touring .hero-overlay, #hero.touring .hero-content,
+    #hero.touring .hero-frame, #hero.touring .hero-scroll-hint {
+      opacity: 0; visibility: hidden; transition: opacity .4s, visibility .4s;
+    }
+    #hero.touring .tour-bar { display: flex; }
+    @media (max-width: 760px) {
+      .hero-tour .hero-content { bottom: 92px; }
+      .hero-tour .hero-tagline { display: none; }
+      .hero-tour .hero-actions .btn-gold, .hero-tour .hero-actions .btn-ghost { padding: 15px 22px; }
+      .tour-bar { width: calc(100% - 24px); justify-content: space-between; bottom: 12px; }
+      .tour-bar button { padding: 12px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav" aria-label="Menu điều hướng chính">
+  <div class="nav-brand">Ngọc Sinh <em>Cát</em></div>
+  <ul class="nav-links" role="list">
+    <li><a href="#story">Về Chúng Tôi</a></li>
+    <li><a href="#rooms">Phòng</a></li>
+    <li><a href="#services">Dịch Vụ</a></li>
+    <li><a href="#hero">Tour 360°</a></li>
+    <li><a href="#gallery">Hình Ảnh</a></li>
+    <li><a href="#booking" class="nav-btn">Đặt Phòng</a></li>
+  </ul>
+  <button class="burger" aria-label="Mở menu" aria-expanded="false" onclick="openMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div id="mMenu" role="dialog" aria-modal="true" aria-label="Menu điều hướng">
+  <button class="close-btn" aria-label="Đóng menu" onclick="closeMenu()">✕</button>
+  <a href="#story"    onclick="closeMenu()">Về Chúng Tôi</a>
+  <a href="#rooms"    onclick="closeMenu()">Phòng</a>
+  <a href="#services" onclick="closeMenu()">Dịch Vụ</a>
+  <a href="#hero"  onclick="closeMenu()">Tour 360°</a>
+  <a href="#gallery"  onclick="closeMenu()">Hình Ảnh</a>
+  <a href="#booking"  onclick="closeMenu()" class="btn-gold" style="font-size:.85rem;padding:14px 36px;">Đặt Phòng Ngay</a>
+</div>
+
+<!-- HERO — TOUR 360° TOÀN MÀN HÌNH -->
+<section id="hero" class="hero-tour" aria-label="Tour 360° Homestay Ngọc Sinh Cát">
+  <div class="hero-bg" id="heroBg" aria-hidden="true"></div>
+  <iframe class="hero-pano" id="heroPano"
+    src="https://tour.panoee.net/ngocsinhcathome"
+    title="Tour 360° Homestay Ngọc Sinh Cát Đà Lạt"
+    allow="fullscreen; xr-spatial-tracking; gyroscope; accelerometer"
+    allowfullscreen></iframe>
+  <button type="button" class="hero-shield" id="heroShield" aria-label="Bắt đầu tham quan tour 360°"></button>
+  <div class="hero-overlay" aria-hidden="true"></div>
+  <div class="hero-frame" aria-hidden="true">
+    <span></span>
+    <div class="hero-frame-line"></div>
+  </div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">✦ Homestay Cổ Trang · Đà Lạt ✦</p>
+    <h1 class="hero-h1">
+      Ngọc Sinh Cát
+      <em>Hóa Thương Thành Ngọc</em>
+    </h1>
+    <p class="hero-tagline">Ngôi Nhà Gỗ Trong Rừng — Không Gian Cổ Trang Châu Á Độc Nhất Đà Lạt</p>
+    <div class="hero-actions">
+      <button type="button" class="btn-gold" id="tourStart">Tham Quan 360° Ngay</button>
+      <a href="#booking" class="btn-ghost">Đặt Phòng</a>
+    </div>
+    <p class="hero-hint">Bạn đang xem không gian thật · Chạm để tự đi vào từng phòng</p>
+  </div>
+
+  <div class="tour-bar" id="tourBar">
+    <button type="button" id="tourExit">✕ Thoát tour</button>
+    <button type="button" id="tourFull">⛶ Toàn màn hình</button>
+    <a href="#booking" class="btn-gold">Đặt Phòng</a>
+  </div>
+
+  <div class="hero-scroll-hint" aria-hidden="true">
+    <span>Cuộn Xuống</span>
+    <div class="scroll-wire"></div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section id="story" aria-label="Câu chuyện Ngọc Sinh Cát">
+  <div class="wrap">
+    <div class="story-grid">
+      <div class="story-imgbox reveal-l">
+        <img
+          src="https://res.cloudinary.com/dznkgkksu/image/upload/q_auto,f_auto,w_900/tour360/nha-tay-ho.jpg"
+          alt="Không gian cổ trang ấm cúng tại Ngọc Sinh Cát — Homestay Đà Lạt"
+          loading="lazy">
+        <div class="story-badge" aria-hidden="true">Đà Lạt · 3 Sao</div>
+      </div>
+
+      <div class="story-text reveal-r">
+        <p class="eyebrow">Câu Chuyện Của Chúng Tôi</p>
+        <h2 class="section-h2">Nơi Cổ Trang<br><em>Châu Á Hồi Sinh</em></h2>
+        <div class="rule" aria-hidden="true"></div>
+        <p>Ngọc Sinh Cát là một khách sạn 3 sao tọa lạc giữa lòng thiên nhiên tươi đẹp của Đà Lạt, mang đến cho du khách trải nghiệm nghỉ dưỡng yên bình và gần gũi với thiên nhiên. Với thiết kế nhà gỗ truyền thống, khách sạn mang đến không gian ấm cúng, thân thiện, phù hợp cho những ai muốn tránh xa nhịp sống ồn ào và tìm lại sự bình yên trong tâm hồn.</p>
+        <p>Khách sạn có một phòng duy nhất, tạo cảm giác riêng tư và thoải mái tối đa cho khách lưu trú. Thời gian nhận phòng bắt đầu từ 1 giờ sáng và khách có thể trả phòng đến 12 giờ đêm, linh hoạt phù hợp với lịch trình của mỗi người. Ngọc Sinh Cát hứa hẹn sẽ là điểm dừng chân lý tưởng cho những ai yêu thích hòa mình vào thiên nhiên và tìm kiếm một không gian nghỉ dưỡng độc đáo tại Đà Lạt.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROOMS -->
+<section id="rooms" aria-label="Các loại phòng tại Ngọc Sinh Cát">
+  <div class="wrap rooms-header reveal">
+    <p class="eyebrow">Không Gian Lưu Trú</p>
+    <h2 class="section-h2" style="color:var(--cream);">Chọn <em>Không Gian</em> Của Bạn</h2>
+  </div>
+
+  <div class="rooms-grid" role="list">
+    <!-- Lý Ngữ Viên -->
+    <article class="room-card reveal" role="listitem">
+      <img
+        src="https://res.cloudinary.com/dznkgkksu/image/upload/q_auto,f_auto,w_900/v1778911934/tour360/ngocsinhcat/ly-ngu-vien.jpg"
+        alt="Lý Ngữ Viên — nhà gỗ có hồ cá koi tại Ngọc Sinh Cát Đà Lạt"
+        loading="lazy">
+      <div class="room-veil" aria-hidden="true"></div>
+      <div class="room-body">
+        <span class="room-cap">🏠 4–6 người · 1.350.000đ/đêm</span>
+        <h3 class="room-name">Lý Ngữ<br>Viên</h3>
+        <p class="room-desc">Nhà gỗ có hồ cá koi.</p>
+        <div class="room-tags" aria-label="Tiện nghi">
+          <span class="room-tag">Hồ cá Koi</span>
+          <span class="room-tag">4–6 người</span>
+          <span class="room-tag">Sân BBQ</span>
+        </div>
+        <a href="#booking" class="room-link" aria-label="Đặt Lý Ngữ Viên">Đặt Phòng →</a>
+      </div>
+    </article>
+
+    <!-- Thanh Phong Viên -->
+    <article class="room-card reveal" style="transition-delay:.1s" role="listitem">
+      <img
+        src="https://res.cloudinary.com/dznkgkksu/image/upload/q_auto,f_auto,w_900/v1778911944/tour360/ngocsinhcat/thanh-phong-vien-chinh.jpg"
+        alt="Thanh Phong Viên — nhà kiến trúc Nhật Bản tại Ngọc Sinh Cát Đà Lạt"
+        loading="lazy">
+      <div class="room-veil" aria-hidden="true"></div>
+      <div class="room-body">
+        <span class="room-cap">🏯 4–6 người · 1.350.000đ/đêm</span>
+        <h3 class="room-name">Thanh Phong<br>Viên</h3>
+        <p class="room-desc">Nhà kiến trúc Nhật Bản.</p>
+        <div class="room-tags" aria-label="Tiện nghi">
+          <span class="room-tag">Kiến trúc Nhật</span>
+          <span class="room-tag">4–6 người</span>
+          <span class="room-tag">Điều hòa</span>
+        </div>
+        <a href="#booking" class="room-link" aria-label="Đặt Thanh Phong Viên">Đặt Phòng →</a>
+      </div>
+    </article>
+
+    <!-- Tùng Quang Ngữ Cảnh -->
+    <article class="room-card reveal" style="transition-delay:.2s" role="listitem">
+      <img
+        src="https://res.cloudinary.com/dznkgkksu/image/upload/q_auto,f_auto,w_900/v1778911951/tour360/ngocsinhcat/tung-quang-chinh.jpg"
+        alt="Tùng Quang Ngữ Cảnh — không gian gia đình cổ trang tại Ngọc Sinh Cát Đà Lạt"
+        loading="lazy">
+      <div class="room-veil" aria-hidden="true"></div>
+      <div class="room-body">
+        <span class="room-cap">🏘️ 8–12 người · 3.500.000đ/đêm</span>
+        <h3 class="room-name">Tùng Quang<br>Ngữ Cảnh</h3>
+        <p class="room-desc">Gia đình sum vầy — cổ trang. 4 phòng đơn, NVS riêng.</p>
+        <div class="room-tags" aria-label="Tiện nghi">
+          <span class="room-tag">4 phòng đơn</span>
+          <span class="room-tag">8–12 người</span>
+          <span class="room-tag">NVS riêng</span>
+        </div>
+        <a href="#booking" class="room-link" aria-label="Đặt Tùng Quang Ngữ Cảnh">Đặt Phòng →</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" aria-label="Dịch vụ tại Ngọc Sinh Cát">
+  <div class="wrap">
+    <div class="reveal" style="text-align:center;">
+      <p class="eyebrow">Trải Nghiệm Độc Đáo</p>
+      <h2 class="section-h2">Dịch Vụ <em>Cổ Trang</em><br>Chỉ Có Ở Đây</h2>
+    </div>
+
+    <div class="svc-grid" role="list">
+      <div class="svc-card reveal" role="listitem">
+        <span class="svc-icon" aria-hidden="true">🔥</span>
+        <h3 class="svc-name">Nhóm Lửa Cắm Trại</h3>
+      </div>
+      <div class="svc-card reveal" style="transition-delay:.08s" role="listitem">
+        <span class="svc-icon" aria-hidden="true">🎯</span>
+        <h3 class="svc-name">Team Building</h3>
+      </div>
+      <div class="svc-card reveal" style="transition-delay:.16s" role="listitem">
+        <span class="svc-icon" aria-hidden="true">🎵</span>
+        <h3 class="svc-name">Ca Nhạc</h3>
+      </div>
+      <div class="svc-card reveal" style="transition-delay:.24s" role="listitem">
+        <span class="svc-icon" aria-hidden="true">👘</span>
+        <h3 class="svc-name">Hóa Trang Cổ Trang</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO -->
+<section id="tour360" aria-label="Tour 360° và Video giới thiệu Ngọc Sinh Cát">
+  <h2 class="section-h2 reveal" style="max-width:700px;margin:0 auto 16px;">Video <em>Giới Thiệu</em></h2>
+
+  <!-- VIDEO YOUTUBE -->
+  <div class="tour-frame reveal" style="margin-top:40px;">
+    <p style="text-align:center;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:14px;">Video giới thiệu</p>
+    <div class="tour-imgbox" style="aspect-ratio:16/9;position:relative;overflow:hidden;">
+      <iframe
+        src="https://www.youtube.com/embed/-nYhcD9j8yM?rel=0&modestbranding=1"
+        title="Video giới thiệu Ngọc Sinh Cát — Homestay cổ trang Đà Lạt"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        style="position:absolute;inset:0;width:100%;height:100%;">
+      </iframe>
+    </div>
+  </div>
+
+  <div class="reveal" style="margin-top:36px;text-align:center;">
+    <a
+      href="https://tour.panoee.net/ngocsinhcathome"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="btn-gold"
+      aria-label="Xem Tour 360° Ngọc Sinh Cát toàn màn hình trên Panoee">
+      🌐 Xem Tour 360° Toàn Màn Hình
+    </a>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery" aria-label="Hình ảnh thực tế Ngọc Sinh Cát">
+  <div class="wrap">
+    <div class="reveal" style="text-align:center;">
+      <p class="eyebrow">Hình Ảnh Thực Tế</p>
+      <h2 class="section-h2">Ngọc Sinh Cát<br><em>Qua Từng Khoảnh Khắc</em></h2>
+    </div>
+
+    <div class="gallery-grid reveal" role="list">
+      <div class="g-item" role="listitem">
+        <img
+          src="https://res.cloudinary.com/dznkgkksu/image/upload/q_auto,f_auto,w_1000/v1778911929/tour360/ngocsinhcat/hero.jpg"
+          alt="Toàn cảnh Ngọc Sinh Cát — Homestay cổ trang Châu Á Đà Lạt"
+          loading="lazy">
+        <div class="g-shine" aria-hidden="true"></div>
+      </div>
+      <div class="g-item" role="listitem">
+        <img
+          src="https://res.cloudinary.com/dznkgkksu/image/upload/q_auto,f_auto,w_600/v1778911934/tour360/ngocsinhcat/ly-ngu-vien.jpg"
+          alt="Lý Ngữ Viên — nhà gỗ có hồ cá koi tại Ngọc Sinh Cát"
+          loading="lazy">
+        <div class="g-shine" aria-hidden="true"></div>
+      </div>
+      <div class="g-item" role="listitem">
+        <img
+          src="https://res.cloudinary.com/dznkgkksu/image/upload/q_auto,f_auto,w_600/v1778911944/tour360/ngocsinhcat/thanh-phong-vien-chinh.jpg"
+          alt="Thanh Phong Viên — kiến trúc Nhật Bản tại Ngọc Sinh Cát"
+          loading="lazy">
+        <div class="g-shine" aria-hidden="true"></div>
+      </div>
+      <div class="g-item" role="listitem">
+        <img
+          src="https://res.cloudinary.com/dznkgkksu/image/upload/q_auto,f_auto,w_600/v1778911951/tour360/ngocsinhcat/tung-quang-chinh.jpg"
+          alt="Tùng Quang Ngữ Cảnh — không gian gia đình cổ trang tại Ngọc Sinh Cát"
+          loading="lazy">
+        <div class="g-shine" aria-hidden="true"></div>
+      </div>
+      <div class="g-item" role="listitem">
+        <img
+          src="https://res.cloudinary.com/dznkgkksu/image/upload/q_auto,f_auto,w_600/v1778911932/tour360/ngocsinhcat/ly-ngu-phu-1.jpg"
+          alt="Chi tiết nội thất cổ trang tại Lý Ngữ Viên — Ngọc Sinh Cát"
+          loading="lazy">
+        <div class="g-shine" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section id="booking" aria-label="Đặt phòng và liên hệ Ngọc Sinh Cát">
+  <div class="wrap">
+    <div class="reveal" style="text-align:center;">
+      <p class="eyebrow">Liên Hệ &amp; Đặt Chỗ</p>
+      <h2 class="section-h2" style="color:var(--cream);">Bắt Đầu <em>Hành Trình</em><br>Cổ Trang Của Bạn</h2>
+    </div>
+
+    <div class="booking-grid">
+      <div class="reveal-l">
+        <p class="bk-info-lead">"Hóa Thương Thành Ngọc"</p>
+
+        <div class="cinfo">
+          <div class="cinfo-icon" aria-hidden="true">📞</div>
+          <div class="cinfo-text">
+            <strong>Hotline / Zalo</strong>
+            <a href="tel:0785925998" style="color:inherit;">0785 925 998</a>
+          </div>
+        </div>
+        <div class="cinfo">
+          <div class="cinfo-icon" aria-hidden="true">📍</div>
+          <div class="cinfo-text">
+            <strong>Địa Chỉ</strong>
+            09 Ngọc Sinh Cát, Xuân Trường, TP. Đà Lạt, Lâm Đồng
+          </div>
+        </div>
+        <div class="cinfo">
+          <div class="cinfo-icon" aria-hidden="true">🕐</div>
+          <div class="cinfo-text">
+            <strong>Check-in / Check-out</strong>
+            Check-in: 01:00 &nbsp;·&nbsp; Check-out: 24:00
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal-r">
+        <form id="bkForm" onsubmit="submitForm(event)" novalidate>
+          <div class="f-row">
+            <div class="f-field">
+              <label for="fn">Họ và Tên *</label>
+              <input type="text" id="fn" name="name" placeholder="Nguyễn Văn A" required autocomplete="name">
+            </div>
+            <div class="f-field">
+              <label for="fp">Số Điện Thoại *</label>
+              <input type="tel" id="fp" name="phone" placeholder="0901 234 567" required autocomplete="tel">
+            </div>
+          </div>
+
+          <div class="f-field">
+            <label for="fr">Không Gian Muốn Đặt</label>
+            <select id="fr" name="room">
+              <option value="">— Chọn không gian —</option>
+              <option value="Lý Ngữ Viên">🏠 Lý Ngữ Viên — 4–6 người · 1.350.000đ/đêm</option>
+              <option value="Thanh Phong Viên">🏯 Thanh Phong Viên — 4–6 người · 1.350.000đ/đêm</option>
+              <option value="Tùng Quang Ngữ Cảnh">🏘️ Tùng Quang Ngữ Cảnh — 8–12 người · 3.500.000đ/đêm</option>
+              <option value="Chưa quyết định">Chưa quyết định — cần tư vấn</option>
+            </select>
+          </div>
+
+          <div class="f-row">
+            <div class="f-field">
+              <label for="fci">Ngày Check-in</label>
+              <input type="date" id="fci" name="checkin">
+            </div>
+            <div class="f-field">
+              <label for="fco">Ngày Check-out</label>
+              <input type="date" id="fco" name="checkout">
+            </div>
+          </div>
+
+          <div class="f-row">
+            <div class="f-field">
+              <label for="fg">Số Khách</label>
+              <input type="number" id="fg" name="guests" placeholder="8" min="1" max="40">
+            </div>
+            <div class="f-field">
+              <label for="fsv">Dịch Vụ Thêm</label>
+              <select id="fsv" name="service">
+                <option value="">Không</option>
+                <option value="Nhóm lửa cắm trại">🔥 Nhóm Lửa Cắm Trại</option>
+                <option value="Team Building">🎯 Team Building</option>
+                <option value="Ca nhạc cổ trang">🎵 Ca Nhạc Cổ Trang</option>
+                <option value="Hóa trang cổ trang">👘 Hóa Trang Cổ Trang</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="f-field">
+            <label for="fno">Ghi Chú Thêm</label>
+            <textarea id="fno" name="note" placeholder="Yêu cầu đặc biệt, số trẻ em, câu hỏi về dịch vụ..."></textarea>
+          </div>
+
+          <div class="f-submit">
+            <button type="submit">✦ Gửi Yêu Cầu Đặt Phòng ✦</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer aria-label="Thông tin Ngọc Sinh Cát">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">Ngọc Sinh Cát</div>
+        <div class="footer-slogan">Hóa Thương Thành Ngọc</div>
+        <p class="footer-about">Ngọc Sinh Cát — Ngôi Nhà Gỗ Trong Rừng. Vibe cổ trang Châu Á. Đà Lạt.</p>
+        <div class="footer-social" aria-label="Mạng xã hội Ngọc Sinh Cát">
+          <a href="https://www.facebook.com/homestayngocsinhcat" target="_blank" rel="noopener" aria-label="Facebook Ngọc Sinh Cát">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="https://www.tiktok.com/@ngocsinhcat" target="_blank" rel="noopener" aria-label="TikTok Ngọc Sinh Cát">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.2 8.2 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Không Gian</h4>
+        <ul>
+          <li><a href="#rooms">🏠 Lý Ngữ Viên</a></li>
+          <li><a href="#rooms">🏯 Thanh Phong Viên</a></li>
+          <li><a href="#rooms">🏘️ Tùng Quang Ngữ Cảnh</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Liên Hệ</h4>
+        <ul>
+          <li>📞 <a href="tel:0785925998">0785 925 998</a></li>
+          <li>📍 09 Ngọc Sinh Cát, Xuân Trường</li>
+          <li>🌿 TP. Đà Lạt, Lâm Đồng</li>
+          <li>💬 <a href="https://zalo.me/0785925998" target="_blank" rel="noopener">Zalo ngay</a></li>
+          <li>📘 <a href="https://www.facebook.com/homestayngocsinhcat" target="_blank" rel="noopener">Facebook</a></li>
+          <li>🎵 <a href="https://www.tiktok.com/@ngocsinhcat" target="_blank" rel="noopener">TikTok</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 Ngọc Sinh Cát — Homestay Cổ Trang Đà Lạt</p>
+      <p>Thiết kế bởi <a href="https://trongletour360.net" target="_blank" rel="noopener">TrongLeTour360</a></p>
+    </div>
+  </div>
+</footer>
+
+<!-- FLOATING CTA -->
+<div class="float-cta" aria-label="Liên hệ nhanh">
+  <a href="https://zalo.me/0785925998" target="_blank" rel="noopener" class="f-zalo" aria-label="Nhắn Zalo Ngọc Sinh Cát">
+    💬 <span>Nhắn Zalo</span>
+  </a>
+  <a href="tel:0785925998" class="f-call" aria-label="Gọi điện Ngọc Sinh Cát">
+    📞 <span>0785 925 998</span>
+  </a>
+</div>
+
+<script>
+  /* ── NAV PIN ── */
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('pinned', window.scrollY > 60);
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  /* ── HERO BG ENTRANCE ── */
+  window.addEventListener('load', () => {
+    document.getElementById('heroBg').classList.add('loaded');
+  });
+  setTimeout(() => document.getElementById('heroBg').classList.add('loaded'), 300);
+
+  /* ── SCROLL REVEAL ── */
+  const revEls = document.querySelectorAll('.reveal, .reveal-l, .reveal-r');
+  const revObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const parent = el.parentElement;
+      const siblings = Array.from(parent.querySelectorAll('.reveal, .reveal-l, .reveal-r'));
+      const idx = siblings.indexOf(el);
+      setTimeout(() => el.classList.add('vis'), idx * 110);
+      revObs.unobserve(el);
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+  revEls.forEach(el => revObs.observe(el));
+
+  /* ── MOBILE MENU ── */
+  function openMenu() {
+    const m = document.getElementById('mMenu');
+    m.classList.add('open');
+    document.querySelector('[aria-expanded]').setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    const m = document.getElementById('mMenu');
+    m.classList.remove('open');
+    document.querySelector('[aria-expanded]').setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('mMenu').addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeMenu();
+  });
+
+  /* ── DATE DEFAULTS ── */
+  const today = new Date();
+  const fmt = d => d.toISOString().split('T')[0];
+  const tomorrow = new Date(today); tomorrow.setDate(today.getDate() + 1);
+  const dayAfter  = new Date(today); dayAfter.setDate(today.getDate() + 2);
+  document.getElementById('fci').min = fmt(tomorrow);
+  document.getElementById('fco').min = fmt(dayAfter);
+
+  /* ── BOOKING FORM ── */
+  function submitForm(e) {
+    e.preventDefault();
+    const v = id => document.getElementById(id).value.trim();
+    const name    = v('fn')  || 'Khách';
+    const phone   = v('fp');
+    const room    = v('fr')  || 'Chưa chọn';
+    const ci      = v('fci') || '';
+    const co      = v('fco') || '';
+    const guests  = v('fg')  || '';
+    const service = v('fsv') || 'Không';
+    const note    = v('fno') || '';
+
+    if (!phone) {
+      alert('Vui lòng nhập số điện thoại để chúng tôi có thể liên hệ lại!');
+      document.getElementById('fp').focus();
+      return;
+    }
+
+    const submitBtn = e.target.querySelector('button[type=submit]');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Đang gửi…';
+
+    // Gửi Notion + email
+    fetch('/api/save-booking', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, phone, room, checkin: ci, checkout: co, guests, note }),
+    }).catch(() => {}).finally(() => {
+      // Ẩn form, hiện panel xác nhận + STK
+      e.target.style.display = 'none';
+      e.target.insertAdjacentHTML('afterend', `
+<div style="
+  background:rgba(201,168,76,.07);
+  border:1.5px solid rgba(201,168,76,.35);
+  padding:36px 28px;
+  text-align:center;
+  margin-top:8px;
+">
+  <p style="font-family:var(--f-display);font-size:1rem;color:var(--gold);letter-spacing:.1em;margin-bottom:14px;">✦ ĐÃ NHẬN YÊU CẦU ✦</p>
+  <p style="color:var(--cream);font-size:.88rem;line-height:1.85;margin-bottom:28px;">
+    Cảm ơn <strong>${name}</strong>! Trọng sẽ gọi xác nhận trong <strong>30 phút</strong>.<br>
+    Để giữ phòng, anh/chị chuyển khoản cọc theo thông tin bên dưới:
+  </p>
+
+  <div style="
+    background:rgba(0,0,0,.28);
+    border:1px solid rgba(201,168,76,.22);
+    padding:22px 32px;
+    display:inline-block;
+    text-align:left;
+    margin-bottom:28px;
+    font-family:var(--f-display);
+    letter-spacing:.04em;
+  ">
+    <p style="color:var(--gold);font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;margin-bottom:14px;">Thông Tin Chuyển Khoản</p>
+    <p style="color:var(--cream);font-size:.9rem;margin-bottom:8px;">🏦 Ngân hàng: <strong>VIB</strong></p>
+    <p style="color:var(--cream);font-size:.9rem;margin-bottom:8px;">💳 STK: <strong style="color:var(--gold);font-size:1.15rem;letter-spacing:.06em;">025 379 016</strong></p>
+    <p style="color:var(--cream);font-size:.9rem;margin-bottom:8px;">👤 Chủ tài khoản: <strong>LE TU TRONG</strong></p>
+    <p style="color:var(--cream);font-size:.9rem;">📝 Nội dung: <strong style="color:var(--gold);">${name} coc NSC</strong></p>
+  </div>
+
+  <br>
+  <a href="https://zalo.me/0785925998" target="_blank" rel="noopener" style="
+    display:inline-flex;align-items:center;gap:10px;
+    background:var(--gold);color:var(--ink);
+    font-family:var(--f-display);font-size:.78rem;font-weight:700;
+    letter-spacing:.14em;text-transform:uppercase;
+    padding:15px 36px;text-decoration:none;
+    transition:background .2s;
+  ">💬 Gửi Bill Chuyển Khoản Qua Zalo →</a>
+
+  <p style="color:rgba(245,237,214,.3);font-size:.7rem;margin-top:16px;font-family:var(--f-display);">
+    Gửi ảnh chuyển khoản → Trọng xác nhận giữ phòng ngay
+  </p>
+</div>`);
+    });
+  }
+</script>
+
+<!-- ── AI CHATBOT NGỌC SINH CÁT ─────────────────────────── -->
+<style>
+  #nsc-btn {
+    position: fixed; bottom: 28px; left: 28px; z-index: 1000;
+    width: 54px; height: 54px; border-radius: 50%;
+    background: var(--deep); border: 1.5px solid var(--gold);
+    color: var(--gold); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    box-shadow: 0 4px 24px rgba(61,43,31,.35);
+    animation: nscpulse 3s infinite;
+    transition: transform .2s, background .2s;
+  }
+  #nsc-btn:hover { transform: scale(1.08); background: var(--brown); }
+  @keyframes nscpulse {
+    0%,100% { box-shadow: 0 4px 24px rgba(201,168,76,.2); }
+    50%      { box-shadow: 0 4px 32px rgba(201,168,76,.5); }
+  }
+
+  #nsc-panel {
+    position: fixed; bottom: 92px; left: 28px; z-index: 1000;
+    width: 340px; height: 500px;
+    background: var(--warm); border: 1px solid rgba(201,168,76,.3);
+    display: flex; flex-direction: column;
+    box-shadow: 0 24px 64px rgba(61,43,31,.3);
+    transform-origin: bottom left;
+    transform: scale(.9) translateY(10px);
+    opacity: 0; pointer-events: none;
+    transition: transform .35s cubic-bezier(.34,1.56,.64,1), opacity .25s;
+  }
+  #nsc-panel.open { transform: none; opacity: 1; pointer-events: all; }
+
+  .nsc-head {
+    padding: 14px 16px; border-bottom: 1px solid rgba(201,168,76,.2);
+    display: flex; align-items: center; gap: 10px; flex-shrink: 0;
+    background: var(--deep);
+  }
+  .nsc-avatar {
+    width: 34px; height: 34px; border-radius: 50%;
+    border: 1px solid rgba(201,168,76,.4); background: rgba(201,168,76,.1);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--f-display); font-size: .85rem; color: var(--gold);
+    flex-shrink: 0;
+  }
+  .nsc-hname { font-family: var(--f-display); font-size: .88rem; color: var(--cream); letter-spacing: .04em; }
+  .nsc-hstatus { font-size: .68rem; color: #6db56a; display: flex; align-items: center; gap: 4px; margin-top: 2px; }
+  .nsc-hstatus::before { content:''; width:5px; height:5px; border-radius:50%; background:#6db56a; }
+  #nsc-close {
+    margin-left: auto; background: none; border: none;
+    color: var(--muted); cursor: pointer; font-size: 1.1rem; padding: 4px 6px;
+    transition: color .2s;
+  }
+  #nsc-close:hover { color: var(--cream); }
+
+  #nsc-msgs {
+    flex: 1; overflow-y: auto; padding: 14px;
+    display: flex; flex-direction: column; gap: 10px;
+    scroll-behavior: smooth;
+  }
+  #nsc-msgs::-webkit-scrollbar { width: 3px; }
+  #nsc-msgs::-webkit-scrollbar-thumb { background: rgba(201,168,76,.25); border-radius: 4px; }
+
+  .nsc-msg { display: flex; flex-direction: column; max-width: 88%; animation: nscMsgIn .3s cubic-bezier(.34,1.56,.64,1); }
+  @keyframes nscMsgIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:none; } }
+  .nsc-msg.bot { align-self: flex-start; }
+  .nsc-msg.usr { align-self: flex-end; }
+  .nsc-bubble {
+    padding: 9px 13px; font-family: var(--f-body); font-size: .8rem;
+    line-height: 1.65; border-radius: 2px; white-space: pre-wrap;
+  }
+  .nsc-msg.bot .nsc-bubble { background: var(--paper); color: var(--ink); border: 1px solid rgba(201,168,76,.18); }
+  .nsc-msg.usr .nsc-bubble { background: var(--gold); color: var(--ink); font-weight: 500; }
+  .nsc-time { font-size: .6rem; color: var(--muted); margin-top: 3px; letter-spacing: .04em; }
+  .nsc-msg.usr .nsc-time { text-align: right; }
+
+  .nsc-qr { display: flex; flex-wrap: wrap; gap: 6px; padding: 2px 0; }
+  .nsc-qr-btn {
+    background: transparent; border: 1px solid rgba(201,168,76,.4);
+    color: var(--brown); font-family: var(--f-display); font-size: .72rem;
+    padding: 5px 11px; cursor: pointer; letter-spacing: .06em;
+    transition: all .2s; touch-action: manipulation;
+    border-radius: 1px;
+  }
+  .nsc-qr-btn:hover { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+
+  .nsc-form-wrap {
+    margin: 4px 0; padding: 12px;
+    background: rgba(201,168,76,.06); border: 1px solid rgba(201,168,76,.25);
+  }
+  .nsc-form-wrap p { font-size: .7rem; color: var(--muted); margin-bottom: 8px; letter-spacing: .04em; font-family: var(--f-display); }
+  .nsc-inp {
+    width: 100%; background: var(--warm); border: 1px solid rgba(201,168,76,.25);
+    color: var(--ink); font-family: var(--f-body); font-size: .8rem;
+    padding: 8px 11px; margin-bottom: 7px; outline: none; box-sizing: border-box;
+    transition: border-color .2s;
+  }
+  .nsc-inp:focus { border-color: var(--gold); }
+  .nsc-inp::placeholder { color: var(--muted); }
+  .nsc-submit {
+    width: 100%; padding: 9px; background: var(--gold); color: var(--ink);
+    border: none; font-family: var(--f-display); font-size: .75rem;
+    font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+    cursor: pointer; transition: background .2s; touch-action: manipulation;
+  }
+  .nsc-submit:hover { background: var(--gold-l); }
+  .nsc-decline {
+    width: 100%; margin-top: 5px; padding: 7px; background: transparent;
+    border: 1px solid rgba(61,43,31,.2); color: var(--muted);
+    font-family: var(--f-body); font-size: .7rem; cursor: pointer; transition: all .2s;
+  }
+  .nsc-decline:hover { border-color: var(--brown); color: var(--brown); }
+
+  #nsc-footer {
+    padding: 10px 12px; border-top: 1px solid rgba(201,168,76,.15);
+    display: flex; gap: 8px; align-items: center; flex-shrink: 0;
+    background: var(--deep);
+  }
+  #nsc-input {
+    flex: 1; background: rgba(255,255,255,.08); border: 1px solid rgba(201,168,76,.2);
+    color: var(--cream); font-family: var(--f-body); font-size: .8rem;
+    padding: 9px 12px; outline: none; transition: border-color .2s;
+  }
+  #nsc-input:focus { border-color: rgba(201,168,76,.5); }
+  #nsc-input::placeholder { color: var(--muted); font-size: .75rem; }
+  #nsc-send {
+    width: 38px; height: 38px; background: var(--gold); border: none;
+    color: var(--ink); cursor: pointer; display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0; font-size: 1rem;
+    transition: background .2s; touch-action: manipulation;
+  }
+  #nsc-send:hover { background: var(--gold-l); }
+
+  @media (max-width: 480px) {
+    #nsc-panel { width: calc(100vw - 28px); left: 14px; bottom: 76px; }
+    #nsc-btn   { left: 14px; bottom: 14px; }
+  }
+</style>
+
+<button id="nsc-btn" aria-label="Tư vấn Ngọc Sinh Cát">✦</button>
+
+<div id="nsc-panel" role="dialog" aria-label="Trợ lý Ngọc Sinh Cát">
+  <div class="nsc-head">
+    <div class="nsc-avatar">玉</div>
+    <div>
+      <div class="nsc-hname">Ngọc Sinh Cát</div>
+      <div class="nsc-hstatus">Trực tuyến 24/7</div>
+    </div>
+    <button id="nsc-close" aria-label="Đóng chat">✕</button>
+  </div>
+  <div id="nsc-msgs" role="log" aria-live="polite"></div>
+  <div id="nsc-footer">
+    <input id="nsc-input" type="text" placeholder="Nhắn tin hoặc chọn bên trên…" maxlength="200" autocomplete="off">
+    <button id="nsc-send" aria-label="Gửi">➤</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  const ROOMS = [
+    { name: 'Lý Ngữ Viên',         cap: '4–6 người', price: '1.350.000đ/đêm', priceNum: 1350000, desc: 'Nhà gỗ ven hồ cá koi, sân BBQ. Không gian lãng mạn, yên tĩnh — lý tưởng cho cặp đôi và nhóm nhỏ.' },
+    { name: 'Thanh Phong Viên',     cap: '4–6 người', price: '1.350.000đ/đêm', priceNum: 1350000, desc: 'Kiến trúc Nhật Bản tinh tế, điều hòa, ánh sáng dịu nhẹ. Phong vị thiền định giữa rừng Đà Lạt.' },
+    { name: 'Tùng Quang Ngữ Cảnh', cap: '8–12 người', price: '3.500.000đ/đêm', priceNum: 3500000, desc: 'Không gian đại gia đình cổ trang — 4 phòng đơn riêng, WC riêng. Phù hợp team building, họp mặt.' },
+  ];
+  const ZALO = '0785925998';
+  const CHECK_API = '/api/check-availability';
+
+  const panel  = document.getElementById('nsc-panel');
+  const btn    = document.getElementById('nsc-btn');
+  const close  = document.getElementById('nsc-close');
+  const msgs   = document.getElementById('nsc-msgs');
+  const input  = document.getElementById('nsc-input');
+  const send   = document.getElementById('nsc-send');
+
+  // state machine: step = null | 'await_checkin' | 'await_nights'
+  let state = { step: null, room: null, checkin: null };
+  let opened = false;
+
+  const now = () => new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
+
+  function addMsg(role, text) {
+    const w = document.createElement('div');
+    w.className = `nsc-msg ${role}`;
+    w.innerHTML = `<div class="nsc-bubble"></div><div class="nsc-time">${now()}</div>`;
+    w.querySelector('.nsc-bubble').textContent = text;
+    msgs.appendChild(w);
+    msgs.scrollTop = msgs.scrollHeight;
+    return w.querySelector('.nsc-bubble');
+  }
+
+  function addQR(choices) {
+    const w = document.createElement('div');
+    w.className = 'nsc-qr';
+    choices.forEach(c => {
+      const b = document.createElement('button');
+      b.className = 'nsc-qr-btn'; b.textContent = c;
+      b.onclick = () => { w.remove(); handleText(c); };
+      w.appendChild(b);
+    });
+    msgs.appendChild(w);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function showLeadForm(context) {
+    const w = document.createElement('div');
+    w.className = 'nsc-form-wrap';
+    w.innerHTML = `
+      <p>ĐỂ LẠI THÔNG TIN — TRỌNG GỌI LẠI TRONG 30 PHÚT</p>
+      <input class="nsc-inp" id="nsc-name"  type="text" placeholder="Tên anh/chị" maxlength="60" autocomplete="name">
+      <input class="nsc-inp" id="nsc-phone" type="tel"  placeholder="SĐT / Zalo"  maxlength="15" autocomplete="tel">
+      <button class="nsc-submit" id="nsc-sub">GỬI ĐẶT PHÒNG →</button>
+      <button class="nsc-decline" id="nsc-dec">Không cần, cảm ơn</button>`;
+    msgs.appendChild(w);
+    msgs.scrollTop = msgs.scrollHeight;
+    input.disabled = true;
+
+    document.getElementById('nsc-sub').onclick = async () => {
+      const name  = document.getElementById('nsc-name').value.trim();
+      const phone = document.getElementById('nsc-phone').value.trim();
+      if (!name)  { document.getElementById('nsc-name').style.borderColor  = 'var(--gold)'; return; }
+      if (!phone) { document.getElementById('nsc-phone').style.borderColor = 'var(--gold)'; return; }
+      w.innerHTML = '<p style="text-align:center;padding:8px 0;color:var(--muted)">Đang gửi…</p>';
+      try {
+        await fetch('/api/save-booking', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, phone, room: context || 'Chưa chọn', checkin: '', checkout: '', guests: '', note: 'Từ chatbot' }),
+        });
+      } catch {}
+      w.remove();
+      addMsg('bot', `Cảm ơn ${name}! Em đã ghi nhận yêu cầu đặt phòng 🌿\n\nĐể giữ phòng, anh/chị chuyển cọc về:\n🏦 VIB — STK: 025379016\nTên: LE TU TRONG\nNội dung: ${name} coc NSC\n\nSau khi chuyển gửi bill qua Zalo ${ZALO} để Trọng xác nhận nhé!`);
+      input.disabled = false;
+    };
+
+    document.getElementById('nsc-dec').onclick = () => {
+      w.remove();
+      addMsg('bot', `Dạ không sao! Khi nào cần anh/chị nhắn Zalo ${ZALO} — Trọng hỗ trợ 24/7 🌿`);
+      input.disabled = false;
+    };
+  }
+
+  async function checkAvailability(checkin, nights, room) {
+    addMsg('bot', '⏳ Đang kiểm tra lịch phòng…');
+    try {
+      const res = await fetch(CHECK_API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ checkin, nights }),
+      });
+      const data = await res.json();
+      const r = ROOMS.find(x => x.name === room) || ROOMS[0];
+      const total = (r.priceNum * nights).toLocaleString('vi-VN') + 'đ';
+
+      if (data.available) {
+        addMsg('bot', `✅ Còn phòng!\nCheck-in: ${data.checkinVN} · Check-out: ${data.checkoutVN} (${nights} đêm)\n💰 Tổng ước tính: ${total}\n\nTuyệt! Anh/chị cho em xin tên và SĐT để ghi nhận giữ chỗ nhé:`);
+        state = { step: null, room: null, checkin: null };
+        input.disabled = true;
+
+        // Form thu tên + SĐT trong chat
+        const fw = document.createElement('div');
+        fw.className = 'nsc-form-wrap';
+        fw.innerHTML = `
+          <input class="nsc-inp" id="nsc-bname"  type="text" placeholder="Tên anh/chị"  maxlength="60" autocomplete="name">
+          <input class="nsc-inp" id="nsc-bphone" type="tel"  placeholder="SĐT / Zalo"   maxlength="15" autocomplete="tel">
+          <button class="nsc-submit" id="nsc-bsub">XÁC NHẬN GIỮ PHÒNG →</button>
+          <button class="nsc-decline" id="nsc-bdec">Chưa muốn đặt</button>`;
+        msgs.appendChild(fw);
+        msgs.scrollTop = msgs.scrollHeight;
+
+        const checkinISO  = data.checkin;
+        const checkoutISO = data.checkout;
+
+        document.getElementById('nsc-bsub').onclick = async () => {
+          const name  = document.getElementById('nsc-bname').value.trim();
+          const phone = document.getElementById('nsc-bphone').value.trim();
+          if (!name)  { document.getElementById('nsc-bname').style.borderColor  = 'var(--gold)'; return; }
+          if (!phone) { document.getElementById('nsc-bphone').style.borderColor = 'var(--gold)'; return; }
+          fw.innerHTML = '<p style="text-align:center;padding:8px 0;color:var(--muted)">Đang lưu…</p>';
+          try {
+            await fetch('/api/save-booking', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ name, phone, room, checkin: checkinISO, checkout: checkoutISO, nights, note: 'Từ chatbot — đã check lịch' }),
+            });
+          } catch {}
+          fw.remove();
+          addMsg('bot', `Đã ghi nhận! ${name} — ${room} · ${data.checkinVN}→${data.checkoutVN} 🌿\n\nAnh/chị điền đầy đủ thông tin bên dưới để hoàn tất đặt phòng nhé:`);
+          // Pre-fill phòng trong form chính
+          const roomSel = document.getElementById('fr');
+          if (roomSel) roomSel.value = room;
+          input.disabled = false;
+          setTimeout(() => {
+            document.getElementById('booking').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            setTimeout(() => { panel.classList.remove('open'); btn.style.transform = ''; }, 800);
+          }, 1200);
+        };
+
+        document.getElementById('nsc-bdec').onclick = () => {
+          fw.remove();
+          addMsg('bot', `Dạ không sao! Khi nào cần anh/chị nhắn Zalo ${ZALO} — Trọng giữ chỗ ngay nhé 🌿`);
+          input.disabled = false;
+        };
+      } else {
+        addMsg('bot', `😔 Rất tiếc, phòng đã có booking ngày đó.\n📅 Ngày trống sớm nhất: ${data.nextVN}\n\nAnh/chị muốn thử ngày khác không?`);
+        state = { step: 'await_checkin', room, checkin: null };
+        setTimeout(() => addQR([`Thử từ ${data.nextVN}`, 'Nhập ngày khác', 'Xem phòng khác']), 500);
+      }
+    } catch {
+      addMsg('bot', `Em không kiểm tra được lịch lúc này 😔\nAnh/chị nhắn thẳng Zalo ${ZALO} để Trọng check ngay nhé!`);
+      state = { step: null, room: null, checkin: null };
+    }
+  }
+
+  function startBooking(room) {
+    state = { step: 'await_checkin', room, checkin: null };
+    setTimeout(() => addMsg('bot', `Tuyệt vời! Anh/chị muốn đặt ${room} 🌿\n\nCho em biết ngày check-in dự kiến nhé\n(kiểu DD/MM — ví dụ: 25/6):`), 300);
+  }
+
+  function handleText(text) {
+    addMsg('usr', text);
+    const t = text.toLowerCase();
+
+    // ── STATE MACHINE ────────────────────────────────────────
+    if (state.step === 'await_checkin') {
+      if (/xem phòng|phong khac|quay lại/.test(t) || text === 'Xem phòng khác') {
+        state = { step: null, room: null, checkin: null };
+        setTimeout(() => addMsg('bot', 'Anh/chị muốn xem phòng nào?'), 300);
+        setTimeout(() => addQR(ROOMS.map(r => r.name)), 700);
+        return;
+      }
+      const fromMatch = text.match(/từ\s+(\d{1,2}\/\d{1,2})/i);
+      const dateMatch = fromMatch
+        ? [null, fromMatch[1]]
+        : text.match(/(\d{1,2}[\/\-\.]\d{1,2}(?:[\/\-\.]\d{2,4})?)/);
+      if (dateMatch) {
+        const dateStr = fromMatch ? fromMatch[1] : dateMatch[1];
+        state.checkin = dateStr;
+        state.step = 'await_confirm_checkin';
+        setTimeout(() => {
+          addMsg('bot', `Anh/chị check-in ngày ${dateStr} đúng không ạ?`);
+          setTimeout(() => addQR(['✅ Đúng rồi', '❌ Sửa lại ngày']), 400);
+        }, 300);
+      } else if (/nhập|chọn ngày/.test(t) || text === 'Nhập ngày khác') {
+        setTimeout(() => addMsg('bot', 'Anh/chị nhập ngày check-in nhé (kiểu DD/MM — ví dụ: 25/6):'), 300);
+      } else {
+        setTimeout(() => addMsg('bot', 'Anh/chị nhập ngày check-in nhé (kiểu DD/MM — ví dụ: 25/6):'), 300);
+      }
+      return;
+    }
+
+    if (state.step === 'await_confirm_checkin') {
+      if (/đúng|yes|ok|✅/.test(t) || text === '✅ Đúng rồi') {
+        state.step = 'await_nights';
+        setTimeout(() => {
+          addMsg('bot', `Check-in ${state.checkin} — anh/chị ở mấy đêm ạ?`);
+          setTimeout(() => addQR(['1 đêm', '2 đêm', '3 đêm', '4+ đêm']), 400);
+        }, 300);
+      } else {
+        state.checkin = null;
+        state.step = 'await_checkin';
+        setTimeout(() => addMsg('bot', 'Anh/chị nhập lại ngày check-in nhé (kiểu DD/MM — ví dụ: 25/6):'), 300);
+      }
+      return;
+    }
+
+    if (state.step === 'await_nights') {
+      if (/xem phòng|phong khac|quay lại/.test(t) || text === 'Xem phòng khác') {
+        state = { step: null, room: null, checkin: null };
+        setTimeout(() => addMsg('bot', 'Anh/chị muốn xem phòng nào?'), 300);
+        setTimeout(() => addQR(ROOMS.map(r => r.name)), 700);
+        return;
+      }
+      const nightsMatch = text.match(/(\d+)/);
+      if (nightsMatch) {
+        checkAvailability(state.checkin, Math.max(1, parseInt(nightsMatch[1])), state.room);
+      } else {
+        setTimeout(() => addMsg('bot', 'Anh/chị nhập số đêm nhé (ví dụ: 2):'), 300);
+      }
+      return;
+    }
+
+    // ── NORMAL FLOW — specific trước, general sau ────────────
+    if (/đặt lý ngữ/.test(t) || text === 'Đặt Lý Ngữ Viên') {
+      startBooking(ROOMS[0].name);
+    } else if (/đặt thanh phong/.test(t) || text === 'Đặt Thanh Phong Viên') {
+      startBooking(ROOMS[1].name);
+    } else if (/đặt tùng quang/.test(t) || text === 'Đặt Tùng Quang') {
+      startBooking(ROOMS[2].name);
+    } else if (/đặt phòng|dat phong|muốn đặt|book|đặt ngay|đặt thôi|đặt chỗ/.test(t) || text === 'Đặt phòng') {
+      setTimeout(() => addMsg('bot', 'Anh/chị muốn đặt phòng nào ạ? Em giới thiệu 3 không gian:'), 300);
+      setTimeout(() => addQR(ROOMS.map(r => r.name)), 700);
+    } else if (/lý ngữ|ly ngu/.test(t)) {
+      const r = ROOMS[0];
+      setTimeout(() => addMsg('bot', `✦ ${r.name}\n${r.cap} · ${r.price}\n\n${r.desc}\n\nAnh/chị muốn đặt phòng này không?`), 300);
+      setTimeout(() => addQR(['Đặt Lý Ngữ Viên', 'Xem phòng khác', 'Quay lại']), 700);
+    } else if (/thanh phong|phong vien/.test(t)) {
+      const r = ROOMS[1];
+      setTimeout(() => addMsg('bot', `✦ ${r.name}\n${r.cap} · ${r.price}\n\n${r.desc}\n\nAnh/chị muốn đặt không?`), 300);
+      setTimeout(() => addQR(['Đặt Thanh Phong Viên', 'Xem phòng khác', 'Quay lại']), 700);
+    } else if (/tùng quang|tung quang|gia đình|family|nhóm|nhom/.test(t)) {
+      const r = ROOMS[2];
+      setTimeout(() => addMsg('bot', `✦ ${r.name}\n${r.cap} · ${r.price}\n\n${r.desc}\n\nPhù hợp cho nhóm lớn. Anh/chị muốn đặt không?`), 300);
+      setTimeout(() => addQR(['Đặt Tùng Quang', 'Xem phòng khác', 'Quay lại']), 700);
+    } else if (/phòng|phong|giá|gia|bảng|bang/.test(t) || text === 'Phòng & Bảng giá') {
+      const list = ROOMS.map(r => `✦ ${r.name} — ${r.cap} · ${r.price}`).join('\n');
+      setTimeout(() => addMsg('bot', `Ngọc Sinh Cát có 3 không gian lưu trú:\n\n${list}\n\nAnh/chị muốn biết thêm về phòng nào?`), 300);
+      setTimeout(() => addQR(['Lý Ngữ Viên', 'Thanh Phong Viên', 'Tùng Quang Ngữ Cảnh']), 700);
+    } else if (/dịch vụ|dich vu|team|bbq|lửa|cắm|hóa trang|ca nhạc/.test(t) || text === 'Dịch vụ') {
+      setTimeout(() => addMsg('bot', `Dịch vụ đặc biệt tại Ngọc Sinh Cát:\n\n🔥 Nhóm lửa cắm trại\n🎯 Team Building\n🎵 Ca nhạc sân khấu\n👘 Hóa trang cổ trang Châu Á\n\nTất cả cần đặt trước. Anh/chị muốn thêm dịch vụ nào?`), 300);
+      setTimeout(() => addQR(['Đặt phòng', 'Liên hệ Zalo', 'Quay lại']), 700);
+    } else if (/địa chỉ|dia chi|đường|duong|ở đâu|o dau/.test(t) || text === 'Địa chỉ') {
+      setTimeout(() => addMsg('bot', `📍 09 Xuân Trường, TP. Đà Lạt, Lâm Đồng\n\nCách trung tâm Đà Lạt ~8km, view rừng thông yên tĩnh.\n\n📞 Zalo: ${ZALO}`), 300);
+      setTimeout(() => addQR(['Đặt phòng', 'Xem phòng', 'Quay lại']), 700);
+    } else if (/zalo|liên hệ|lien he|gọi|goi/.test(t) || text === 'Liên hệ Zalo') {
+      setTimeout(() => { addMsg('bot', `Anh/chị nhắn thẳng qua Zalo ${ZALO} nhé — Trọng phản hồi trong vài phút 🌿`); window.open(`https://zalo.me/${ZALO}`, '_blank'); }, 300);
+    } else if (/quay lại|menu|main/.test(t) || text === 'Quay lại') {
+      setTimeout(() => addMsg('bot', 'Anh/chị cần tư vấn gì thêm ạ?'), 300);
+      setTimeout(() => addQR(['Phòng & Bảng giá', 'Đặt phòng', 'Dịch vụ', 'Địa chỉ']), 700);
+    } else {
+      setTimeout(() => addMsg('bot', 'Dạ em nghe anh/chị! Anh/chị đang cần:'), 300);
+      setTimeout(() => addQR(['Đặt phòng', 'Phòng & Bảng giá', 'Dịch vụ', 'Địa chỉ']), 700);
+    }
+  }
+
+  function togglePanel() {
+    const isOpen = panel.classList.toggle('open');
+    btn.style.transform = isOpen ? 'rotate(45deg)' : '';
+    if (isOpen && !opened) {
+      opened = true;
+      setTimeout(() => {
+        addMsg('bot', 'Kính chào quý khách! Em là trợ lý của Ngọc Sinh Cát 🌿\n\nAnh/chị cần tư vấn gì về homestay cổ trang Đà Lạt?');
+        setTimeout(() => addQR(['Phòng & Bảng giá', 'Đặt phòng', 'Dịch vụ', 'Địa chỉ']), 500);
+      }, 300);
+    }
+  }
+
+  btn.addEventListener('click', togglePanel);
+  close.addEventListener('click', () => { panel.classList.remove('open'); btn.style.transform = ''; });
+  send.addEventListener('click', () => { const t = input.value.trim(); if (t) { input.value = ''; handleText(t); } });
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') { const t = input.value.trim(); if (t) { input.value = ''; handleText(t); } } });
+})();
+</script>
+<script>
+  (() => {
+    const hero = document.getElementById('hero');
+    const pano = document.getElementById('heroPano');
+    const fullBtn = document.getElementById('tourFull');
+    pano.addEventListener('load', () => pano.classList.add('ready'));
+    setTimeout(() => pano.classList.add('ready'), 4000);
+    const start = () => hero.classList.add('touring');
+    const stop = () => {
+      hero.classList.remove('touring');
+      if (document.fullscreenElement) document.exitFullscreen();
+    };
+    document.getElementById('heroShield').addEventListener('click', start);
+    document.getElementById('tourStart').addEventListener('click', start);
+    document.getElementById('tourExit').addEventListener('click', stop);
+    const canFull = hero.requestFullscreen || hero.webkitRequestFullscreen;
+    if (!canFull) fullBtn.hidden = true;
+    fullBtn.addEventListener('click', () => {
+      if (document.fullscreenElement) document.exitFullscreen();
+      else canFull.call(hero);
+    });
+    // Cuộn khỏi hero → tự thoát chế độ tour để trang cuộn bình thường
+    new IntersectionObserver(([e]) => { if (!e.isIntersecting) stop(); }).observe(hero);
+  })();
+</script>
+</body>
+</html>

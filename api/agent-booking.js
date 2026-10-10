@@ -76,7 +76,7 @@ export async function checkAvailability(checkinStr, checkoutStr) {
   });
 
   if (!data.results?.length) {
-    return `✅ *Phòng trống!*\n\nNgày: ${checkinStr} → ${checkoutStr}\nNgọc Sinh Cát sẵn sàng nhận khách.\n\nLink đặt phòng: https://trongletour360.net/dat-phong-ngoc-sinh-cat.html`;
+    return `✅ *Phòng trống!*\n\nNgày: ${checkinStr} → ${checkoutStr}\nNgọc Sinh Cát sẵn sàng nhận khách.\n\nLink đặt phòng: https://trongletour360.net/ngoc-sinh-cat.html#booking`;
   }
 
   const conflicts = data.results.map(formatBookingRow).join('\n');

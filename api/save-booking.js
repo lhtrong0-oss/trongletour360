@@ -11,7 +11,8 @@ export default async function handler(req) {
   }
   if (req.method !== "POST") return new Response("Method not allowed", { status: 405 });
 
-  const { name, phone, email, room, checkin, checkout, guests, note } = await req.json();
+  const { name, phone, email, room, checkin, checkout, guests, nights, service, note } = await req.json();
+  const noteText = [guests && `${guests} khách`, service && `DV: ${service}`, note].filter(Boolean).join(' · ');
   const NOTION_TOKEN = process.env.NOTION_TOKEN;
 
   // Email notify — gửi TRƯỚC, độc lập
@@ -32,6 +33,7 @@ export default async function handler(req) {
 <p><strong>Check-in:</strong> ${checkin || "—"}</p>
 <p><strong>Check-out:</strong> ${checkout || "—"}</p>
 <p><strong>Số khách:</strong> ${guests || "—"}</p>
+<p><strong>Dịch vụ:</strong> ${service || "—"}</p>
 <p><strong>Ghi chú:</strong> ${note || "—"}</p>
 <hr><p>👉 Xác nhận và liên hệ lại trong <strong>30 phút</strong></p>`,
       }),
@@ -48,7 +50,7 @@ export default async function handler(req) {
       "SĐT / Zalo": { phone_number: phone || "" },
       "Phòng": { select: { name: room || "Chưa chọn" } },
       "Số đêm": { number: parseInt(nights) || 1 },
-      "Ghi chú": { rich_text: [{ text: { content: note || "" } }] },
+      "Ghi chú": { rich_text: [{ text: { content: noteText } }] },
       "Trạng thái": { select: { name: "⏳ Chờ xác nhận" } },
     };
     if (checkin) props["Check-in"] = { date: { start: checkin } };
@@ -69,6 +71,7 @@ export default async function handler(req) {
       `📅 Check-in: ${checkin || '—'}\n` +
       `📅 Check-out: ${checkout || '—'}\n` +
       `👥 Số khách: ${guests || '—'}\n` +
+      `🧾 Dịch vụ: ${service || '—'}\n` +
       `💬 Ghi chú: ${note || '—'}\n\n` +
       `👉 Nhắn: \`[Booking] xác nhận: ${name || 'tên khách'}\``
     );
