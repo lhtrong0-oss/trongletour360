@@ -42,6 +42,12 @@ for (const page of pages) {
   for (const m of html.matchAll(/(?:tel:|zalo\.me\/)(\+?\d{9,12})/g))
     if (m[1].replace(/^\+84/, '0') !== digits) note(`số điện thoại khác cms (${m[0]})`);
 
+  // Giá làm website khởi điểm phải đúng cms/site.json (câu dạng "website ... từ X.000.000đ")
+  if (site.giaWebTu)
+    // cùng một câu (không qua dấu chấm) và không phải combo (dấu +)
+    for (const m of html.matchAll(/(?:website|web)[^<>.+]{0,120}?từ\s*(?:<strong[^>]*>)?\s*(\d{1,3}(?:\.\d{3})+đ)/gi))
+      if (m[1] !== site.giaWebTu) note(`giá web ghi ${m[1]}, cms là ${site.giaWebTu}`);
+
   // Link nội bộ trỏ tới file không tồn tại
   for (const m of html.matchAll(/href="\/?([a-z0-9\-]+\.html)(?:#[^"]*)?"/gi))
     if (!existsSync(join(root, m[1]))) note(`link hỏng → ${m[1]}`);
