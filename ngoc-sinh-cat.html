@@ -2135,9 +2135,13 @@
     const hero = document.getElementById('hero');
     const pano = document.getElementById('heroPano');
     const fullBtn = document.getElementById('tourFull');
-    pano.addEventListener('load', () => pano.classList.add('ready'));
-    setTimeout(() => pano.classList.add('ready'), 4000);
+    // Panoee báo "load" trước khi ảnh 360° vẽ xong → giữ ảnh nền homestay thêm vài giây cho khỏi màn hình đen
+    const reveal = () => pano.classList.add('ready');
+    pano.addEventListener('load', () => setTimeout(reveal, 5000));
+    setTimeout(reveal, 12000);
     const start = () => {
+      reveal();
+      window.scrollTo({ top: hero.offsetTop, behavior: 'smooth' });
       hero.classList.add('touring');
       document.body.classList.add('tour-active');
     };
