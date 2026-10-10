@@ -1083,15 +1083,20 @@
     }
     .hero-tour .hero-overlay {
       z-index: 1; pointer-events: none;
-      background: linear-gradient(180deg, rgba(22,12,4,.35) 0%, rgba(22,12,4,0) 22%, rgba(22,12,4,0) 45%, rgba(22,12,4,.55) 72%, rgba(22,12,4,.88) 100%);
+      background: linear-gradient(180deg, rgba(22,12,4,.6) 0%, rgba(22,12,4,0) 18%, rgba(22,12,4,0) 52%, rgba(22,12,4,.7) 78%, rgba(22,12,4,.94) 100%);
     }
     .hero-tour .hero-content {
-      position: absolute; left: 0; right: 0; bottom: 118px;
+      position: absolute; left: 0; right: 0; bottom: 56px;
       z-index: 2; pointer-events: none;
     }
     .hero-tour .hero-content a, .hero-tour .hero-content button { pointer-events: auto; }
-    .hero-tour .hero-h1 { font-size: clamp(3rem, 8vw, 6.8rem); }
-    .hero-tour .hero-tagline { margin-bottom: 30px; }
+    .hero-tour .hero-eyebrow { margin-bottom: 10px; }
+    .hero-tour .hero-h1 { font-size: clamp(2.6rem, 5.5vw, 4.6rem); margin-bottom: 26px; }
+    .hero-tour .hero-tagline, .hero-tour .hero-scroll-hint { display: none; }
+    /* Đang tham quan: ẩn menu + nút nổi để khách dùng đủ điều khiển của Panoee */
+    #nav, .float-cta, #nsc-btn { transition: opacity .4s, visibility .4s; }
+    body.tour-active #nav, body.tour-active .float-cta,
+    body.tour-active #nsc-btn, body.tour-active #nsc-panel { opacity: 0; visibility: hidden; }
     .hero-tour button.btn-gold, .tour-bar button { border: 0; cursor: pointer; }
     .hero-hint {
       margin-top: 18px; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase;
@@ -1115,8 +1120,8 @@
     }
     #hero.touring .tour-bar { display: flex; }
     @media (max-width: 760px) {
-      .hero-tour .hero-content { bottom: 92px; }
-      .hero-tour .hero-tagline { display: none; }
+      .hero-tour .hero-content { bottom: 40px; }
+      .hero-tour .hero-eyebrow { letter-spacing: .25em; }
       .hero-tour .hero-actions .btn-gold, .hero-tour .hero-actions .btn-ghost { padding: 15px 22px; }
       .tour-bar { width: calc(100% - 24px); justify-content: space-between; bottom: 12px; }
       .tour-bar button { padding: 12px 10px; }
@@ -2132,9 +2137,13 @@
     const fullBtn = document.getElementById('tourFull');
     pano.addEventListener('load', () => pano.classList.add('ready'));
     setTimeout(() => pano.classList.add('ready'), 4000);
-    const start = () => hero.classList.add('touring');
+    const start = () => {
+      hero.classList.add('touring');
+      document.body.classList.add('tour-active');
+    };
     const stop = () => {
       hero.classList.remove('touring');
+      document.body.classList.remove('tour-active');
       if (document.fullscreenElement) document.exitFullscreen();
     };
     document.getElementById('heroShield').addEventListener('click', start);

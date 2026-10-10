@@ -23,7 +23,8 @@ const ketNoi = [
 const KET_NOI_RE = /<h4>Kết nối<\/h4>\s*<ul>[\s\S]*?<\/ul>/;
 const ketNoiBlock = `<h4>Kết nối</h4>\n        <ul>\n          ${ketNoi}\n        </ul>`;
 
-const pages = readdirSync(root).filter(f => f.endsWith('.html'));
+// Trang riêng của khách (vd: homestay có Facebook/TikTok riêng) → không áp thông tin liên hệ của TrongLeTour360
+const pages = readdirSync(root).filter(f => f.endsWith('.html') && !(site.trangRieng || []).includes(f));
 const issues = [];
 let changed = 0;
 
