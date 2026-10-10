@@ -313,7 +313,7 @@
         await new Promise(r => setTimeout(r, 600));
         typing.remove();
         addMsg('ai', 'Homestay Ngọc Sinh Cát — không gian riêng tư giữa rừng thông Đà Lạt 🌲\n\nGồm 4 phòng độc lập: Lý Ngữ Viên, Thanh Phong, Tùng Quang, Viên Nghiên Cứu.\nGiá từ 600K – 1.2 triệu/đêm.\n\nAnh/chị xem chi tiết và đặt phòng tại trang riêng của homestay nhé:');
-        addLinkBtn('🏡 Xem & Đặt phòng Ngọc Sinh Cát →', 'https://bonsai-dalat-trangle.vercel.app/templates/ngoc-sinh-cat.html');
+        addLinkBtn('🏡 Xem & Đặt phòng Ngọc Sinh Cát →', 'https://trongletour360.net/dat-phong-ngoc-sinh-cat.html');
         isStreaming = false; aiSend.disabled = false;
         return;
       }

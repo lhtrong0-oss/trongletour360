@@ -1,6 +1,6 @@
 // api/agent-website.js — Build demo website cho khách mới qua Telegram
 // Trọng nhắn: [KhachMoi] build: Spa Hoa Lan - spa - Đà Lạt
-// Claude sinh HTML theo design system → push bonsaidalat → live link
+// Claude sinh HTML theo design system → push trongletour360/demo → live link
 
 import { pushFile } from './github-push.js';
 
@@ -60,9 +60,9 @@ async function callClaude(prompt) {
 
 export async function buildWebsite({ name, industry, description, location = 'Đà Lạt' }) {
   const slug = slugify(name);
-  const filename = `templates/${slug}.html`;
+  const filename = `demo/${slug}.html`;
   const style = getStyle(industry);
-  const liveBase = 'https://bonsai-dalat-trangle.vercel.app';
+  const liveBase = 'https://trongletour360.net';
 
   const prompt = `Bạn là senior frontend developer + copywriter cho TrongLeTour360 — web agency tại Đà Lạt.
 
@@ -105,7 +105,7 @@ Trả về DUY NHẤT nội dung HTML, không giải thích.`;
   const html = await callClaude(prompt);
 
   const liveUrl = await pushFile({
-    repo: 'bonsaidalat',
+    repo: 'trongletour360',
     filePath: filename,
     content: html,
     commitMessage: `[Agent] Demo: ${name} (${industry})`,

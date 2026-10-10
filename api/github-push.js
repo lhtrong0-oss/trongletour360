@@ -4,7 +4,6 @@
 const GITHUB_API = 'https://api.github.com';
 const OWNER = process.env.GITHUB_OWNER || 'lhtrong0-oss';
 const REPO_TOUR360 = 'trongletour360';
-const REPO_BONSAI = 'bonsaidalat';
 
 async function githubRequest(method, path, body) {
   const res = await fetch(`${GITHUB_API}${path}`, {
@@ -41,7 +40,7 @@ export async function pushFile({ repo = REPO_TOUR360, filePath, content, commitM
   if (sha) body.sha = sha;
 
   await githubRequest('PUT', `/repos/${OWNER}/${repo}/contents/${filePath}`, body);
-  return `https://${repo === REPO_TOUR360 ? 'trongletour360.net' : 'bonsai-dalat-trangle.vercel.app'}/${filePath}`;
+  return `https://trongletour360.net/${filePath}`;
 }
 
 // Push nhiều file cùng lúc

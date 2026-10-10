@@ -12,8 +12,7 @@ DỊCH VỤ & GIÁ:
 • Homestay Ngọc Sinh Cát (sắp mở):
   - Home Ngọc Sinh Cát: tối đa 4 người, không gian riêng tư
   - Villa Viện Nghiên Cứu: 10–20 khách, 8 phòng, có BBQ, cách TT 5km
-  - Nhà Gỗ Tây Hồ: không gian gỗ ấm cúng, view hồ
-• Bonsai nghệ thuật: bonsai-dalat-trangle.vercel.app
+  - Nhà Gỗ Tây Hồ: không gian gỗ ấm cúng, view hồ
 • Thiết kế website (Web Agency):
   - Gói A (3–5 triệu): Landing page 1 trang, mobile-first, form liên hệ
   - Gói B (8–15 triệu): 5–7 trang, chatbot AI, SEO cơ bản
