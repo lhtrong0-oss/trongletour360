@@ -2137,8 +2137,11 @@
     const fullBtn = document.getElementById('tourFull');
     // Panoee báo "load" trước khi ảnh 360° vẽ xong → giữ ảnh nền homestay thêm vài giây cho khỏi màn hình đen
     const reveal = () => pano.classList.add('ready');
-    pano.addEventListener('load', () => setTimeout(reveal, 5000));
-    setTimeout(reveal, 12000);
+    // Điện thoại màn hình dọc: cảnh đầu của tour là ảnh toàn cảnh ngang → để ảnh nền, chỉ mở tour khi khách bấm
+    if (!matchMedia('(max-aspect-ratio: 3/4)').matches) {
+      pano.addEventListener('load', () => setTimeout(reveal, 5000));
+      setTimeout(reveal, 12000);
+    }
     const start = () => {
       reveal();
       window.scrollTo({ top: hero.offsetTop, behavior: 'smooth' });
