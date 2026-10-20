@@ -375,7 +375,7 @@
       if (open && chatHistory.length === 0) {
         setTimeout(() => {
           addMsg('ai', 'Xin chào! Trọng có thể tư vấn gì cho anh/chị hôm nay? 🌿');
-          setTimeout(() => addQuickReplies(['Tour & Chụp 360°', 'Homestay Đà Lạt', 'Bonsai nghệ thuật', 'Thiết kế website']), 400);
+          setTimeout(() => addQuickReplies(['Tour & Chụp 360°', 'Homestay Đà Lạt', 'Thiết kế website']), 400);
         }, 300);
       }
     }
