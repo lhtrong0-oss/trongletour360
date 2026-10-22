@@ -1,12 +1,13 @@
 {
-    "name":  "trongletour360",
-    "version":  "1.0.0",
-    "type":  "module",
-    "dependencies":  {
-                         "@anthropic-ai/sdk":  "^0.39.0"
-                     },
-    "scripts":  {
-                    "check":  "node scripts/sync-site.mjs",
-                    "sync":  "node scripts/sync-site.mjs --apply"
-                }
+  "name": "trongletour360",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0"
+  },
+  "scripts": {
+    "check": "node scripts/sync-site.mjs",
+    "sync": "node scripts/sync-site.mjs --apply",
+    "indexnow": "node scripts/indexnow.mjs"
+  }
 }
