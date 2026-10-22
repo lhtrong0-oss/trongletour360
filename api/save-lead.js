@@ -51,7 +51,7 @@ export default async function handler(req) {
         from: "TrongLeTour360 <onboarding@resend.dev>",
         to: ["lhtrong0@gmail.com"],
         subject: `🆕 Lead mới: ${name || "Khách"} — ${ngachLabel}`,
-        html: `<h2>🆕 Lead mới từ chatbot</h2>
+        html: `<h2>🆕 Lead mới từ website</h2>
 <p><strong>Tên:</strong> ${name || "—"}</p>
 <p><strong>SĐT/Zalo:</strong> ${phone || "—"}</p>
 <p><strong>Ngách:</strong> ${ngachLabel}</p>

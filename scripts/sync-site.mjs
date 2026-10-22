@@ -48,6 +48,10 @@ for (const page of pages) {
     for (const m of html.matchAll(/(?:website|web)[^<>.+]{0,120}?từ\s*(?:<strong[^>]*>)?\s*(\d{1,3}(?:\.\d{3})+đ)/gi))
       if (m[1] !== site.giaWebTu) note(`giá web ghi ${m[1]}, cms là ${site.giaWebTu}`);
 
+  // Mọi trang (trừ trang quản trị / trang đặt phòng riêng) phải có thanh Gọi · Zalo · Báo giá
+  if (!['admin-crm.html', 'dat-phong-ngoc-sinh-cat.html'].includes(page) && !html.includes('js/convert.js'))
+    note('thiếu <script src="js/convert.js" defer> (thanh Gọi · Zalo · Báo giá)');
+
   // Link nội bộ trỏ tới file không tồn tại
   for (const m of html.matchAll(/href="\/?([a-z0-9\-]+\.html)(?:#[^"]*)?"/gi))
     if (!existsSync(join(root, m[1]))) note(`link hỏng → ${m[1]}`);
