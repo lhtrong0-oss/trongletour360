@@ -11,5 +11,12 @@
   "giaWebTu": "3.000.000đ",
   "trangRieng": [
     "ngoc-sinh-cat.html"
+  ],
+  "doiTac": [
+    {
+      "ten": "MVH Solutions",
+      "phone": "0838 626 288",
+      "facebook": "https://www.facebook.com/mvhsolutions"
+    }
   ]
 }

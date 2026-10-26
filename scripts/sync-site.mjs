@@ -9,6 +9,9 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const site = JSON.parse(readFileSync(join(root, 'cms/site.json'), 'utf-8'));
 const apply = process.argv.includes('--apply');
 const digits = site.phone.replace(/\D/g, '');
+// Liên hệ của đối tác được nhắc trong bài (vd: MVH Solutions) → giữ nguyên, không coi là lỗi
+const doiTac = site.doiTac || [];
+const soDoiTac = doiTac.map(d => d.phone.replace(/\D/g, ''));
 
 // Khối "Kết nối" chuẩn ở footer — 1 nguồn duy nhất cho mọi trang
 const ext = 'target="_blank" rel="noopener noreferrer"';
@@ -38,9 +41,9 @@ for (const page of pages) {
 
   // Link mạng xã hội / SĐT cũ còn sót ở chỗ khác trong trang
   html = html.replace(/https?:\/\/(www\.)?facebook\.com\/(?!sharer|share|dialog|tr\b)[A-Za-z0-9._\-\/]+/g,
-    m => (m.includes('facebook.com/le.trong') || !site.facebook ? m : site.facebook));
+    m => (m.includes('facebook.com/le.trong') || !site.facebook || doiTac.some(d => d.facebook && m.startsWith(d.facebook)) ? m : site.facebook));
   for (const m of html.matchAll(/(?:tel:|zalo\.me\/)(\+?\d{9,12})/g))
-    if (m[1].replace(/^\+84/, '0') !== digits) note(`số điện thoại khác cms (${m[0]})`);
+    if (![digits, ...soDoiTac].includes(m[1].replace(/^\+84/, '0'))) note(`số điện thoại khác cms (${m[0]})`);
 
   // Giá làm website khởi điểm phải đúng cms/site.json (câu dạng "website ... từ X.000.000đ")
   if (site.giaWebTu)
